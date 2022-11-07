@@ -1,0 +1,79 @@
+package UICreator;
+
+import java.awt.Color;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class Button_Panel extends JPanel{
+    ArrayList<Buttons> buttons = new ArrayList<Buttons>();
+    Student_States Status;
+    
+
+	Button_Panel(){
+		this.setLayout(null);
+		this.setBackground(new Color(0,255,0));
+	}
+	void Sorting_Button(Screen_Panel S) {
+		int sizex = this.getSize().width;
+		int sizey = this.getSize().height;
+		for (int i =0; i<buttons.size(); i++) {
+			buttons.get(i).setBounds(sizex/10, (sizey*3/20)+i*(sizey/20/2+sizey/20), sizex*8/10, sizey/20);
+			buttons.get(i).Set_Content_Panel(S);
+			this.add(buttons.get(i));
+		}
+	}
+        public void Exe_State(String My_data[]){
+            if(My_data[0].equals("1"))
+                Status = new Basic();
+            
+            else if(My_data[0].equals("2"))
+                Status = new Token_Un_regi();
+            
+            else if(My_data[0].equals("3"))
+                Status = new function_limitation();
+            
+            else if(My_data[0].equals("4"))
+                Status = new Room_Manger();
+            
+            Status.Exe_State(buttons);
+        }
+        /*
+	void Sorting_Button(Content_Panel C) {
+		int sizex = this.getSize().width;
+		int sizey = this.getSize().height;
+		for (int i =0; i<buttons.size(); i++) {
+			buttons.get(i).setBounds(sizex/10, (sizey*3/20)+i*(sizey/20/2+sizey/20), sizex*8/10, sizey/20);
+			buttons.get(i).Set_Content_Panel(C);
+			this.add(buttons.get(i));
+		}
+	}
+        */
+        
+}
+
+class Student_Button_Panel extends Button_Panel{
+	Student_Button_Panel(){
+		buttons.add(new S1_Button());
+		buttons.add(new S2_Button());
+		buttons.add(new S2_Button());
+		buttons.add(new S2_Button());
+		buttons.add(new S2_Button());
+		buttons.add(new S2_Button());
+	}
+}
+
+class Assistant_Button_Panel extends Button_Panel{
+	Assistant_Button_Panel(){
+		buttons.add(new A1_Button());
+		buttons.add(new A2_Button());
+	}
+}
+
+class Professor_Button_Panel extends Button_Panel{
+	Professor_Button_Panel(){
+		buttons.add(new P1_Button());
+		buttons.add(new P2_Button());
+	}
+}
