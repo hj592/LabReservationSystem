@@ -1,4 +1,0 @@
-UICreator.Professor_Button_Panel
-UICreator.Assistant_Button_Panel
-UICreator.Student_Button_Panel
-UICreator.Button_Panel
