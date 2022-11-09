@@ -97,9 +97,9 @@ public abstract class Basic_Reservation_Panel extends JPanel {
 				button.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-                                            button.setBackground(Color.RED);
+                                            button.setBackground(new Color(125, 225, 255));
                                             if (buttons2.size() == 0)
-                                                button.setBackground(Color.YELLOW);
+                                                button.setBackground(new Color(75, 125, 255));
 
                                             button.setEnabled(false);
                                             buttons2.add(button);
@@ -107,7 +107,7 @@ public abstract class Basic_Reservation_Panel extends JPanel {
                                                 buttons2.getFirst().setBackground(null);
                                                 buttons2.getFirst().setEnabled(true);
                                                 buttons2.remove();
-                                                buttons2.getFirst().setBackground(Color.YELLOW);
+                                                buttons2.getFirst().setBackground(new Color(75, 125, 255));
                                             }
                                             System.out.println("Hi");
 					}

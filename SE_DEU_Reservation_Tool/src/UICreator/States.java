@@ -17,6 +17,22 @@ class Basic implements Student_States{
     public void Exe_State(ArrayList<Buttons> buttons) {
         //JButton
         System.out.println("State Basic");
+        
+     ArrayList<Buttons> buttons2 = new ArrayList<Buttons>();
+        
+        buttons2.add(new Student_Reservation_Button());
+        buttons2.add(new Student_Reservation_Management());
+        buttons2.add(new Student_Profile());
+        buttons2.add(new QandA());
+        
+         for(int i =0;i<buttons2.size();i++){
+            for(int j =0;j<buttons.size();j++){
+                if(buttons.get(j).getClass() == buttons2.get(i).getClass()){
+                    System.out.println(buttons.get(i).getText());
+                    buttons.get(i).setEnabled(true);
+                }
+            }
+        }
     }
 }
 class Token_Un_regi implements Student_States{
@@ -26,7 +42,11 @@ class Token_Un_regi implements Student_States{
         System.out.println("State Token_Un_regi");
         ArrayList<Buttons> buttons2 = new ArrayList<Buttons>();
         
-        //buttons2.add(new S1_Button());
+        buttons2.add(new Student_Reservation_Button());
+        buttons2.add(new Student_Reservation_Management());
+        buttons2.add(new Student_Profile());
+        buttons2.add(new QandA());
+        //buttons2.add(new Student_Reservation_Button());
         
          System.out.println(buttons.size());
         for(int i =0;i<buttons2.size();i++){

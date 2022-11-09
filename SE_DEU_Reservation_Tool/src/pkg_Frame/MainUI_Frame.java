@@ -42,8 +42,8 @@ public class MainUI_Frame extends Basic_Frame {
 	}
         public void Set_Data(String[][] My_data){
             this.My_data = My_data;
-            if(this.My_data[1][1].equals("1"))
-                B.Exe_State(this.My_data[1]);
+            if(this.My_data[1].length>3)
+                B.Exe_State(this.My_data[1][3]);
             
             this.setVisible(true);
         }

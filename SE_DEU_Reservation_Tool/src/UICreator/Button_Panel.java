@@ -7,10 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Button_Panel extends JPanel{
-    ArrayList<Buttons> buttons = new ArrayList<Buttons>();
     Student_States Status;
+    ArrayList<Buttons> buttons = new ArrayList<Buttons>();
     
-
 	Button_Panel(){
 		this.setLayout(null);
 		this.setBackground(new Color(0,255,0));
@@ -24,17 +23,17 @@ public class Button_Panel extends JPanel{
 			this.add(buttons.get(i));
 		}
 	}
-        public void Exe_State(String My_data[]){
-            if(My_data[0].equals("1"))
+        public void Exe_State(String My_data){
+            if(My_data.equals("1"))
                 Status = new Basic();
             
-            else if(My_data[0].equals("2"))
+            else if(My_data.equals("2"))
                 Status = new Token_Un_regi();
             
-            else if(My_data[0].equals("3"))
+            else if(My_data.equals("3"))
                 Status = new function_limitation();
             
-            else if(My_data[0].equals("4"))
+            else if(My_data.equals("4"))
                 Status = new Room_Manger();
             
             Status.Exe_State(buttons);
@@ -59,8 +58,7 @@ class Student_Button_Panel extends Button_Panel{
                 buttons.add(new Student_Reservation_Management());
                 buttons.add(new Student_Profile());
                 buttons.add(new QandA());
-                buttons.add(new Insert_token());
-                
+                buttons.add(new Insert_token(Status,buttons));
 	}
 }
 

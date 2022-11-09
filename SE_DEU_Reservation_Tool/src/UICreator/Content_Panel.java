@@ -1,6 +1,6 @@
 package UICreator;
 
-import DB.DB_CONNETER;
+import DB.DB_CONNECTER;
 import Reservation_Panel.Basic_Reservation_Panel;
 import Reservation_Panel.Lecture_Room_Select;
 import java.awt.Color;
@@ -655,27 +655,21 @@ class Reservation_Panel extends JPanel {
         Basic_Reservation_Panel T;
         JPanel ME = this;
         
+        int sizeX;
+        int sizeY;
         String[][] arr={{},{"1","1","1"},{"1","1","5"},{"1","1","2"},{"1","1","10"}};
         private String LectNum[] = {"915","918","916","911"};
-        
-	Reservation_Panel(int sizeX, int sizeY) {
-        
-       // T = new Lecture_Room_Select().getRoom("0");
-        setLayout(null);
-        //강의실선택
-        SelectLect= new JComboBox(LectNum);
-        SelectLect.setBounds(0,0,sizeX/4,sizeY/20);
-        this.add(SelectLect);
-        SelectLect.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        private void NewLect(){
             ME.remove(6);
             ME.revalidate(); 
             ME.repaint();
-            
+              System.out.println(""+SelectLect.getSelectedItem().toString());
             String LectNnmStr = SelectLect.getSelectedItem().toString();
+            
             //System.out.println(LectNnmStr);
             String MaxStuStr = SelectStu.getSelectedItem().toString();
             T = new Lecture_Room_Select().getRoom(LectNnmStr);
+            System.out.println("x:"+sizeX+" y:"+sizeY + " 1: " +  LectNnmStr + " 2:"+ MaxStuStr);
             T.setBounds(0,sizeY/20,sizeX, sizeY*19/20);
             T.setSize(sizeX, sizeY*19/20);
 	    T.Set_cube();
@@ -688,7 +682,20 @@ class Reservation_Panel extends JPanel {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             ME.add(T);
-           // int index = SelectLect.getSelectedIndex();// 선택된 아이템의 인덱스
+        }
+ 	Reservation_Panel(int sizeX, int sizeY) {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+       // T = new Lecture_Room_Select().getRoom("0");
+        setLayout(null);
+        //강의실선택
+        SelectLect= new JComboBox(LectNum);
+        SelectLect.setBounds(0,0,sizeX/4,sizeY/20);
+        SelectLect.setSelectedIndex(0);
+        this.add(SelectLect);
+        SelectLect.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+             NewLect();
        }
   });
         //학생수 선택
@@ -743,9 +750,22 @@ class Reservation_Panel extends JPanel {
         this.add(CheckBtn);   
         CheckBtn.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            if(TimeCheker())
-                StartTime.setSelectedIndex(EndTime.getSelectedIndex());
-       }
+             JOptionPane.showMessageDialog(null, "예약되었습니다.");
+             NewLect();
+             //SelectLect.setSelectedIndex(SelectLect.getSelectedIndex());
+             //SelectLect.ac
+             /*
+            try {
+                String Arr[][] = DB_CONNECTER.Exe_Qurey("INSERT INTO ~");
+                JOptionPane.showMessageDialog(null, "예약되었습니다.");
+                SelectLect.actionPerformed(e);
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
+}
   });
         
         ResetBtn = new JButton("갱신");
@@ -753,7 +773,9 @@ class Reservation_Panel extends JPanel {
         this.add(ResetBtn); 
         ResetBtn.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-                SelectLect.actionPerformed(e);
+              System.out.println( SelectLect.getSelectedItem().toString());
+              NewLect();
+
        }
   });
         
