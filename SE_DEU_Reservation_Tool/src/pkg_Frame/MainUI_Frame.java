@@ -24,11 +24,12 @@ public class MainUI_Frame extends Basic_Frame {
 		super();
 		final String title = "타이틀입력";
 		// 기본 크기는 화면의 4/1 크기. 즉 width, height가 가로/2, 세로/2 의 크기를 각각 가짐 기본값 0
-		final int sizex = 0;
-		final int sizey = 0;
+		final int sizex = 1280;
+		final int sizey = 720;
 		
 		setTitle(title);
 		Set_Loc_and_Size(sizex, sizey);
+                System.out.println(this.getSize().width+", "+this.getSize().height);
 		setUndecorated(true);
 		// 기본 위치 값도 변경할시 주석해제 할 것.
 		// 기본 위치는 프레임의 정중앙이 화면의 정중앙에 오도록 배치함.
@@ -41,8 +42,8 @@ public class MainUI_Frame extends Basic_Frame {
 	}
         public void Set_Data(String[][] My_data){
             this.My_data = My_data;
-            if(this.My_data[1][1].equals("1"))
-                B.Exe_State(this.My_data[1]);
+            if(this.My_data[1].length>3)
+                B.Exe_State(this.My_data[1][3]);
             
             this.setVisible(true);
         }

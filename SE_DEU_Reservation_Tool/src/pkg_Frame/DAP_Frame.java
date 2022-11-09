@@ -79,7 +79,8 @@ public class DAP_Frame extends Basic_Frame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         try {
-                             String arr = new Dap().DAPCONNET(ID_Text.getText(),PW_Text.getPassword().toString());
+                             String pw = new String(PW_Text.getPassword());
+                             String arr = new Dap().DAPCONNET(ID_Text.getText(),pw);
                         } catch (NoSuchAlgorithmException ex) {
                             Logger.getLogger(DAP_Frame.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (KeyManagementException ex) {
