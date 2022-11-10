@@ -1,5 +1,6 @@
 package UICreator;
 
+import Assistant_Panel.*;
 import DB.DB_CONNECTER;
 import java.awt.Color;
 import java.awt.Component;
@@ -167,4 +168,126 @@ class Insert_token extends Buttons {
     }
     
 }
+
+/*Assistant 관련 버튼*/
+class A_LabViewButt extends Buttons {
+	A_LabViewButt(){
+		this.setText("실습실 조회");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				Reservation_Panel T = new Reservation_Panel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+class A_ReservationButt extends Buttons {
+	A_ReservationButt(){
+		this.setText("예약 관리");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				ReserveListPanel T = new ReserveListPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+class A_UserControlButt extends Buttons {
+	A_UserControlButt(){
+		this.setText("사용자 관리");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				UserListPanel T = new UserListPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+
+class A_QnAButt extends Buttons {
+	A_QnAButt(){
+		this.setText("문의사항");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				QnAListPanel T = new QnAListPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+
+class A_TokenButt extends Buttons {
+	A_TokenButt(){
+		this.setText("토큰 생성");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				MakeTokenPanel T = new MakeTokenPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+
+class A_TimeTableButt extends Buttons {
+	A_TimeTableButt(){
+		this.setText("시간표 입력");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				MakeTimetablePanel T = new MakeTimetablePanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+
+class A_ProfCreateButt extends Buttons {
+	A_ProfCreateButt(){
+		this.setText("교수 계정 생성");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				ProfCreatePanel T = new ProfCreatePanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
+}
+
+/*교수 관련 버튼*/
+class P2_Button extends Buttons {
+
 }
