@@ -168,7 +168,7 @@ class Insert_token extends Buttons {
     }
     
 }
-
+}
 /*Assistant 관련 버튼*/
 class A_LabViewButt extends Buttons {
 	A_LabViewButt(){

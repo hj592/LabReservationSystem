@@ -5,18 +5,23 @@
  */
 package Assistant_Panel;
 
+import java.text.SimpleDateFormat;
+import src.Assistant.MakeToken;
+
 /**
  *
  * @author heejin
  */
 public class MakeTokenPanel extends javax.swing.JPanel {
+    
+        String key = "  -";
 
     public MakeTokenPanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
         b_deltoken = new javax.swing.JButton();
         tf_tokennum = new javax.swing.JTextField();
-        tb_maketoken = new javax.swing.JToggleButton();
+        b_maketoken = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         la_tokendate = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -33,7 +38,8 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         });
 
         tf_tokennum.setFont(new java.awt.Font("맑은 고딕", 1, 36)); // NOI18N
-        tf_tokennum.setText("jTextField1");
+        tf_tokennum.setText(key);
+        tf_tokennum.setEnabled(false);
         tf_tokennum.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         /*tf_tokennum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -41,9 +47,9 @@ public class MakeTokenPanel extends javax.swing.JPanel {
             }
         });*/
 
-        tb_maketoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
-        tb_maketoken.setText("토큰 생성");
-        tb_maketoken.addActionListener(new java.awt.event.ActionListener() {
+        b_maketoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
+        b_maketoken.setText("토큰 생성");
+        b_maketoken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_maketokenActionPerformed(evt);
             }
@@ -53,7 +59,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         jLabel1.setText("TOKEN");
 
         la_tokendate.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
-        la_tokendate.setText("jLabel2");
+        la_tokendate.setText("-");
 
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel3.setText("토큰 생성일");
@@ -77,7 +83,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
                             .addComponent(la_tokendate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tf_tokennum)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tb_maketoken, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(b_maketoken, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(103, 103, 103)
                                 .addComponent(b_deltoken, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -98,7 +104,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(b_deltoken, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tb_maketoken, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(b_maketoken, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addComponent(tf_tokennum, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
@@ -110,12 +116,20 @@ public class MakeTokenPanel extends javax.swing.JPanel {
     }// </editor-fold>                  
 /*토큰생성*/
     private void tb_maketokenActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // 토큰없을때만 토글버튼 온
-        
+        // 생성시 디비에 토큰값 insert
+        key = MakeToken.getToken();
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월dd일 HH시mm분ss초");		
+        String format_time = format.format (System.currentTimeMillis());
+        tf_tokennum.setText("  "+key);
+        la_tokendate.setText(format_time);
+        b_maketoken.setEnabled(false);
     }                                            
 /*토큰삭제*/
     private void b_deltokenActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
+        // TODO 디비에서 토큰삭제
+        tf_tokennum.setText("  -");
+        la_tokendate.setText("-");
+        b_maketoken.setEnabled(true);
     }                                          
 
 
@@ -125,7 +139,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel la_tokendate;
-    private javax.swing.JToggleButton tb_maketoken;
+    private javax.swing.JButton b_maketoken;
     private javax.swing.JTextField tf_tokennum;
     // End of variables declaration                   
 }
