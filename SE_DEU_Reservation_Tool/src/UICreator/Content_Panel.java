@@ -663,13 +663,13 @@ class Reservation_Panel extends JPanel {
             ME.remove(6);
             ME.revalidate(); 
             ME.repaint();
-              System.out.println(""+SelectLect.getSelectedItem().toString());
+           //   System.out.println(""+SelectLect.getSelectedItem().toString());
             String LectNnmStr = SelectLect.getSelectedItem().toString();
             
             //System.out.println(LectNnmStr);
             String MaxStuStr = SelectStu.getSelectedItem().toString();
             T = new Lecture_Room_Select().getRoom(LectNnmStr);
-            System.out.println("x:"+sizeX+" y:"+sizeY + " 1: " +  LectNnmStr + " 2:"+ MaxStuStr);
+           // System.out.println("x:"+sizeX+" y:"+sizeY + " 1: " +  LectNnmStr + " 2:"+ MaxStuStr);
             T.setBounds(0,sizeY/20,sizeX, sizeY*19/20);
             T.setSize(sizeX, sizeY*19/20);
 	    T.Set_cube();
@@ -695,7 +695,7 @@ class Reservation_Panel extends JPanel {
         this.add(SelectLect);
         SelectLect.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-             NewLect();
+             NewLect(); 
        }
   });
         //학생수 선택

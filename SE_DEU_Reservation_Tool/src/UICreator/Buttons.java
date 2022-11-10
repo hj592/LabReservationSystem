@@ -1,14 +1,19 @@
 package UICreator;
 
 import Assistant_Panel.*;
+import DB.DB_CONNECTER;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -122,7 +127,7 @@ class QandA extends Buttons {
 
 class Insert_token extends Buttons {
 
-    Insert_token(Student_States status,ArrayList<Buttons> buttons){
+    Insert_token(Student_States status,ArrayList<Buttons> buttons) throws SQLException, ClassNotFoundException{
                // this.status = status;
 		this.setText("토큰입력");
 		this.addActionListener(new MyListener(status,buttons));
@@ -131,18 +136,37 @@ class Insert_token extends Buttons {
     Student_States status ;
     ArrayList<Buttons> buttons;
     
-    MyListener(Student_States status, ArrayList<Buttons> buttons){
-        status = new Basic();
-        this.status = status;
-        this.buttons = buttons;
+    MyListener(Student_States status, ArrayList<Buttons> buttons) throws SQLException, ClassNotFoundException{
+        //int number=Integer.parseInt(token);
+           // status = new Basic();
+            this.status = status;
+            this.buttons = buttons;
+      
+        //토큰 틀림
+        //JOptionPane.showMessageDialog(null, "다시 확인하세요.");
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        buttons.get(0);
-        status.Exe_State(buttons);
+        try {
+            JOptionPane b=new JOptionPane();
+            String token =b.showInputDialog("토큰을 입력하세요.");
+            String[][] str = DB_CONNECTER.Exe_Qurey("Select authority from Token where token ='"+ token +"';");
+           // System.out.println(str[]);
+            if (str.length>1){
+                JOptionPane.showMessageDialog(null, "인증되었습니다.");
+                status = new Basic();
+                //buttons.get(0);
+                status.Exe_State(buttons);
+            }
+            else
+                JOptionPane.showMessageDialog(null, "다시 확인하세요.");
+        } catch (SQLException ex) {
+            Logger.getLogger(Insert_token.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Insert_token.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-}
 }
 
 /*Assistant 관련 버튼*/

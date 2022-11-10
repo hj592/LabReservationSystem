@@ -46,7 +46,7 @@ public class Dap {
 		//DAPCONNET();
 	}
 
-	public String DAPCONNET(String ID, String PW) {
+	public String[] DAPCONNET(String ID, String PW) {
 		try {
                           // System.out.println(ID + " " + PW);
 			/********************************************************************************************************
@@ -93,11 +93,31 @@ public class Dap {
 			Connection.Response loginPageResponse5 = Jsoup
 					.connect("https://dap.deu.ac.kr/Student/SVC/SVC0301E.aspx?mcd=112009&pid=Svc0301e").timeout(10000)
 					.cookies(loginPageResponse4.cookies()).method(Connection.Method.POST).execute();
-
-			System.out.println(loginPageResponse5.parse().toString().split("<!-- /END #side-bar -->")[1].split("<!-- /END #pagecont -->")[0]);
                         
-                        //이름,학번,학과,재학상태,학년
-                        return null;
+                        String[] TempDapResert = loginPageResponse5.parse().toString().split("<!-- /END #side-bar -->");//[1].split("<!-- /END #pagecont -->")[0];
+                        if(TempDapResert.length == 1)
+                            return null;
+                          String DapResert = TempDapResert[1].split("<!-- /END #pagecont -->")[0];
+			//System.out.println(DapResert);
+                        String Arr[] = DapResert.split("\n");
+                        int j =0;
+                        //학번,전공,학년,이름,폰번호,학적상태
+                        String[] paresinfo = {"CP1_txt_student_cd","CP1_StudentInfo1_lbl_major","CP1_StudentInfo1_lbl_student_year","CP1_StudentInfo1_lbl_nm","CP1_StudentInfo1_lbl_m_phone","CP1_StudentInfo1_lbl_school_sts"}; 
+                        String[] getinfo = new String[paresinfo.length];
+
+                        for (int i =0; i<Arr.length && j<paresinfo.length; i++){
+
+                                if (j != 0 && Arr[i].contains("<span id=\""+paresinfo[j] +"\">")){
+                                   getinfo[j] = (Arr[i].split("<span id=\""+paresinfo[j] +"\">")[1].split("</span>")[0]); j++;
+                                }
+                                else if(j == 0 && Arr[i].contains("id=\""+paresinfo[j]+"\"")){
+                                    getinfo[j] = (Arr[i].split("value=\"")[1].split("\"")[0]); j++;
+                                        }
+                            }
+
+                       for(int i=0 ;i<getinfo.length; i++)
+                            System.out.println(getinfo[i]);
+                        return getinfo;
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
