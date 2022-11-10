@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -22,7 +23,7 @@ import javax.swing.JTextField;
 /*	여기서부터 복사	 */
 
 public class DAP_Frame extends Basic_Frame {
-    
+         DAP_Frame Me = this;
 	DAP_Frame() {
 		// TODO Auto-generated constructor stub
 		super();
@@ -80,7 +81,19 @@ public class DAP_Frame extends Basic_Frame {
                     public void actionPerformed(ActionEvent e) {
                         try {
                              String pw = new String(PW_Text.getPassword());
-                             String arr = new Dap().DAPCONNET(ID_Text.getText(),pw);
+                             String[] dapinfo = new Dap().DAPCONNET(ID_Text.getText(),pw);
+                             if (dapinfo == null){
+                                  JOptionPane.showMessageDialog(null, "Dap로그인에 실패했습니다.\n아이디 혹은 비밀번호를 확인해주세요.\n※Dap사이트의 로그인시스템과 연결되어있어\n 5회 이상 실패 시 같은 패널티가 부여되니 주의하세요.※.");
+                                  return;
+                             }
+                             System.out.println(dapinfo[1]);
+                             if(!dapinfo[1].equals("컴퓨터소프트웨어공학")){
+                                  JOptionPane.showMessageDialog(null, "\"컴퓨터소프트웨어공학\" 전공 학생이 아닙니다.\n 학과사무실을 통해 문의해보세요.");
+                                  return;
+                             }
+                             /*학번 전공 학년 이름 전화번호 학적상태*/
+                             new Member_Frame(dapinfo).setVisible(true);
+                             Me.dispose();
                         } catch (NoSuchAlgorithmException ex) {
                             Logger.getLogger(DAP_Frame.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (KeyManagementException ex) {

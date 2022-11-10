@@ -53,17 +53,20 @@ public final class Login_Frame extends Basic_Frame {
          //
          //int i = who; //임시
          String who = "";
+         //String id;
          DB_CONNECTER.Connet();
          //System.out.println("select * from User WHERE "+"user_id = \""+ID+"\" and user_pw = \""+PW+"\";");
          String Arr[][] = DB_CONNECTER.Exe_Qurey("select * from User WHERE "+"user_id = \""+ID+"\" and user_pw = \""+PW+"\";");
-         System.out.println("length: "+Arr.length);
+        // System.out.println("length: "+Arr.length);
          if (Arr.length < 2){
              System.out.println("Error"); 
              JOptionPane.showMessageDialog(null, "등록된 아이디가 없거나\n비밀번호가 일치하지 않습니다.");
              return;
          }
-         else
+         else{
               who = Arr[1][2]; 
+              //id = Arr[1][0];
+         }
          
          if (Arr[1][2].equals("1"))  
              Arr = DB_CONNECTER.Exe_Qurey("select * from Student WHERE "+"stu_id = \""+ID+"\";");
@@ -78,14 +81,14 @@ public final class Login_Frame extends Basic_Frame {
                  System.out.print(Arr[i][j]+" ");
              }
              System.out.println("");
-
+         }
             //System.out.println("arr"+Arr[1][2]);
             int a = Integer.parseInt(who);
             // who = Arr[1][3]; // 1=Student, 2=Assistant, 3=Professor
              //String My_data[][] = {{},{Arr[1][2],who}};  //임시. 0인덱스 = 학생일시 상태패턴분류용 | 1인덱스=사용자 분류 1이 학생 
             frame.createUI(a,new MainUI_Frame()).Set_Data(Arr);//.setVisible(true);
             me.dispose();
-            }
+            
         }
 
 	@Override

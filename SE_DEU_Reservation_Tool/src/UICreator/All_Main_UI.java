@@ -1,5 +1,8 @@
 package UICreator;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import pkg_Frame.MainUI_Frame;
@@ -52,7 +55,13 @@ class Studnet_UI extends All_Main_UI{
 	public void setPanels() {
 		// TODO Auto-generated method stub
 		c = new Student_Content_Panel();
-		b = new Student_Button_Panel();
+            try {
+                b = new Student_Button_Panel();
+            } catch (SQLException ex) {
+                Logger.getLogger(Studnet_UI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Studnet_UI.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		s = new Student_Screen_Panel();
 	}
 }

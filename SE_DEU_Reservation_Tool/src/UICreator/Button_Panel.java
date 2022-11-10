@@ -1,6 +1,7 @@
 package UICreator;
 
 import java.awt.Color;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -53,7 +54,7 @@ public class Button_Panel extends JPanel{
 }
 
 class Student_Button_Panel extends Button_Panel{
-	Student_Button_Panel(){
+	Student_Button_Panel() throws SQLException, ClassNotFoundException{
 		buttons.add(new Student_Reservation_Button());
                 buttons.add(new Student_Reservation_Management());
                 buttons.add(new Student_Profile());
