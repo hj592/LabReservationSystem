@@ -1,5 +1,6 @@
 package UICreator;
 
+import Assistant_Panel.*;
 import DB.DB_CONNECTER;
 import java.awt.Color;
 import java.awt.Component;
@@ -170,8 +171,7 @@ class Insert_token extends Buttons {
     }
     
 }
-<<<<<<< HEAD
-=======
+
 }
 /*Assistant 관련 버튼*/
 class A_LabViewButt extends Buttons {
@@ -181,7 +181,7 @@ class A_LabViewButt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(sizeX,sizeY);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
@@ -294,5 +294,4 @@ class A_ProfCreateButt extends Buttons {
 /*교수 관련 버튼*/
 class P2_Button extends Buttons {
 
->>>>>>> Y
 }
