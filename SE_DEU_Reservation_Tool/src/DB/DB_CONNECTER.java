@@ -105,10 +105,12 @@ public class DB_CONNECTER {
              }
          }
          */
+        /*
         if (Datas.length > 1){
             if(Datas[Datas.length-1][j-1] != null)
                 Datas[Datas.length-1][j-1] = Datas[Datas.length-1][j-1].trim();
         }
+        */
         //System.out.println( Datas[Datas.length-1][j-1]);
         rs.close(); //닫아줘야 실행가능
         st.close();

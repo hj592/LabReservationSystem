@@ -654,11 +654,12 @@ class Reservation_Panel extends JPanel {
         protected JButton ResetBtn;
         Basic_Reservation_Panel T;
         JPanel ME = this;
-        
         int sizeX;
         int sizeY;
         String[][] arr={{},{"1","1","1"},{"1","1","5"},{"1","1","2"},{"1","1","10"}};
         private String LectNum[] = {"915","918","916","911"};
+        String id = null;
+
         private void NewLect(){
             ME.remove(6);
             ME.revalidate(); 
@@ -683,7 +684,8 @@ class Reservation_Panel extends JPanel {
             }
             ME.add(T);
         }
- 	Reservation_Panel(int sizeX, int sizeY) {
+ 	Reservation_Panel(String id,int sizeX, int sizeY) {
+        this.id = id;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
        // T = new Lecture_Room_Select().getRoom("0");
@@ -695,7 +697,7 @@ class Reservation_Panel extends JPanel {
         this.add(SelectLect);
         SelectLect.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-             NewLect(); 
+             NewLect();
        }
   });
         //학생수 선택
@@ -746,11 +748,37 @@ class Reservation_Panel extends JPanel {
         
         
         CheckBtn = new JButton("예약");
+        
         CheckBtn.setBounds(sizeX*3/4,0,sizeX/8,sizeY/20);
         this.add(CheckBtn);   
         CheckBtn.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-             JOptionPane.showMessageDialog(null, "예약되었습니다.");
+                   // protected JComboBox StartTime;
+        //protected JComboBox EndTime;
+            JOptionPane b=new JOptionPane("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.");
+            String pass =b.showInputDialog("팀원들이 입력할 비밀번호를 설정해주세요.");
+            String[] Values = 
+            {
+                "'"+pass+"'",
+                SelectLect.getSelectedItem().toString(),
+                T.buttons2.getFirst().getText(),
+                "'"+id+"'",
+                null,
+                StartTime.getSelectedItem().toString()+":00",
+                EndTime.getSelectedItem().toString()+":00",
+                "false"
+            };
+            
+            String insert="INSERT INTO Lab_Seat(";
+            //String value="'"
+            for (int i =0; i<Values.length; i++)
+                insert = insert + Values[i] +",";
+            insert = insert.substring(0, insert.length() - 1)+");";
+
+            
+            T.buttons2.remove();
+            JOptionPane.showMessageDialog(null, "예약되었습니다.");
+             
              NewLect();
              //SelectLect.setSelectedIndex(SelectLect.getSelectedIndex());
              //SelectLect.ac

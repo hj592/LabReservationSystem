@@ -86,7 +86,7 @@ public final class Login_Frame extends Basic_Frame {
             int a = Integer.parseInt(who);
             // who = Arr[1][3]; // 1=Student, 2=Assistant, 3=Professor
              //String My_data[][] = {{},{Arr[1][2],who}};  //임시. 0인덱스 = 학생일시 상태패턴분류용 | 1인덱스=사용자 분류 1이 학생 
-            frame.createUI(a,new MainUI_Frame()).Set_Data(Arr);//.setVisible(true);
+            frame.createUI(a,Arr[1][0],new MainUI_Frame()).Set_Data(Arr);//.setVisible(true);
             me.dispose();
             
         }

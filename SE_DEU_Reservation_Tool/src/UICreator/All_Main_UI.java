@@ -12,9 +12,10 @@ abstract class All_Main_UI implements MainUI_Interface{
 	public Screen_Panel s;
 	public Content_Panel c;
 	MainUI_Frame frame;
-	
+        String id;
 	int locx,locy,sizex,sizey;
-	All_Main_UI(MainUI_Frame frame){
+	All_Main_UI(MainUI_Frame frame,String id){
+                this.id = id;
 		this.frame = frame;
 		this.locx = frame.getSize().width;
 		this.locy = frame.getSize().height;
@@ -44,11 +45,14 @@ abstract class All_Main_UI implements MainUI_Interface{
 		frame.Set_Panels(b, s, c);
 		return frame;
 	}
+        public String getID(){
+            return frame.My_data[1][0];
+        }
 }
 
 class Studnet_UI extends All_Main_UI{
-	Studnet_UI(MainUI_Frame frame){
-		super(frame);
+	Studnet_UI(MainUI_Frame frame,String id){
+		super(frame,id);
 	}
 
 	@Override
@@ -62,14 +66,14 @@ class Studnet_UI extends All_Main_UI{
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Studnet_UI.class.getName()).log(Level.SEVERE, null, ex);
             }
-		s = new Student_Screen_Panel();
+		s = new Student_Screen_Panel(super.id);
 	}
 }
 
 class Assistant_UI extends All_Main_UI{
 
-	Assistant_UI(MainUI_Frame frame) {
-		super(frame);
+	Assistant_UI(MainUI_Frame frame,String id) {
+		super(frame,id);
 	}
 
 	@Override
@@ -77,14 +81,14 @@ class Assistant_UI extends All_Main_UI{
 		// TODO Auto-generated method stub
 		c = new Assistant_Content_Panel();
 		b = new Assistant_Button_Panel();
-		s = new Assistant_Screen_Panel();
+		s = new Assistant_Screen_Panel(super.id);
 	}
 }
 
 class Professor_UI extends All_Main_UI{
 
-	Professor_UI(MainUI_Frame frame) {
-		super(frame);
+	Professor_UI(MainUI_Frame frame,String id) {
+		super(frame,id);
 	}
 
 	@Override
@@ -92,6 +96,6 @@ class Professor_UI extends All_Main_UI{
 		// TODO Auto-generated method stub
 		c = new Professor_Content_Panel();
 		b = new Professor_Button_Panel();
-		s = new Professor_Screen_Panel();
+		s = new Professor_Screen_Panel(super.id);
 	}
 }
