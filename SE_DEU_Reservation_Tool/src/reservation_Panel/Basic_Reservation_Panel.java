@@ -47,7 +47,7 @@ public abstract class Basic_Reservation_Panel extends JPanel {
                     buttons2.getFirst().setBackground(null);
                     buttons2.getFirst().setEnabled(true);
                     buttons2.remove(); //FIFO. 가장 먼저 빼옴
-                     buttons2.getFirst().setBackground(Color.YELLOW);
+                    buttons2.getFirst().setBackground(new Color(75, 125, 255));
                 }
             }
             this.Max =Max;

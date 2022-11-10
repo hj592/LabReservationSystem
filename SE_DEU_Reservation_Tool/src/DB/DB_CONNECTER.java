@@ -78,14 +78,14 @@ public class DB_CONNECTER {
         String Atrribute[][] = new String[1][columnCnt];    //속성 라인
         String Datas[][] = new String[rs.getRow()+1][columnCnt]; //데이터 라인
         rs.beforeFirst();
-        
+        // System.out.println("before row: "+rs.getRow());
         for (int i = 0; i < columnCnt; i++)
             Atrribute[0][i] = rsmd.getColumnName(i + 1);    //속성명 정리
         
         Datas[0] = Atrribute[0]; //속성명 추가
         int j=0;
+        int i = 1;
         while (rs.next()) {
-            int i = 1;
             //ArrayList<Object> ColumnData= new ArrayList<Object>();
             for (j = 0; j < columnCnt; j++) {
                 if (rs.getObject(j+1) == null)
@@ -93,6 +93,7 @@ public class DB_CONNECTER {
                 else
                     Datas[i][j] = rs.getObject(j+1).toString();
             }
+                            System.out.println("before row: "+rs.getRow());
             i++;
         }
         /*

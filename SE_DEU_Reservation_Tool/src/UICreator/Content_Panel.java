@@ -656,7 +656,7 @@ class Reservation_Panel extends JPanel {
         JPanel ME = this;
         int sizeX;
         int sizeY;
-        String[][] arr={{},{"1","1","1"},{"1","1","5"},{"1","1","2"},{"1","1","10"}};
+        //String[][] arr={{},{"1","1","1"},{"1","1","5"},{"1","1","2"},{"1","1","10"}};
         private String LectNum[] = {"915","918","916","911"};
         String id = null;
 
@@ -675,10 +675,13 @@ class Reservation_Panel extends JPanel {
             T.setSize(sizeX, sizeY*19/20);
 	    T.Set_cube();
             T.SetMax(Integer.parseInt(MaxStuStr));
+            CheckBtn.setEnabled(true);
             try {
                 GetData(LectNnmStr);
             } catch (SQLException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane b=new JOptionPane("이미 예약된 좌석 입니다.");
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -755,30 +758,49 @@ class Reservation_Panel extends JPanel {
         public void actionPerformed(ActionEvent e) {
                    // protected JComboBox StartTime;
         //protected JComboBox EndTime;
-            JOptionPane b=new JOptionPane("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.");
-            String pass =b.showInputDialog("팀원들이 입력할 비밀번호를 설정해주세요.");
+            String pass = null;
             String[] Values = 
             {
-                "'"+pass+"'",
+                pass,
                 SelectLect.getSelectedItem().toString(),
                 T.buttons2.getFirst().getText(),
-                "'"+id+"'",
-                null,
+                id,
+                //null,
                 StartTime.getSelectedItem().toString()+":00",
                 EndTime.getSelectedItem().toString()+":00",
-                "false"
+                "0"
             };
-            
-            String insert="INSERT INTO Lab_Seat(";
-            //String value="'"
-            for (int i =0; i<Values.length; i++)
-                insert = insert + Values[i] +",";
+            if(T.buttons2.size()>1){
+                    JOptionPane b=new JOptionPane("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.");
+                    pass =b.showInputDialog("팀원들이 입력할 비밀번호를 설정해주세요.");
+            }
+           // String a = "(`passwd`,`lab_id`, `seat_num`, `stu_id`, `start_time`, `end_time`,`seat_status`)";
+            for (int i=0;i<T.buttons2.size();i++){
+            String insert="INSERT INTO Lab_Seat(`passwd`,`lab_id`, `seat_num`, `stu_id`, `start_time`, `end_time`,`seat_status`) Values(";
+            if(i>0){
+                //Values[0] = pass;
+                Values[6] = null;
+            }
+            for (int j =0; j<Values.length; j++){
+                Values[2] = T.buttons2.get(i).getText();
+                if(Values[j] == null)
+                    insert = insert +Values[j] +",";
+                else
+                    insert = insert + "'" +Values[j] +"',";
+            }
             insert = insert.substring(0, insert.length() - 1)+");";
-
+                try {
+                    DB_CONNECTER.Update_Qurey(insert);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            System.out.println("try"+1+": "+insert);
             
-            T.buttons2.remove();
+           // T.buttons2.remove();
+        }
             JOptionPane.showMessageDialog(null, "예약되었습니다.");
-             
              NewLect();
              //SelectLect.setSelectedIndex(SelectLect.getSelectedIndex());
              //SelectLect.ac
@@ -831,15 +853,21 @@ class Reservation_Panel extends JPanel {
         @SuppressWarnings("empty-statement")
         private void GetData(String LectNum) throws SQLException, ClassNotFoundException{
             
-            //DB_CONNETER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
-            //arr = DB_CONNETER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
+            //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
+            String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '"+LectNum + "';");
            // System.out.println(arr.length+" "+T.buttons.size());
+            // System.out.println(arr[1][2]+" "+arr[2][2]+" "+arr[3][2]+" ");
             for(int i =1; i<arr.length; i++){
+                 System.out.println(arr[i][2]);
                 for(int j =0; j<T.buttons.size(); j++){
-                    //System.out.println(j);
-                    if(arr[i][2].equals(T.buttons.get(j).getText().split("\n")[0]))
+                    if(arr[i][2].equals(T.buttons.get(j).getText()))
                         T.buttons.get(j).setEnabled(false);
                 }
+            }
+          String[][] arr2 = DB_CONNECTER.Exe_Qurey("Select stu_id" + " From Lab_Seat;");
+          for(int i =1; i<arr2.length; i++){
+                    if(arr2[i][0].equals(id))
+                        CheckBtn.setEnabled(false);
             }
         }
 }
