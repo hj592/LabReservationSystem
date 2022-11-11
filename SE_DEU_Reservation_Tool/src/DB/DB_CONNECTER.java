@@ -93,7 +93,7 @@ public class DB_CONNECTER {
                 else
                     Datas[i][j] = rs.getObject(j+1).toString();
             }
-                            System.out.println("before row: "+rs.getRow());
+                    System.out.println("before row: "+rs.getRow());
             i++;
         }
         /*
