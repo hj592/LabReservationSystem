@@ -6,6 +6,7 @@ import Reservation_Panel.Basic_Reservation_Panel;
 import Reservation_Panel.Lecture_Room_Select;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -15,8 +16,12 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 
 public abstract class Content_Panel extends JPanel {
@@ -814,6 +819,7 @@ class Reservation_Panel extends JPanel {
                 StartTime.setSelectedIndex(EndTime.getSelectedIndex());
        }
   });
+          
         
         CheckBtn = new JButton("예약");
         
@@ -976,12 +982,23 @@ class Reservation_Panel extends JPanel {
                     //System.out.println(arr[i][0]);
                     if (!arr[i][0].equals("")) {
                         //for_team_btn = i;
-                        if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
                         T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
                         T.buttons.get(j).setForeground(Color.white);
                         T.buttons.get(j).addActionListener(LISTEN.setData(arr[i][0],arr[i][2]));
+                        if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
                     } else {
                         T.buttons.get(j).setEnabled(false);
+                    }
+                    if(Manager){
+                        //UIDefaults defaults = UIManager.getLookAndFeelDefaults();
+                        //defaults.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
+                        //T.buttons.get(j).setBorderPainted(false);
+                       //  T.buttons.get(j).
+                        T.buttons.get(j).setText("<HTML><body style='text-align:center;'>"+arr[i][2]+"<br>"+arr[i][3]+"<br>"+arr[i][5].substring(0,5)+"~"+arr[i][6].substring(0,5)+"</body></HTML>");
+                        //T.buttons.get(j).setFont(new Font( T.buttons.get(j).getFont().getName(), T.buttons.get(j).getFont().getStyle(), 10));
+                       // T.buttons.get(j).setHorizontalAlignment(SwingConstants.LEFT);
+                        //T.buttons.get(j).setContentAreaFilled(false);
+//                        System.out.println(T.buttons.get(j).getComponent(j).getClass().toString());
                     }
                 }
             }

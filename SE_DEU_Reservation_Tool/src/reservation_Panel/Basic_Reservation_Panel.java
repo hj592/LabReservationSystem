@@ -45,7 +45,8 @@ public abstract class Basic_Reservation_Panel extends JPanel {
     reserve_cheking=true;
 }
         public void SetMax(int Max){
-            if(Max<this.Max){
+            if(buttons2.size()==0);
+            else if(Max<this.Max){
                 for (int i=0; i<this.Max-Max;i++){
                     buttons2.getFirst().setBackground(null);
                     buttons2.getFirst().setEnabled(true);
