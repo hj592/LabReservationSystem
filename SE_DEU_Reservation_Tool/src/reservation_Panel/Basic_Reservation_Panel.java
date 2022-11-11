@@ -101,7 +101,6 @@ public abstract class Basic_Reservation_Panel extends JPanel {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     if (reserve_cheking != true) {
-                                        
                                         button.setBackground(new Color(125, 225, 255));
                                         if (buttons2.size() == 0) 
                                         button.setBackground(new Color(75, 125, 255));

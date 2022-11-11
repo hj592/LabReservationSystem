@@ -65,7 +65,7 @@ class Student_Reservation_Button extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-                                Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY);
+                                Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,false);
                                 
                                 System.out.println(sizeX+" x y "+sizeY);
 				//new User_modify_panel();
@@ -192,7 +192,7 @@ class A_LabViewButt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
