@@ -921,7 +921,7 @@ class Reservation_Panel extends JPanel {
 
         //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
         String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "' ORDER BY stu_id;");
-        int nextLec = arr.length-1 / 20;
+        int nextLec = (arr.length-1) / 20;
         //SelectLect.setMaximumRowCount(nextLec);
         
         //인원수 초과 이벤트
