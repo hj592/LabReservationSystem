@@ -657,8 +657,11 @@ class Reservation_Panel extends JPanel {
         JPanel ME = this;
         int sizeX;
         int sizeY;
-        //String[][] arr={{},{"1","1","1"},{"1","1","5"},{"1","1","2"},{"1","1","10"}};
-        private String LectNum[] = {"915","918","916","911"};
+        String[] LectNum={"915","916","918","911"};
+        private Color[] LectColor= {new Color(143,121,126),new Color(255,194,181),new Color(255,227,204),new Color(100,108,143),
+                                    new Color(145,187,242),new Color(3, 90, 166),new Color(2, 48, 89),new Color(1, 21, 38 ),
+                                    new Color(19, 26, 64),new Color(39, 50, 115),new Color(78, 100, 166),new Color(130, 159, 217),
+                                    new Color(34, 92, 115),new Color(75, 140, 166),new Color(115, 177, 191 ),new Color(160, 206, 217)};
         String id = null;
        boolean reserve_checking=false;
         //int for_team_btn = 0;
@@ -763,6 +766,7 @@ class Reservation_Panel extends JPanel {
                    // protected JComboBox StartTime;
         //protected JComboBox EndTime;
             String pass = null;
+            String All_Values = "";
             String[] Values = 
             {
                 pass,
@@ -775,13 +779,20 @@ class Reservation_Panel extends JPanel {
                 "0"
             };
             if(T.buttons2.size()>1){
-                    JOptionPane b=new JOptionPane("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.");
-                    pass =b.showInputDialog("팀원들이 입력할 비밀번호를 설정해주세요.");
+                   JOptionPane b=new JOptionPane();
+                    pass =b.showInputDialog("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.\n팀원들이 입력할 비밀번호를 설정해주세요.");
+                    //System.out.println("b :"+);
+                    if(pass == null){
+                        JOptionPane b2=new JOptionPane("예약이 취소 되었습니다.");
+                        NewLect();
+                        return ;
+                    }
             }
            // String a = "(`passwd`,`lab_id`, `seat_num`, `stu_id`, `start_time`, `end_time`,`seat_status`)";
             for (int i=0;i<T.buttons2.size();i++){
             String insert="INSERT INTO Lab_Seat(`passwd`,`lab_id`, `seat_num`, `stu_id`, `start_time`, `end_time`,`seat_status`) Values(";
             if(i>0){
+                insert=",(";
                 Values[0] = pass;
                 Values[6] = null;
             }
@@ -792,32 +803,45 @@ class Reservation_Panel extends JPanel {
                 else
                     insert = insert + "'" +Values[j] +"',";
             }
-            insert = insert.substring(0, insert.length() - 1)+");";
-                try {
-                    DB_CONNECTER.Update_Qurey(insert);
-                } catch (SQLException ex) {
-                try {
-                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
-                } catch (SQLException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                } catch (ClassNotFoundException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                try {
-                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
-                } catch (SQLException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                } catch (ClassNotFoundException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            System.out.println("try"+1+": "+insert);
-            
+            insert = insert.substring(0, insert.length() - 1)+")";
+            All_Values = All_Values + insert;
            // T.buttons2.remove();
         }
+         All_Values = All_Values+ ";";
+                            try {
+                    DB_CONNECTER.Update_Qurey( All_Values);
+                } catch (SQLException ex) {
+                    /*
+                try {
+                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
+                     JOptionPane.showMessageDialog(null, "그 사이에 다른사람이 가져감.");
+                } catch (SQLException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                } catch (ClassNotFoundException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                    */
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "그 사이에 다른사람이 가져감.");
+                    return;
+                } catch (ClassNotFoundException ex) {
+                   
+                    /*
+                try {
+                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
+                      JOptionPane.showMessageDialog(null, "그 사이에 다른사람이 가져감.");
+                } catch (SQLException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                } catch (ClassNotFoundException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                    */
+                    
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "그 사이에 다른사람이 가져감.");
+                    return;
+                }
+            System.out.println("try"+1+": "+ All_Values);
             JOptionPane.showMessageDialog(null, "예약되었습니다.");
              NewLect();
              //SelectLect.setSelectedIndex(SelectLect.getSelectedIndex());
@@ -872,9 +896,13 @@ class Reservation_Panel extends JPanel {
     private void GetData(String LectNum) throws SQLException, ClassNotFoundException {
 
         //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
-        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + LectNum + "';");
+        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + LectNum + "' ORDER BY stu_id;");
         // System.out.println(arr.length+" "+T.buttons.size());
         // System.out.println(arr[1][2]+" "+arr[2][2]+" "+arr[3][2]+" ");
+        String colorid = null;
+        if(arr.length > 1)
+            colorid =arr[1][3];
+        int ColorCount = 0;
         for (int i = 1; i < arr.length; i++) {
             // System.out.print(arr[i][2]+" ");
             for (int j = 0; j < T.buttons.size(); j++) {
@@ -882,7 +910,8 @@ class Reservation_Panel extends JPanel {
                     //System.out.println(arr[i][0]);
                     if (!arr[i][0].equals("")) {
                         //for_team_btn = i;
-                        T.buttons.get(j).setBackground(Color.red);
+                        if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
+                        T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
                         T.buttons.get(j).addActionListener(new MyListener(arr[i][0],arr[i][2]));
                     } else {
                         T.buttons.get(j).setEnabled(false);
