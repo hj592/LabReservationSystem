@@ -157,14 +157,17 @@ class Insert_token extends Buttons {
            // System.out.println(str[]);
             if (str.length>1){
                 String[][] user_auth_check = DB_CONNECTER.Exe_Qurey("Select authority from User where user_id ='"+ S.getID() +"';");
-                if(str[1][0].equals(user_auth_check[1][0])){
+                //if(str[1][0].equals(user_auth_check[1][0])){
                       DB_CONNECTER.Update_Qurey(" UPDATE Student Set status='1' WHERE stu_id='"+S.getID()+"';");
                      JOptionPane.showMessageDialog(null, "인증되었습니다.");
-                }
+                //}
+                /*
                 else{
                    JOptionPane.showMessageDialog(null, "권한에 맞지 않는 토큰 입니다.");
                    return;
                 }
+                */
+
                 status = new Basic();
                 //buttons.get(0);
                 status.Exe_State(buttons);

@@ -796,8 +796,22 @@ class Reservation_Panel extends JPanel {
                 try {
                     DB_CONNECTER.Update_Qurey(insert);
                 } catch (SQLException ex) {
+                try {
+                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
+                } catch (SQLException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                } catch (ClassNotFoundException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                }
                     Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
+                try {
+                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
+                } catch (SQLException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                } catch (ClassNotFoundException ex1) {
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
+                }
                     Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             System.out.println("try"+1+": "+insert);
