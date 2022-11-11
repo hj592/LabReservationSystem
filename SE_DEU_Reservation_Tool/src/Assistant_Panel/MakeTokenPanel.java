@@ -20,7 +20,6 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         MakeToken token = new MakeToken();
 
     public MakeTokenPanel(int sizeX, int sizeY) {
-        System.out.println("2");
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
         b_deltoken = new javax.swing.JButton();
