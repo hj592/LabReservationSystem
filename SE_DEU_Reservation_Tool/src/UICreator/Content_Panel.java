@@ -25,10 +25,67 @@ public abstract class Content_Panel extends JPanel {
 	//Lecture_Room_Select Selecter = new Lecture_Room_Select();
 	Content_Panel() {
 		this.setLayout(null);
+                initComponents();
 		// this.setBackground(new Color(255,0,0));
 	}
 
 	abstract void Set_Multi_Layout();
+        
+         @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    public void initComponents() {
+
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(806, 576));
+
+        jLabel3.setFont(new java.awt.Font("맑은 고딕", 0, 36)); // NOI18N
+        jLabel3.setText("실습실 예약 프로그램");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/2004580.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(236, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+           // return this;
+    }// </editor-fold>                        
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel2;
+    // End of variables declaration      
 }
 
 class Student_Content_Panel extends Content_Panel {
@@ -657,12 +714,16 @@ class Reservation_Panel extends JPanel {
         JPanel ME = this;
         int sizeX;
         int sizeY;
-        //String[][] arr={{},{"1","1","1"},{"1","1","5"},{"1","1","2"},{"1","1","10"}};
-        private String LectNum[] = {"915","918","916","911"};
+        final String[] LectNum={"915","916","918","911"};
+        private Color[] LectColor= {new Color(143,121,126),new Color(255,194,181),new Color(255,227,204),new Color(100,108,143),
+                                    new Color(145,187,242),new Color(3, 90, 166),new Color(2, 48, 89),new Color(1, 21, 38 ),
+                                    new Color(19, 26, 64),new Color(39, 50, 115),new Color(78, 100, 166),new Color(130, 159, 217),
+                                    new Color(34, 92, 115),new Color(75, 140, 166),new Color(115, 177, 191 ),new Color(160, 206, 217)};
         String id = null;
        boolean reserve_checking=false;
+       boolean Manager = false;
         //int for_team_btn = 0;
-        
+
         private void NewLect(){
             reserve_checking=false;
             ME.remove(6);
@@ -683,28 +744,29 @@ class Reservation_Panel extends JPanel {
             try {
                 GetData(LectNnmStr);
             } catch (SQLException ex) {
-                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane b=new JOptionPane("이미 예약된 좌석 입니다.");
-                
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);              
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             ME.add(T);
         }
- 	Reservation_Panel(String id,int sizeX, int sizeY) {
+ 	Reservation_Panel(String id,int sizeX, int sizeY,boolean Manager) {
+        this.Manager = Manager;
         this.id = id;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
        // T = new Lecture_Room_Select().getRoom("0");
         setLayout(null);
         //강의실선택
-        SelectLect= new JComboBox(LectNum);
+        SelectLect= new JComboBox();
+        SelectLect.addItem(LectNum[0]);
+        
         SelectLect.setBounds(0,0,sizeX/4,sizeY/20);
         SelectLect.setSelectedIndex(0);
         this.add(SelectLect);
         SelectLect.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-             NewLect();
+        NewLect();
        }
   });
         //학생수 선택
@@ -753,16 +815,15 @@ class Reservation_Panel extends JPanel {
        }
   });
         
-        
         CheckBtn = new JButton("예약");
         
         CheckBtn.setBounds(sizeX*3/4,0,sizeX/8,sizeY/20);
         this.add(CheckBtn);   
         CheckBtn.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-                   // protected JComboBox StartTime;
-        //protected JComboBox EndTime;
+
             String pass = null;
+            String All_Values = "";
             String[] Values = 
             {
                 pass,
@@ -775,13 +836,19 @@ class Reservation_Panel extends JPanel {
                 "0"
             };
             if(T.buttons2.size()>1){
-                    JOptionPane b=new JOptionPane("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.");
-                    pass =b.showInputDialog("팀원들이 입력할 비밀번호를 설정해주세요.");
+                   JOptionPane b=new JOptionPane();
+                    pass =b.showInputDialog("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.\n팀원들이 입력할 비밀번호를 설정해주세요.");
+                    //System.out.println("b :"+);
+                    if(pass == null){
+                        JOptionPane b2=new JOptionPane("예약이 취소 되었습니다.");
+                        NewLect();
+                        return ;
+                    }
             }
-           // String a = "(`passwd`,`lab_id`, `seat_num`, `stu_id`, `start_time`, `end_time`,`seat_status`)";
             for (int i=0;i<T.buttons2.size();i++){
             String insert="INSERT INTO Lab_Seat(`passwd`,`lab_id`, `seat_num`, `stu_id`, `start_time`, `end_time`,`seat_status`) Values(";
             if(i>0){
+                insert=",(";
                 Values[0] = pass;
                 Values[6] = null;
             }
@@ -792,32 +859,46 @@ class Reservation_Panel extends JPanel {
                 else
                     insert = insert + "'" +Values[j] +"',";
             }
-            insert = insert.substring(0, insert.length() - 1)+");";
-                try {
-                    DB_CONNECTER.Update_Qurey(insert);
-                } catch (SQLException ex) {
-                try {
-                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
-                } catch (SQLException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                } catch (ClassNotFoundException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                try {
-                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE id='"+id+"';");
-                } catch (SQLException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                } catch (ClassNotFoundException ex1) {
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            System.out.println("try"+1+": "+insert);
-            
+            insert = insert.substring(0, insert.length() - 1)+")";
+            All_Values = All_Values + insert;
            // T.buttons2.remove();
         }
+         All_Values = All_Values+ ";";
+                            try {
+                    DB_CONNECTER.Update_Qurey(All_Values);
+                } catch (SQLException ex) {
+
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "이미 예약된 자리 입니다.");
+                    NewLect();
+                    return;
+                } catch (ClassNotFoundException ex) {
+                   
+                    Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "이미 예약된 자리 입니다.");
+                     NewLect();
+                    return;
+                }
+            try {
+                String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat;");
+                if(Integer.valueOf(arr[1][0]) > 30){
+                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"';");
+                     JOptionPane.showMessageDialog(null, "30명을 초과하였습니다.");
+                     NewLect();
+                     return;
+                }
+                else if(Integer.valueOf(arr[1][0]) >= 20){
+                    DB_CONNECTER.Update_Qurey("UPDATE Lab SET lab_status='1' WHERE lab_id='"+SelectLect.getSelectedItem()+"';");
+                     JOptionPane.showMessageDialog(null, "20명을 초과하였습니다.");
+                     NewLect();
+                     return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("try"+1+": "+ All_Values);
             JOptionPane.showMessageDialog(null, "예약되었습니다.");
              NewLect();
              //SelectLect.setSelectedIndex(SelectLect.getSelectedIndex());
@@ -869,12 +950,25 @@ class Reservation_Panel extends JPanel {
             return (StartTime.getSelectedIndex()>EndTime.getSelectedIndex());
         }
     @SuppressWarnings("empty-statement")
-    private void GetData(String LectNum) throws SQLException, ClassNotFoundException {
+    private void GetData(String SelectLectNum) throws SQLException, ClassNotFoundException {
 
         //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
-        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + LectNum + "';");
-        // System.out.println(arr.length+" "+T.buttons.size());
-        // System.out.println(arr[1][2]+" "+arr[2][2]+" "+arr[3][2]+" ");
+        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "' ORDER BY stu_id;");
+        int nextLec = (arr.length-1) / 20;
+        //SelectLect.setMaximumRowCount(nextLec);
+        
+        //인원수 초과 이벤트
+        for(int i =1; i<= nextLec && SelectLect.getItemCount()<i+1 ; i++)
+            SelectLect.addItem(LectNum[i]);
+        
+        //CheckBtn.setBackground(Color.red);
+
+        String colorid = null;
+        if(arr.length > 1)
+            colorid =arr[1][3];
+        int ColorCount = 0;
+        MyListener LISTEN = new MyListener();
+        
         for (int i = 1; i < arr.length; i++) {
             // System.out.print(arr[i][2]+" ");
             for (int j = 0; j < T.buttons.size(); j++) {
@@ -882,57 +976,69 @@ class Reservation_Panel extends JPanel {
                     //System.out.println(arr[i][0]);
                     if (!arr[i][0].equals("")) {
                         //for_team_btn = i;
-                        T.buttons.get(j).setBackground(Color.red);
-                        T.buttons.get(j).addActionListener(new MyListener(arr[i][0],arr[i][2]));
+                        if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
+                        T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
+                        T.buttons.get(j).setForeground(Color.white);
+                        T.buttons.get(j).addActionListener(LISTEN.setData(arr[i][0],arr[i][2]));
                     } else {
                         T.buttons.get(j).setEnabled(false);
                     }
                 }
             }
         }
-        String[][] arr2 = DB_CONNECTER.Exe_Qurey("Select stu_id" + " From Lab_Seat;");
+        String[][] arr2 = DB_CONNECTER.Exe_Qurey("Select lab_id" + " From Lab_Seat WHERE stu_id='"+id+"';");
         for (int i = 1; i < arr2.length; i++) {
-            if (arr2[i][0].equals(id)) {
-                CheckBtn.setEnabled(false);
+           // if (arr2[i][0].equals(id)) {
                 T.reserve_true();
                 reserve_checking=true;
+                CheckBtn.setEnabled(false);
+                for(int j =0; j< SelectLect.getItemCount(); j++){
+                  //  System.out.println("리스트에 있는 값: "+SelectLect.getItemAt(j) +", 나의 lab+id: "+ arr2[i][0]);
+                   if(SelectLect.getItemAt(j).equals(arr2[i][0])) 
+                       return;
+                //    System.out.println("없음");
+                }
+                SelectLect.addItem(arr2[i][0]);
+                //System.out.println("추가완");
                 break;
+           // }
+        }
+        System.out.println("Manager: "+Manager);
+        if (Manager){
+            for (int j = 0; j < T.buttons.size(); j++) {
+                ActionListener A[] = T.buttons.get(j).getActionListeners();
+                for (int k = 0; k < A.length; k++)
+                   T.buttons.get(j).removeActionListener(A[k]);
             }
+           // SelectLect.removeAllItems();
+           for (int j = SelectLect.getItemCount(); j < LectNum.length; j++) 
+                SelectLect.addItem(LectNum[j]);
         }
     }
     class MyListener implements ActionListener {
-        // Student_States status ;
-        //ArrayList<Buttons> buttons;
 
         String btn_num;
         String passwd;
 
-        MyListener(String passwd, String btn_num) throws SQLException, ClassNotFoundException {
+        MyListener() throws SQLException, ClassNotFoundException {
+
+        }
+        public MyListener setData(String passwd, String btn_num){
             this.btn_num = btn_num;
             this.passwd = passwd;
+            return this;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
              String pass =null;
-             //T.buttons2.remove();
-            if (T.buttons2.size() > 0){
+            if (T.buttons2.size() > 0)
                 JOptionPane.showMessageDialog(null, "다른자리선택 중입니다. 선택을 위해 갱신 합니다.");
-                //return;
-            }
-            /*
-            else if (reserve_checking == true){
-                JOptionPane.showMessageDialog(null, "이미 예약하신 상태 입니다.\n예약취소 후 시도하세요.");
-               // return;
-            }
-            */
+            
             else if(reserve_checking == false){
                 JOptionPane b = new JOptionPane();
                 pass = b.showInputDialog("비밀번호를 입력하세요.");
             }
-            //int for_team_btn_loc = for_team_btn;
-           // JOptionPane b = new JOptionPane();
-            //String pass = b.showInputDialog("비밀번호를 입력하세요.");
             System.out.println(passwd);
             if (passwd.equals(pass)) {
                 String qurey = "UPDATE Lab_Seat SET passwd=null, stu_id='" + id + "',seat_status='0' WHERE seat_num ='" + btn_num + "';";
