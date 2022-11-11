@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package src.Assistant;
 
 import DB.DB_CONNECTER;
@@ -12,18 +7,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * 토큰 생성 클래스
  * @author heejin
  */
 public class MakeToken {
     String[][] tokenTable ;
 
     public MakeToken() {
-        System.out.println("토큰 생성자");
         getTokenDb();
     }
-    
-    
     
     public String getToken(){ // 토큰 생성
         char[] token = new char[6];
@@ -58,21 +50,21 @@ public class MakeToken {
     
     public String getKey(){
         String key="-";
-        if(tokenTable.length==2) 
+        if(tokenTable.length!=1) 
             key = tokenTable[1][1];
         return key;
     }
     
     public String getDate(){
         String date="-";
-        if(tokenTable.length==2) 
+        if(tokenTable.length!=1) 
             date = tokenTable[1][2];
         return date;
     }
     
     public boolean getExist(){
         boolean exist=true;
-        if(tokenTable.length==2) 
+        if(tokenTable.length!=1) 
             exist=false;
         return exist;
     }
