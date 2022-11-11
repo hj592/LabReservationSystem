@@ -657,7 +657,7 @@ class Reservation_Panel extends JPanel {
         JPanel ME = this;
         int sizeX;
         int sizeY;
-        String[] LectNum={"915","916","918","911"};
+        final String[] LectNum={"915","916","918","911"};
         private Color[] LectColor= {new Color(143,121,126),new Color(255,194,181),new Color(255,227,204),new Color(100,108,143),
                                     new Color(145,187,242),new Color(3, 90, 166),new Color(2, 48, 89),new Color(1, 21, 38 ),
                                     new Color(19, 26, 64),new Color(39, 50, 115),new Color(78, 100, 166),new Color(130, 159, 217),
@@ -701,13 +701,15 @@ class Reservation_Panel extends JPanel {
        // T = new Lecture_Room_Select().getRoom("0");
         setLayout(null);
         //강의실선택
-        SelectLect= new JComboBox(LectNum);
+        SelectLect= new JComboBox();
+        SelectLect.addItem(LectNum[0]);
+        
         SelectLect.setBounds(0,0,sizeX/4,sizeY/20);
         SelectLect.setSelectedIndex(0);
         this.add(SelectLect);
         SelectLect.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-             NewLect();
+        NewLect();
        }
   });
         //학생수 선택
@@ -765,6 +767,7 @@ class Reservation_Panel extends JPanel {
         public void actionPerformed(ActionEvent e) {
                    // protected JComboBox StartTime;
         //protected JComboBox EndTime;
+            //T.buttons2.size()
             String pass = null;
             String All_Values = "";
             String[] Values = 
@@ -809,7 +812,7 @@ class Reservation_Panel extends JPanel {
         }
          All_Values = All_Values+ ";";
                             try {
-                    DB_CONNECTER.Update_Qurey( All_Values);
+                    DB_CONNECTER.Update_Qurey(All_Values);
                 } catch (SQLException ex) {
                     /*
                 try {
@@ -823,6 +826,7 @@ class Reservation_Panel extends JPanel {
                     */
                     Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, "그 사이에 다른사람이 가져감.");
+                    NewLect();
                     return;
                 } catch (ClassNotFoundException ex) {
                    
@@ -839,8 +843,28 @@ class Reservation_Panel extends JPanel {
                     
                     Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, "그 사이에 다른사람이 가져감.");
+                     NewLect();
                     return;
                 }
+            try {
+                String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat;");
+                if(Integer.valueOf(arr[1][0]) > 30){
+                    DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"';");
+                     JOptionPane.showMessageDialog(null, "30명을 초과하였습니다.");
+                     NewLect();
+                     return;
+                }
+                else if(Integer.valueOf(arr[1][0]) >= 20){
+                    DB_CONNECTER.Update_Qurey("UPDATE Lab SET lab_status='1' WHERE lab_id='"+SelectLect.getSelectedItem()+"';");
+                     JOptionPane.showMessageDialog(null, "20명을 초과하였습니다.");
+                     NewLect();
+                     return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("try"+1+": "+ All_Values);
             JOptionPane.showMessageDialog(null, "예약되었습니다.");
              NewLect();
@@ -893,12 +917,19 @@ class Reservation_Panel extends JPanel {
             return (StartTime.getSelectedIndex()>EndTime.getSelectedIndex());
         }
     @SuppressWarnings("empty-statement")
-    private void GetData(String LectNum) throws SQLException, ClassNotFoundException {
+    private void GetData(String SelectLectNum) throws SQLException, ClassNotFoundException {
 
         //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
-        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + LectNum + "' ORDER BY stu_id;");
-        // System.out.println(arr.length+" "+T.buttons.size());
-        // System.out.println(arr[1][2]+" "+arr[2][2]+" "+arr[3][2]+" ");
+        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "' ORDER BY stu_id;");
+        int nextLec = arr.length-1 / 20;
+        //SelectLect.setMaximumRowCount(nextLec);
+        
+        //인원수 초과 이벤트
+        for(int i =1; i<= nextLec && SelectLect.getItemCount()<i+1 ; i++)
+            SelectLect.addItem(LectNum[i]);
+        
+        //CheckBtn.setBackground(Color.red);
+
         String colorid = null;
         if(arr.length > 1)
             colorid =arr[1][3];
@@ -919,14 +950,22 @@ class Reservation_Panel extends JPanel {
                 }
             }
         }
-        String[][] arr2 = DB_CONNECTER.Exe_Qurey("Select stu_id" + " From Lab_Seat;");
+        String[][] arr2 = DB_CONNECTER.Exe_Qurey("Select lab_id" + " From Lab_Seat WHERE stu_id='"+id+"';");
         for (int i = 1; i < arr2.length; i++) {
-            if (arr2[i][0].equals(id)) {
-                CheckBtn.setEnabled(false);
+           // if (arr2[i][0].equals(id)) {
                 T.reserve_true();
                 reserve_checking=true;
+                CheckBtn.setEnabled(false);
+                for(int j =0; j< SelectLect.getItemCount(); j++){
+                  //  System.out.println("리스트에 있는 값: "+SelectLect.getItemAt(j) +", 나의 lab+id: "+ arr2[i][0]);
+                   if(SelectLect.getItemAt(j).equals(arr2[i][0])) 
+                       return;
+                //    System.out.println("없음");
+                }
+                SelectLect.addItem(arr2[i][0]);
+                //System.out.println("추가완");
                 break;
-            }
+           // }
         }
     }
     class MyListener implements ActionListener {
