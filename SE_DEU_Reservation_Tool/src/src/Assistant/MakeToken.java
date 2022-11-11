@@ -5,17 +5,30 @@
  */
 package src.Assistant;
 
+import DB.DB_CONNECTER;
+import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author heejin
  */
 public class MakeToken {
-    public static String getToken(){
+    String[][] tokenTable ;
+
+    public MakeToken() {
+        System.out.println("토큰 생성자");
+        getTokenDb();
+    }
+    
+    
+    
+    public String getToken(){ // 토큰 생성
         char[] token = new char[6];
         String key="";
-        int tmp=0;
+        int tmp=0;        
         
         for (int i = 0 ; i < token.length ; i++){
             int type = (int)(Math.random()*3); //해당 위치 숫자/대문자/소문자 구분
@@ -28,8 +41,39 @@ public class MakeToken {
             token[i]=(char)tmp; //아스키코드 문자로
         }
         for (int i = 0 ; i < token.length ; i++)
-            key+=token[i];
+            key+=token[i];     
         
         return key;
+    }
+    
+    public void getTokenDb(){
+        try {
+            tokenTable =DB_CONNECTER.Exe_Qurey("SELECT * FROM Token");
+        } catch (SQLException ex) {
+            Logger.getLogger(MakeToken.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MakeToken.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String getKey(){
+        String key="-";
+        if(tokenTable.length==2) 
+            key = tokenTable[1][1];
+        return key;
+    }
+    
+    public String getDate(){
+        String date="-";
+        if(tokenTable.length==2) 
+            date = tokenTable[1][2];
+        return date;
+    }
+    
+    public boolean getExist(){
+        boolean exist=true;
+        if(tokenTable.length==2) 
+            exist=false;
+        return exist;
     }
 }
