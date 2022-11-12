@@ -125,6 +125,15 @@ class Professor_Content_Panel extends Content_Panel{
 	}
 }
 
+class Admin_Content_Panel extends Content_Panel{
+
+	@Override
+	void Set_Multi_Layout() {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
  class reservation_list_panel extends javax.swing.JPanel {
 
     /**

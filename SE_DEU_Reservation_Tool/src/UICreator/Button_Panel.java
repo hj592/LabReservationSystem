@@ -13,7 +13,7 @@ public class Button_Panel extends JPanel{
     
 	Button_Panel(){
 		this.setLayout(null);
-		this.setBackground(new Color(0,255,0));
+		this.setBackground(new Color(240,240,240));
 	}
 	void Sorting_Button(Screen_Panel S) {
 		int sizex = this.getSize().width;
@@ -82,4 +82,11 @@ class Professor_Button_Panel extends Button_Panel{
 		//buttons.add(new P1_Button());
 		//buttons.add(new P2_Button());
 	}
+}
+
+class Admin_Button_Panel extends Button_Panel{
+    Admin_Button_Panel(){
+        //buttons.add(new A1_Button());
+        //buttons.add(new A2_Button());
+    }
 }

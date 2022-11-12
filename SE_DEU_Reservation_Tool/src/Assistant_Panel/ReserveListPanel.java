@@ -5,12 +5,15 @@
  */
 package Assistant_Panel;
 
+import javax.swing.table.DefaultTableModel;
+import src.Assistant.ReserveList;
+
 /**
  *
  * @author heejin
  */
 public class ReserveListPanel extends javax.swing.JPanel {
-
+    ReserveList a = new ReserveList();
     public ReserveListPanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
@@ -32,6 +35,7 @@ public class ReserveListPanel extends javax.swing.JPanel {
                 "ID", "실습실", "좌석", "날짜", "시작", "종료", "상태", "권한"
             }
         ));
+        showtable();
         tab_reservelist.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tab_reservelist);
 
@@ -83,7 +87,25 @@ public class ReserveListPanel extends javax.swing.JPanel {
                     .addComponent(b_okreserve, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-    }// </editor-fold>                        
+    }// </editor-fold>         
+    
+    public void showtable(){
+         DefaultTableModel table = (DefaultTableModel)tab_reservelist.getModel();
+            table.setNumRows(0);
+            String[][] timetable = a.getDB();
+            for(int i = 1;i<timetable.length;i++){
+                table.insertRow(table.getRowCount(), new Object[]{
+                    timetable[i][0],
+                    timetable[i][1],
+                    timetable[i][2],
+                    timetable[i][3],
+                    timetable[i][4],
+                    timetable[i][5],
+                    timetable[i][6],
+                    timetable[i][7]
+                });
+            }
+    }
 /*예약승인*/
     private void b_okreserveActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:

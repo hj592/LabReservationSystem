@@ -99,3 +99,18 @@ class Professor_UI extends All_Main_UI{
 		s = new Professor_Screen_Panel(super.id);
 	}
 }
+
+class Admin_UI extends All_Main_UI{
+
+	Admin_UI(MainUI_Frame frame,String id) {
+		super(frame,id);
+	}
+
+	@Override
+	public void setPanels() {
+		// TODO Auto-generated method stub
+		c = new Admin_Content_Panel();
+		b = new Admin_Button_Panel();
+		s = new Admin_Screen_Panel(super.id);
+	}
+}

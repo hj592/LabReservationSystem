@@ -34,7 +34,7 @@ class Student_Screen_Panel extends Screen_Panel {
 class Assistant_Screen_Panel extends Screen_Panel {
 	Assistant_Screen_Panel(String id){
                 super(id);
-		this.setBackground(new Color(0, 0, 0));
+		this.setBackground(new Color(240, 240, 240));
 	}
 
 	@Override
@@ -50,6 +50,20 @@ class Professor_Screen_Panel extends Screen_Panel {
                  super(id);
 		 this.setBackground(new Color(125, 125, 125));
 	 }
+
+	@Override
+	void Set_Screen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+class Admin_Screen_Panel extends Screen_Panel {
+	Admin_Screen_Panel(String id){
+                super(id);
+		this.setBackground(new Color(240, 240, 240));
+	}
 
 	@Override
 	void Set_Screen() {
