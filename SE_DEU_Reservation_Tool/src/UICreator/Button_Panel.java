@@ -78,8 +78,10 @@ class Assistant_Button_Panel extends Button_Panel{
 }
 
 class Professor_Button_Panel extends Button_Panel{
-	Professor_Button_Panel(){
+    Professor_Button_Panel(){
 		//buttons.add(new P1_Button());
 		//buttons.add(new P2_Button());
-	}
+        buttons.add(new Prof_LabView_butt());
+        buttons.add(new Prof_seminar_butt());
+    }
 }

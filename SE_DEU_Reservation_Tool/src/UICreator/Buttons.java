@@ -1,6 +1,7 @@
 package UICreator;
 
 import Assistant_Panel.*;
+import Professor_Panel.*;
 import DB.DB_CONNECTER;
 import java.awt.Color;
 import java.awt.Component;
@@ -303,6 +304,37 @@ class A_ProfCreateButt extends Buttons {
 }
 
 /*교수 관련 버튼*/
-class P2_Button extends Buttons {
+class Prof_LabView_butt extends Buttons {
+    Prof_LabView_butt(){
+		this.setText("실습실 조회");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+}
 
+
+class Prof_seminar_butt extends Buttons {
+    Prof_seminar_butt(){
+                this.setText("특강 / 세미나 입력");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SeminarPanel T = new SeminarPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
 }
