@@ -3,17 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/Professor_Panel/SeminarPanel.java</file>
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/ReserveListPanel.java</file>
             <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/pkg_Frame/MAIN.java</file>
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Button_Panel.java</file>
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/MakeTimetablePanel.java</file>
-=======
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/pkg_Frame/MAIN.java</file>
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Button_Panel.java</file>
->>>>>>> Stashed changes
-            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Buttons.java</file>
+            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/pkg_Frame/Login_Frame.java</file>
         </group>
     </open-files>
 </project-private>
