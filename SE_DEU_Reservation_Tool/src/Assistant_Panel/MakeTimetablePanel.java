@@ -434,7 +434,8 @@ public void showtable(String lab){
         if(cb_start.getSelectedIndex() > cb_end.getSelectedIndex()){
             System.out.println("시간다시선택하세용 메박");
         }
-        else if(tf_title.getText().length()== 0){
+        else if(tf_title.getText().length()== 0
+                ){
             System.out.println("타이틀 입력해");
         }
         else if(name=="0"){
@@ -443,11 +444,13 @@ public void showtable(String lab){
         }
         else if(a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex())==1){
             System.out.println("시간표겹쳐용 다시 시간표확인하고 선택해");
+            showtable((String) cb_labnum.getSelectedItem());
         }
         //시간 겹치는 경우
         else{
+            //int a = Integer.toString(Integer.parseInt((String) cb_labnum.getSelectedItem())%10);
             String time = Integer.toString(a.getTime(cb_start.getSelectedIndex(), cb_end.getSelectedIndex()));
-            String id = Integer.toString(cb_day.getSelectedIndex()+1) + time;
+            String id = Integer.toString(Integer.parseInt((String) cb_labnum.getSelectedItem())%10)+Integer.toString(cb_day.getSelectedIndex()+1) + time;
             String day =a.getDay(cb_day.getSelectedIndex());
             System.out.println(id);
             System.out.println(a.getDay(cb_day.getSelectedIndex()));

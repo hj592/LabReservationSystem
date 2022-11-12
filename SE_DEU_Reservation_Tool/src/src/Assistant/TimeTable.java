@@ -41,33 +41,15 @@ public class TimeTable {
         if(data.length==1)
             return timeTable;
         for(int i=1;i<data.length;i++){
-            int id = Integer.parseInt(data[i][0]); //i번째의 아이디 겟
+            int id = Integer.parseInt(data[i][0])%1000; //i번째의 아이디 겟
             int day = id/100; //요일
             int start = (id%100)/10-1;
             int end = id%10;
             String name = data[i][2]+"("+getPro(data[i][1])+")";
-            System.out.println("[id] "+id+" [day] "+day+" [s] "+start+" [e] "+end+" [name] "+name);
             for(int j=start;j<end;j++){
                 timeTable[j][day] = name;
             }
         }
-        
-        for(int i=0;i<9;i++){
-            String a="";
-            for(int j=0;j<6;j++){
-                a+=timeTable[i][j]+" / ";
-            }
-            System.out.println(a);
-        }
-        //System.out.println(timeTable);
-        //timeTable[][0]={{'1'},{'2'}.{'3'},{'4'}.{'5'},{'6'},{'7'},{'8'},{'9'}};
-        //0인곳(교시넣고
-        //1인곳 월
-        //2 화
-        //3 수
-        //4 목
-        //5 금
-        
         return timeTable;
     }
     public String getDay(int n){
