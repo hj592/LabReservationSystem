@@ -84,8 +84,15 @@ class Student_Reservation_Management extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				reservation_list_panel T = new reservation_list_panel(sizeX,sizeY);
-				adder(T);
+				reservation_list_panel T;
+                            try {
+                                T = new reservation_list_panel(sizeX,sizeY,S.getID());
+                                adder(T);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Student_Reservation_Management.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (ClassNotFoundException ex) {
+                                Logger.getLogger(Student_Reservation_Management.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
 				//C.repaint();
@@ -101,7 +108,7 @@ class Student_Profile extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				User_modify_panel T = new User_modify_panel(sizeX,sizeY);
+				User_modify_panel T = new User_modify_panel(sizeX,sizeY,S.getID());
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
