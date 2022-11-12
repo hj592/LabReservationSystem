@@ -324,7 +324,7 @@ class Prof_LabView_butt extends Buttons {
 
 class Prof_seminar_butt extends Buttons {
     Prof_seminar_butt(){
-                this.setText("특강 / 세미나 입력");
+                this.setText("특강 / 세미나 신청");
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
