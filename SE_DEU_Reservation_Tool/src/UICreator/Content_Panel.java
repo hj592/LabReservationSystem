@@ -841,8 +841,7 @@ class Reservation_Panel extends JPanel {
                 EndTime.getSelectedItem().toString()+":00",
                 "0"
             };
-<<<<<<< HEAD
-=======
+
                                 String Date[][];
             try {
                 Date = DB_CONNECTER.Exe_Qurey("select DAYOFWEEK(curdate());");
@@ -850,7 +849,9 @@ class Reservation_Panel extends JPanel {
                                  //   System.out.println( " 요일: "+Date[1][0] + " 미리예약된 강의실 개수: "+ (arr2.length-1));
                     //일요일은 1
                     int int_TodayDate = (Integer.valueOf(Date[1][0]) +2); //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
-                    //int_TodayDate = 4;
+                    
+                    //int_TodayDate = 4; //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
+                    
                     System.out.println( " 요일: "+int_TodayDate + " 미리예약된 강의실 개수: "+ (arr2.length-1));
                     int Reserve_Start_Time = Integer.valueOf(StartTime.getSelectedItem().toString().split(":")[0]);                  
                     int Reserve_End_Time = Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0]);
@@ -883,7 +884,6 @@ class Reservation_Panel extends JPanel {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
->>>>>>> Y
             if(T.buttons2.size()>1){
                    JOptionPane b=new JOptionPane();
                     pass =b.showInputDialog("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.\n팀원들이 입력할 비밀번호를 설정해주세요.");
@@ -913,7 +913,6 @@ class Reservation_Panel extends JPanel {
            // T.buttons2.remove();
         }
          All_Values = All_Values+ ";";
-<<<<<<< HEAD
                             try {
                     DB_CONNECTER.Update_Qurey(All_Values);
                 } catch (SQLException ex) {
@@ -943,12 +942,7 @@ class Reservation_Panel extends JPanel {
                      NewLect();
                      return;
                 }
-            } catch (SQLException ex) {
-=======
-                try {
-                    DB_CONNECTER.Update_Qurey(All_Values);
                 } catch (SQLException ex) {
->>>>>>> Y
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
@@ -1031,17 +1025,10 @@ class Reservation_Panel extends JPanel {
                     //System.out.println(arr[i][0]);
                     if (!arr[i][0].equals("")) {
                         //for_team_btn = i;
-<<<<<<< HEAD
-                        T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
-                        T.buttons.get(j).setForeground(Color.white);
-                        T.buttons.get(j).addActionListener(LISTEN.setData(arr[i][0],arr[i][2]));
-                        if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
-=======
                         if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
                         T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
                         T.buttons.get(j).setForeground(Color.white);
                         T.buttons.get(j).addActionListener(LISTEN.setData(arr[i][0],arr[i][2]));
->>>>>>> Y
                     } else {
                         T.buttons.get(j).setEnabled(false);
                     }
