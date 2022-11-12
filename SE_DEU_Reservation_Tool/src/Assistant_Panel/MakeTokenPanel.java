@@ -5,7 +5,11 @@
  */
 package Assistant_Panel;
 
+import DB.DB_CONNECTER;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import src.Assistant.MakeToken;
 
 /**
@@ -13,8 +17,7 @@ import src.Assistant.MakeToken;
  * @author heejin
  */
 public class MakeTokenPanel extends javax.swing.JPanel {
-    
-        String key = "  -";
+        MakeToken token = new MakeToken();
 
     public MakeTokenPanel(int sizeX, int sizeY) {
         this.setLayout(null);
@@ -38,7 +41,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         });
 
         tf_tokennum.setFont(new java.awt.Font("맑은 고딕", 1, 36)); // NOI18N
-        tf_tokennum.setText(key);
+        tf_tokennum.setText("  "+token.getKey());
         tf_tokennum.setEnabled(false);
         tf_tokennum.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         /*tf_tokennum.addActionListener(new java.awt.event.ActionListener() {
@@ -47,7 +50,8 @@ public class MakeTokenPanel extends javax.swing.JPanel {
             }
         });*/
 
-        b_maketoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
+        b_maketoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N        
+        b_maketoken.setEnabled(token.getExist());
         b_maketoken.setText("토큰 생성");
         b_maketoken.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +63,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         jLabel1.setText("TOKEN");
 
         la_tokendate.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
-        la_tokendate.setText("-");
+        la_tokendate.setText(token.getDate());
 
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel3.setText("토큰 생성일");
@@ -116,20 +120,36 @@ public class MakeTokenPanel extends javax.swing.JPanel {
     }// </editor-fold>                  
 /*토큰생성*/
     private void tb_maketokenActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // 생성시 디비에 토큰값 insert
-        key = MakeToken.getToken();
-        SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월dd일 HH시mm분ss초");		
+        // 생성시 디비에 토큰값 insertYYYY-MM-DD hh:mm:ss
+        String key = token.getToken();
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");		
         String format_time = format.format (System.currentTimeMillis());
-        tf_tokennum.setText("  "+key);
-        la_tokendate.setText(format_time);
-        b_maketoken.setEnabled(false);
+            try {
+                DB_CONNECTER.Update_Qurey("INSERT INTO Token values('2','"+key+"','"+format_time+"')");
+            } catch (SQLException ex) {
+                Logger.getLogger(MakeTokenPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (ClassNotFoundException ex) {
+                Logger.getLogger(MakeTokenPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        token.getTokenDb();
+        tf_tokennum.setText("  "+token.getKey());
+        la_tokendate.setText(token.getDate());
+        b_maketoken.setEnabled(token.getExist());
     }                                            
 /*토큰삭제*/
     private void b_deltokenActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO 디비에서 토큰삭제
-        tf_tokennum.setText("  -");
-        la_tokendate.setText("-");
-        b_maketoken.setEnabled(true);
+            try {
+                // TODO 디비에서 토큰삭제
+                DB_CONNECTER.Update_Qurey("DELETE FROM Token WHERE Token='"+token.getKey()+"'");
+            } catch (SQLException ex) {
+                Logger.getLogger(MakeTokenPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MakeTokenPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }        
+        token.getTokenDb();
+        tf_tokennum.setText("  "+token.getKey());
+        la_tokendate.setText(token.getDate());
+        b_maketoken.setEnabled(token.getExist());
     }                                          
 
 

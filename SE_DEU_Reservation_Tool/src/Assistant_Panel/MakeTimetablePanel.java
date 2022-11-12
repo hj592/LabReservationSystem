@@ -5,6 +5,12 @@
  */
 package Assistant_Panel;
 
+import DB.DB_CONNECTER;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import src.Assistant.TimeTable;
+
 /**
  *
  * @author heejin
@@ -22,7 +28,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         tf_title = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tf_profname = new javax.swing.JTextField();
+        tf_profid = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cb_labnum = new javax.swing.JComboBox<>();
         cb_day = new javax.swing.JComboBox<>();
@@ -69,13 +75,13 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jLabel1.setText("과목");
 
         tf_title.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_title.setText("jTextField1");
+        tf_title.setText("");
 
         jLabel2.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
-        jLabel2.setText("교수");
+        jLabel2.setText("교수 ID");
 
-        tf_profname.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_profname.setText("jTextField1");
+        tf_profid.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        tf_profid.setText("");
 
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel3.setText("실습실");
@@ -136,7 +142,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(tf_profname, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(tf_profid, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(18, 18, 18)
@@ -164,7 +170,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tf_profname, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_profid, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -416,10 +422,59 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleDescription("");
-    }// </editor-fold>                        
+    }// </editor-fold>       
+    /*
+    (String)cb_start.getSelectedItem() -> 선택된 아이템 값
+    cb_start.getItemCount() -> 총개수 9
+    cb_start.getSelectedIndex() -> 선택된 아이템 인덱스 0~8
+    */
 /*시간표 입력*/
     private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
+        /*
+    시작 종료 인덱스값 받아오는 함수
+    종료값>=시작값이여야함!
+    아근데 굳이?
+    걍 (int)index 받아서 +1해줘서
+    요일에 드가는 값은 (string)start+end
+    요일 선택은 인덱스에서 가져와서 
+    */
+        TimeTable a = new TimeTable();
+        String name = a.getPro(tf_profid.getText());
+        //int ee = a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex());
+        //System.out.println(ee);
+        if(cb_start.getSelectedIndex() > cb_end.getSelectedIndex()){
+            System.out.println("시간다시선택하세용 메박");
+        }
+        else if(tf_title.getText().length()== 0){
+            System.out.println("타이틀 입력해");
+        }
+        else if(name=="0"){
+          //교수 아이디 다시입력하세용mgr데이터에 있으면 ㄱ 없으면 ㄴ 글고 입력된값없으면
+            System.out.println("교수 아이디 다시입력하세용");
+        }
+        else if(a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex())==1){
+            System.out.println("시간표겹쳐용 다시 시간표확인하고 선택해");
+        }
+        //시간 겹치는 경우
+        else{
+            String time = Integer.toString(a.getTime(cb_start.getSelectedIndex(), cb_end.getSelectedIndex()));
+            String id = Integer.toString(cb_day.getSelectedIndex()+1) + time;
+            String day =a.getDay(cb_day.getSelectedIndex());
+            System.out.println(id);
+            System.out.println(a.getDay(cb_day.getSelectedIndex()));
+            System.out.println(cb_start.getSelectedIndex()+","+ cb_end.getSelectedIndex()+":"+time);
+            
+            try {
+                DB_CONNECTER.Update_Qurey("INSERT INTO Week_calender (id,prof_id,lab_id,class_name,"+day+") VALUES ("+id+",'"+tf_profid.getText()+"',"+cb_labnum.getSelectedItem()+",'"+tf_title.getText()+"','"+time+"')");
+            } catch (SQLException ex) {
+                Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        System.out.println(name);
     }                                           
 /*시간표 수정*/
     private void b_editsubActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -428,6 +483,11 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
 /*시간표 삭제*/
     private void b_delsubActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+        int nRow = -1;
+         int nCol = -1;
+         nRow = tab_915.getSelectedRow();
+         nCol = tab_915.getSelectedColumn();
+         System.out.println(nRow+":"+nCol);
     }                                        
 
 
@@ -462,7 +522,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
     private javax.swing.JTable tab_915;
     private javax.swing.JTable tab_916;
     private javax.swing.JTable tab_918;
-    private javax.swing.JTextField tf_profname;
+    private javax.swing.JTextField tf_profid;
     private javax.swing.JTextField tf_title;
     // End of variables declaration                   
 }

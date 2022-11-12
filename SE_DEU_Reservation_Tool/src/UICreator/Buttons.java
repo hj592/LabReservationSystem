@@ -65,7 +65,7 @@ class Student_Reservation_Button extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-                                Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY);
+                                Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,false);
                                 
                                 System.out.println(sizeX+" x y "+sizeY);
 				//new User_modify_panel();
@@ -157,16 +157,17 @@ class Insert_token extends Buttons {
            // System.out.println(str[]);
             if (str.length>1){
                 String[][] user_auth_check = DB_CONNECTER.Exe_Qurey("Select authority from User where user_id ='"+ S.getID() +"';");
-                /*
-                if(str[1][0].equals(user_auth_check[1][0])){
+                //if(str[1][0].equals(user_auth_check[1][0])){
                       DB_CONNECTER.Update_Qurey(" UPDATE Student Set status='1' WHERE stu_id='"+S.getID()+"';");
                      JOptionPane.showMessageDialog(null, "인증되었습니다.");
-                }
+                //}
+                /*
                 else{
                    JOptionPane.showMessageDialog(null, "권한에 맞지 않는 토큰 입니다.");
                    return;
                 }
                 */
+
                 status = new Basic();
                 //buttons.get(0);
                 status.Exe_State(buttons);
@@ -191,7 +192,7 @@ class A_LabViewButt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
