@@ -9,6 +9,7 @@ import DB.DB_CONNECTER;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import src.Assistant.TimeTable;
 
 /**
@@ -16,7 +17,7 @@ import src.Assistant.TimeTable;
  * @author heejin
  */
 public class MakeTimetablePanel extends javax.swing.JPanel {
-
+    TimeTable a = new TimeTable();
     public MakeTimetablePanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
@@ -199,7 +200,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         );
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("맑은 고딕", 1, 11)); // NOI18N
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(475, 500));
         jTabbedPane1.setOpaque(true);
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(475, 500));
@@ -208,23 +209,16 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 250));
 
         tab_911.setAutoCreateRowSorter(true);
-        tab_911.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        tab_911.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_911.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, null, null, null, null},
-                {"2", null, null, null, null, null},
-                {"3", null, null, null, null, null},
-                {"4", null, null, null, null, null},
-                {"5", null, null, null, null, null},
-                {"6", null, null, null, null, null},
-                {"7", null, null, null, null, null},
-                {"8", null, null, null, null, null},
-                {"9", null, null, null, null, null}
+                
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        showtable("911");
         tab_911.setColumnSelectionAllowed(true);
         tab_911.setIntercellSpacing(new java.awt.Dimension(3, 3));
         tab_911.setMinimumSize(new java.awt.Dimension(450, 440));
@@ -245,23 +239,16 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jScrollPane2.setPreferredSize(new java.awt.Dimension(452, 250));
 
         tab_915.setAutoCreateRowSorter(true);
-        tab_915.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        tab_915.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_915.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, null, null, null, null},
-                {"2", null, null, null, null, null},
-                {"3", null, null, null, null, null},
-                {"4", null, null, null, null, null},
-                {"5", null, null, null, null, null},
-                {"6", null, null, null, null, null},
-                {"7", null, null, null, null, null},
-                {"8", null, null, null, null, null},
-                {"9", null, null, null, null, null}
+                
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        showtable("915");
         tab_915.setColumnSelectionAllowed(true);
         tab_915.setIntercellSpacing(new java.awt.Dimension(3, 3));
         tab_915.setMinimumSize(new java.awt.Dimension(450, 440));
@@ -283,23 +270,16 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jScrollPane3.setPreferredSize(new java.awt.Dimension(452, 250));
 
         tab_916.setAutoCreateRowSorter(true);
-        tab_916.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        tab_916.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_916.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, null, null, null, null},
-                {"2", null, null, null, null, null},
-                {"3", null, null, null, null, null},
-                {"4", null, null, null, null, null},
-                {"5", null, null, null, null, null},
-                {"6", null, null, null, null, null},
-                {"7", null, null, null, null, null},
-                {"8", null, null, null, null, null},
-                {"9", null, null, null, null, null}
+               
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        showtable("916");
         tab_916.setColumnSelectionAllowed(true);
         tab_916.setIntercellSpacing(new java.awt.Dimension(3, 3));
         tab_916.setMinimumSize(new java.awt.Dimension(450, 440));
@@ -320,23 +300,16 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(452, 250));
 
         tab_918.setAutoCreateRowSorter(true);
-        tab_918.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
+        tab_918.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_918.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", null, null, null, null, null},
-                {"2", null, null, null, null, null},
-                {"3", null, null, null, null, null},
-                {"4", null, null, null, null, null},
-                {"5", null, null, null, null, null},
-                {"6", null, null, null, null, null},
-                {"7", null, null, null, null, null},
-                {"8", null, null, null, null, null},
-                {"9", null, null, null, null, null}
+                
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        showtable("918");
         tab_918.setColumnSelectionAllowed(true);
         tab_918.setIntercellSpacing(new java.awt.Dimension(3, 3));
         tab_918.setMinimumSize(new java.awt.Dimension(450, 440));
@@ -429,17 +402,32 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
     cb_start.getSelectedIndex() -> 선택된 아이템 인덱스 0~8
     */
 /*시간표 입력*/
-    private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        /*
-    시작 종료 인덱스값 받아오는 함수
-    종료값>=시작값이여야함!
-    아근데 굳이?
-    걍 (int)index 받아서 +1해줘서
-    요일에 드가는 값은 (string)start+end
-    요일 선택은 인덱스에서 가져와서 
-    */
-        TimeTable a = new TimeTable();
+public void showtable(String lab){
+         DefaultTableModel tablelab = (DefaultTableModel)tab_911.getModel();
+         if(lab=="915"){
+            tablelab = (DefaultTableModel)tab_915.getModel();
+         }
+         else if(lab=="918"){
+            tablelab = (DefaultTableModel)tab_918.getModel();
+         }
+         else if(lab=="916"){
+             tablelab = (DefaultTableModel)tab_916.getModel();
+         }
+         
+            tablelab.setNumRows(0);
+            String[][] timetable = a.getTimetable(lab);
+            for(int i = 0;i<timetable.length;i++){
+                tablelab.insertRow(tablelab.getRowCount(), new Object[]{
+                    timetable[i][0],
+                    timetable[i][1],
+                    timetable[i][2],
+                    timetable[i][3],
+                    timetable[i][4],
+                    timetable[i][5]
+                });
+            }
+    }
+    private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {   
         String name = a.getPro(tf_profid.getText());
         //int ee = a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex());
         //System.out.println(ee);
@@ -467,18 +455,19 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
             
             try {
                 DB_CONNECTER.Update_Qurey("INSERT INTO Week_calender (id,prof_id,lab_id,class_name,"+day+") VALUES ("+id+",'"+tf_profid.getText()+"',"+cb_labnum.getSelectedItem()+",'"+tf_title.getText()+"','"+time+"')");
+                showtable((String) cb_labnum.getSelectedItem());
             } catch (SQLException ex) {
                 Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
         System.out.println(name);
     }                                           
 /*시간표 수정*/
     private void b_editsubActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+        
     }                                         
 /*시간표 삭제*/
     private void b_delsubActionPerformed(java.awt.event.ActionEvent evt) {                                         
