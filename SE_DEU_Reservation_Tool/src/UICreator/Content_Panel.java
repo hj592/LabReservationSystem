@@ -841,6 +841,49 @@ class Reservation_Panel extends JPanel {
                 EndTime.getSelectedItem().toString()+":00",
                 "0"
             };
+<<<<<<< HEAD
+=======
+                                String Date[][];
+            try {
+                Date = DB_CONNECTER.Exe_Qurey("select DAYOFWEEK(curdate());");
+                String arr2[][] = DB_CONNECTER.Exe_Qurey("SELECT * FROM Week_calender where lab_id='"+SelectLect.getSelectedItem()+"';");
+                                 //   System.out.println( " 요일: "+Date[1][0] + " 미리예약된 강의실 개수: "+ (arr2.length-1));
+                    //일요일은 1
+                    int int_TodayDate = (Integer.valueOf(Date[1][0]) +2); //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
+                    //int_TodayDate = 4;
+                    System.out.println( " 요일: "+int_TodayDate + " 미리예약된 강의실 개수: "+ (arr2.length-1));
+                    int Reserve_Start_Time = Integer.valueOf(StartTime.getSelectedItem().toString().split(":")[0]);                  
+                    int Reserve_End_Time = Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0]);
+                    if (int_TodayDate > 3 && int_TodayDate <9 && arr2.length>1) {
+                         // System.out.println( "월~금임");
+                        for (int i = 1; i < arr2.length; i++) {
+                            System.out.println("강의시간: "+arr2[i][int_TodayDate]);
+                            if (!(arr2[i][int_TodayDate].equals(""))) {
+                                 System.out.println(arr2[i][int_TodayDate]);
+                                int Lect_Start_Time = Integer.valueOf(arr2[i][int_TodayDate].substring(0, 1)) + 8;
+                                int Lect_End_Time = Integer.valueOf(arr2[i][int_TodayDate].substring(1, 2)) + 8+1;
+                                 System.out.println( " 강의 시작시간: "+Lect_Start_Time + " 강의 종료시간: "+ Lect_End_Time);
+                                // 예약시작시간이 강의종료 시간보다 앞이면서 예약종료시간이 강의 시작시간보다 뒤일때
+                                if (Reserve_Start_Time < Lect_End_Time && Reserve_End_Time >= Lect_Start_Time) {
+                                    JOptionPane.showMessageDialog(null, "강의실 시간표와 곂칩니다.");
+                                    NewLect();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    else if(arr2.length > 1){
+                        JOptionPane.showMessageDialog(null, "현재 주말예약은 승인되지 않습니다.");
+                        NewLect();
+                        return;
+                    }
+                        
+            } catch (SQLException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+>>>>>>> Y
             if(T.buttons2.size()>1){
                    JOptionPane b=new JOptionPane();
                     pass =b.showInputDialog("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 본인의 자리를 제외한 자리의 예약은 취소 됩니다.\n팀원들이 입력할 비밀번호를 설정해주세요.");
@@ -870,6 +913,7 @@ class Reservation_Panel extends JPanel {
            // T.buttons2.remove();
         }
          All_Values = All_Values+ ";";
+<<<<<<< HEAD
                             try {
                     DB_CONNECTER.Update_Qurey(All_Values);
                 } catch (SQLException ex) {
@@ -900,6 +944,11 @@ class Reservation_Panel extends JPanel {
                      return;
                 }
             } catch (SQLException ex) {
+=======
+                try {
+                    DB_CONNECTER.Update_Qurey(All_Values);
+                } catch (SQLException ex) {
+>>>>>>> Y
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
@@ -982,10 +1031,17 @@ class Reservation_Panel extends JPanel {
                     //System.out.println(arr[i][0]);
                     if (!arr[i][0].equals("")) {
                         //for_team_btn = i;
+<<<<<<< HEAD
                         T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
                         T.buttons.get(j).setForeground(Color.white);
                         T.buttons.get(j).addActionListener(LISTEN.setData(arr[i][0],arr[i][2]));
                         if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
+=======
+                        if(!colorid.equals(arr[i][3])){ ColorCount++;  colorid = arr[i][3]; }
+                        T.buttons.get(j).setBackground(LectColor[ColorCount%LectColor.length]);
+                        T.buttons.get(j).setForeground(Color.white);
+                        T.buttons.get(j).addActionListener(LISTEN.setData(arr[i][0],arr[i][2]));
+>>>>>>> Y
                     } else {
                         T.buttons.get(j).setEnabled(false);
                     }

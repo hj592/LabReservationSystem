@@ -45,9 +45,15 @@ public abstract class Basic_Reservation_Panel extends JPanel {
     reserve_cheking=true;
 }
         public void SetMax(int Max){
+<<<<<<< HEAD
             if(buttons2.size()==0);
             else if(Max<this.Max){
                 for (int i=0; i<this.Max-Max;i++){
+=======
+           // if(buttons2.size()==0);
+            if(Max<this.Max){
+                for (int i=0; i<this.Max-Max && buttons2.size()!=0;i++){
+>>>>>>> Y
                     buttons2.getFirst().setBackground(null);
                     buttons2.getFirst().setEnabled(true);
                     buttons2.remove(); //FIFO. 가장 먼저 빼옴
