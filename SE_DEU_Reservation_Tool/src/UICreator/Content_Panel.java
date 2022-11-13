@@ -229,9 +229,9 @@ class Professor_Content_Panel extends Content_Panel{
               starttime = Integer.valueOf(MY_Reserve[1][5].split(":")[0]);
           
             int endtime = 17;
-            if (Integer.valueOf(MY_Reserve[1][6].split(":")[0]) > 17) 
+            if (Integer.valueOf(MY_Reserve[1][6].split(":")[0]) > 17 || Integer.valueOf(MY_Reserve[1][6].split(":")[0]) == 0) 
               endtime = 24;
-          System.out.println("시간: " + starttime);
+          System.out.println("시간: " + starttime +", " +endtime);
           String[] TimeStart = new String[endtime - starttime];
           for (int i = starttime; i < endtime; i++) 
               TimeStart[i - starttime] = Integer.toString(i) + ":00";
@@ -424,6 +424,9 @@ class Professor_Content_Panel extends Content_Panel{
         //jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
         StartTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(StartTime.getSelectedIndex() > EndTime.getSelectedIndex()){
+                    EndTime.setSelectedIndex(StartTime.getSelectedIndex());
+                }
             }
         });
 
@@ -433,6 +436,9 @@ class Professor_Content_Panel extends Content_Panel{
         //EndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
         EndTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(StartTime.getSelectedIndex() > EndTime.getSelectedIndex()){
+                    EndTime.setSelectedIndex(StartTime.getSelectedIndex());
+                }
             }
         });
 
@@ -1024,6 +1030,7 @@ class Reservation_Panel extends JPanel {
                     int int_TodayDate = (Integer.valueOf(Date[1][0]) +2); //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
                     
                     int_TodayDate = 4; //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
+                    /*
                     if(Integer.valueOf(Date_Time[1][0].split(":")[0])>=16){
                         if(Integer.valueOf(Date_Time[1][0].split(":")[1])>=30){
                          JOptionPane.showMessageDialog(null, "16:30분이 지나 금일 예약은 제한됩니다.");
@@ -1031,6 +1038,7 @@ class Reservation_Panel extends JPanel {
                          return;
                         }
                     }
+                    */
                     System.out.println( " 요일: "+int_TodayDate + " 미리예약된 강의실 개수: "+ (arr2.length-1));
                     int Reserve_Start_Time = Integer.valueOf(StartTime.getSelectedItem().toString().split(":")[0]);                  
                     int Reserve_End_Time = Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0]);
