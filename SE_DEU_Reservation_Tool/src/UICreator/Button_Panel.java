@@ -84,6 +84,7 @@ class Professor_Button_Panel extends Button_Panel{
 		//buttons.add(new P2_Button());
         buttons.add(new Prof_LabView_butt());
         buttons.add(new Prof_seminar_butt());
+        buttons.add(new Prof_Schedule_butt());
     }
 }
 

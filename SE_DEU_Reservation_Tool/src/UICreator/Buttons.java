@@ -319,7 +319,6 @@ class Prof_LabView_butt extends Buttons {
     }
 }
 
-
 class Prof_seminar_butt extends Buttons {
     Prof_seminar_butt(){
                 this.setText("특강 / 세미나 신청");
@@ -328,6 +327,23 @@ class Prof_seminar_butt extends Buttons {
 			public void actionPerformed(ActionEvent e) {
 				remover();
 				SeminarPanel T = new SeminarPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+}
+
+class Prof_Schedule_butt extends Buttons {
+    Prof_Schedule_butt(){
+                this.setText("정규 시간표 입력");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
