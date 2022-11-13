@@ -30,10 +30,9 @@ public abstract class Basic_Reservation_Panel extends JPanel {
 		this.Name = Name;
 		this.sizex = sizex;
 		this.sizey = sizey;
-
 		this.setBounds(0, 0, sizex, sizey);
 		this.setLayout(null);
-                
+                //this.setBackground(new Color(0,0,255));
                 //해당 Name의 db 체크해서 data에 저장. 
                 // Set_cube()에서 확인하여 비활성화 하게 하기 
 	}
@@ -83,6 +82,7 @@ public abstract class Basic_Reservation_Panel extends JPanel {
 	// 들어간 숫자칸에만 버튼 생성
 	// 강의실 선택 이벤트
 	public void Set_cube() {
+              this.setBackground(new Color(255,255,255));
 		if (Nx <= 0 || Ny <= 0) {
 			Nx = 10;
 			Ny = 10;
@@ -101,6 +101,7 @@ public abstract class Basic_Reservation_Panel extends JPanel {
 		                button.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    
                                     if (reserve_cheking != true) {
                                         button.setBackground(new Color(125, 225, 255));
                                         if (buttons2.size() == 0) 

@@ -38,7 +38,8 @@ public abstract class Content_Panel extends JPanel {
         
          @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    public void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+   public void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -66,10 +67,10 @@ public abstract class Content_Panel extends JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -80,9 +81,8 @@ public abstract class Content_Panel extends JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
-           // return this;
     }// </editor-fold>                        
 
 
@@ -90,6 +90,7 @@ public abstract class Content_Panel extends JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
+    // End of variables declaration    
     // End of variables declaration      
 }
 
@@ -131,8 +132,13 @@ class Professor_Content_Panel extends Content_Panel{
      * Creates new form reservation_list_Panel
      */
      String id;
+     int SizeX;
+     int SizeY;
+     reservation_list_panel Me = this;
       final String[] LectNums = {"915", "916", "918", "911"};
     reservation_list_panel(int sizeX,int sizeY,String id) throws SQLException, ClassNotFoundException {
+        this.SizeX = SizeX;
+        this.SizeY = SizeY;
         this.id = id;
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
@@ -256,7 +262,7 @@ class Professor_Content_Panel extends Content_Panel{
           jButton6.addActionListener(new ActionListener() {
               public void actionPerformed(java.awt.event.ActionEvent evt) {
                    LectNum.getSelectedItem().toString();
-                   ArrayList<String> pass =new ArrayList<String>();
+                   ArrayList<String> pass =new ArrayList<>();
                   try {
                       String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT lab_id,COUNT(*) FROM Lab_Seat GROUP BY lab_id;");
                       String arr2[][] = DB_CONNECTER.Exe_Qurey("SELECT *  FROM Lab_Seat Where lab_id='"+ LectNum.getSelectedItem().toString() +"' and seat_num='"+ SeatNum.getSelectedItem().toString() +"';");
@@ -293,15 +299,24 @@ class Professor_Content_Panel extends Content_Panel{
                                 int Lect_Start_Time = Integer.valueOf(arr3[i][int_TodayDate].substring(0, 1)) + 8;
                                 int Lect_End_Time = Integer.valueOf(arr3[i][int_TodayDate].substring(1, 2)) + 8+1;
                                  System.out.println( " 강의 시작시간: "+Lect_Start_Time + " 강의 종료시간: "+ Lect_End_Time);
+                                 int check = 0;
+                                 for(int k = Reserve_Start_Time; k < Reserve_End_Time ; k++){
+                                     if(Lect_Start_Time+check == k && Lect_Start_Time+check < Lect_End_Time){
+                                    JOptionPane.showMessageDialog(null, "강의실 시간표와 곂칩니다.");
+                                    return;
+                                     }
+                                }
                                 // 예약시작시간이 강의종료 시간보다 앞이면서 예약종료시간이 강의 시작시간보다 뒤일때
                                 if ( Integer.valueOf(Date_Time[1][0].split(":")[0]) > Reserve_Start_Time){
                                     JOptionPane.showMessageDialog(null, "예약가능 시간이 지났습니다.\n 한시간 단위로 결정되니 주의하세요.");
                                     return;
                                 }
-                                else if (Reserve_Start_Time < Lect_End_Time && Reserve_End_Time >= Lect_Start_Time) {
+                                /*
+                                else if (Reserve_Start_Time <= Lect_End_Time && Reserve_End_Time < Lect_Start_Time) {
                                     JOptionPane.showMessageDialog(null, "강의실 시간표와 곂칩니다.");
                                     return;
                                 }
+                                */
                             }
                         }
                     }
@@ -320,7 +335,7 @@ class Professor_Content_Panel extends Content_Panel{
                       }
                       else{
                            int result = JOptionPane.showConfirmDialog(null, "※예약 정보 변경시 주의사항※\n1. 자신을 제외한 다중예약대기좌석이 취소됩니다.\n2. 오후5시 이후의 예약승인은 \n 오후5시 이전으로 예약종료 시 승인이 취소되어 \n 오후5시 이후 승인을 다시 받아야합니다.","confirm",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                           if(result == JOptionPane.NO_OPTION){JOptionPane.showMessageDialog(null, "예약 취소되었습니다."); return;}
+                           if(result == JOptionPane.NO_OPTION){JOptionPane.showMessageDialog(null, "변경이 취소되었습니다."); return;}
                             DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"' and seat_status is null;");
                            DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET " + 
                                                      "lab_id='"+LectNum.getSelectedItem().toString()+
@@ -334,24 +349,38 @@ class Professor_Content_Panel extends Content_Panel{
                   } catch (ClassNotFoundException ex) {
                       Logger.getLogger(reservation_list_panel.class.getName()).log(Level.SEVERE, null, ex);
                   }
-              }
-          });
-        
-        jButton7.setText("반납");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-            }
-        });
-
-        jButton8.setText("취소");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-            }
-        });
+                }
+            });
+            
+            jButton7.setText("반납");
+            jButton7.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    
+                }
+            });
+            jButton7.setVisible(false);
+            jButton8.setText("취소");
+            jButton8.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    
+                    try {
+                        int result = JOptionPane.showConfirmDialog(null, "모든 예약정보가 사라지며 \n5시 이후의 승인 또한 재승인 받아야합니다.\n취소하시겠습니까?","confirm",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                        if(result == JOptionPane.NO_OPTION){JOptionPane.showMessageDialog(null, "예약이 취소되었습니다."); return;}
+                        DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"';");
+                        //Me.revalidate();
+                        jButton6.setEnabled(false);
+                        jButton8.setEnabled(false);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(reservation_list_panel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(reservation_list_panel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
         }
-        /**********************************************************/
+        /**
+         * *******************************************************
+         */
         
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -535,7 +564,7 @@ class Professor_Content_Panel extends Content_Panel{
         jButton10 = new javax.swing.JButton();
 
         jTextField1.setEditable(false);
-        //jTextField2.setEditable(false);
+        jTextField2.setEditable(false);
        // jTextField3.setEditable(false);
         jTextField4.setEditable(false);
         jTextField5.setEditable(false);
@@ -596,14 +625,16 @@ class Professor_Content_Panel extends Content_Panel{
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     // jButton9ActionPerformed(evt);
-                    DB_CONNECTER.Update_Qurey("Delete User SET user_pw='"+new String(jTextField3.getPassword())+"' WHERE user"
-                            + "_id='"+id+"';");
-                    JOptionPane.showMessageDialog(null, "비밀번호가 변경되었습니다.");
+                    DB_CONNECTER.Update_Qurey("Delete From Lab_Seat WHERE stu_id='"+id+"';");
+                    DB_CONNECTER.Update_Qurey("Delete From Student WHERE stu_id='"+id+"';");
+                    DB_CONNECTER.Update_Qurey("Delete From User WHERE user_id='"+id+"';");
                 } catch (SQLException ex) {
                     Logger.getLogger(User_modify_panel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(User_modify_panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                JOptionPane.showMessageDialog(null, "회원탈퇴가 완료되었습니다.");
+                System.exit(0);
             }
         });
 
@@ -712,7 +743,9 @@ class inquiry_panel extends javax.swing.JPanel {
     /**
      * Creates new form inquiry_panel
      */
-    inquiry_panel(int sizeX,int sizeY) {
+    String id;
+    inquiry_panel(int sizeX,int sizeY,String id){
+        this.id = id;
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
         initComponents();
@@ -747,11 +780,22 @@ class inquiry_panel extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jTextArea1.setText("내용 작성하는 곳");
         jScrollPane2.setViewportView(jTextArea1);
-
+/*
+        JButton my_board = new JButton("문의기록");
+        my_board.setBounds(620,73 , 90, 25);
+        this.add(my_board);
+        */
         jButton6.setText("확인");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                try {
+                    DB_CONNECTER.Update_Qurey("Insert into Board(`writer`,`content`) VALUES('"+ id + "','" + jTextArea1.getText() + "');");
+                    // jButton6ActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(inquiry_panel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(inquiry_panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -869,6 +913,8 @@ class Reservation_Panel extends JPanel {
         this.id = id;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        
+        // this.setBackground(new Color(255,255,255));
        // T = new Lecture_Room_Select().getRoom("0");
         setLayout(null);
         //강의실선택

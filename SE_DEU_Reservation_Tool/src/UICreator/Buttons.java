@@ -47,15 +47,6 @@ public class Buttons extends JButton {
                 
 		//C2.setBounds(C.getBounds());
 	}
-
-        protected void ANI() {
-		//C = (Content_Panel) S.getComponent(0);
-              //  C2.setSize(sizeX,sizeY);
-                JPanel A = new JPanel();
-                A.setBounds(this.location().x, this.location().y+this.getSize().width, this.getSize().width, 500);
-                
-		//C2.setBounds(C.getBounds());
-	}
 }
 
 class Student_Reservation_Button extends Buttons {
@@ -108,8 +99,15 @@ class Student_Profile extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				User_modify_panel T = new User_modify_panel(sizeX,sizeY,S.getID());
-				adder(T);
+				User_modify_panel T;
+                            try {
+                                T = new User_modify_panel(sizeX,sizeY,S.getID());
+                                adder(T);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Student_Profile.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (ClassNotFoundException ex) {
+                                Logger.getLogger(Student_Profile.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
 				//C.repaint();
@@ -125,7 +123,7 @@ class QandA extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				inquiry_panel T = new inquiry_panel(sizeX,sizeY);
+				inquiry_panel T = new inquiry_panel(sizeX,sizeY,S.getID());
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
@@ -167,13 +165,6 @@ class Insert_token extends Buttons {
                 //if(str[1][0].equals(user_auth_check[1][0])){
                       DB_CONNECTER.Update_Qurey(" UPDATE Student Set status='1' WHERE stu_id='"+S.getID()+"';");
                      JOptionPane.showMessageDialog(null, "인증되었습니다.");
-                //}
-                /*
-                else{
-                   JOptionPane.showMessageDialog(null, "권한에 맞지 않는 토큰 입니다.");
-                   return;
-                }
-                */
 
                 status = new Basic();
                 //buttons.get(0);
