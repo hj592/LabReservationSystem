@@ -57,7 +57,7 @@ class Student_Reservation_Button extends Buttons {
 			public void actionPerformed(ActionEvent e) {
 				remover();
                                 Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,false);
-                                
+                                T.setBackground(new Color(255,255,255));
                                 System.out.println(sizeX+" x y "+sizeY);
 				//new User_modify_panel();
 				adder(T);

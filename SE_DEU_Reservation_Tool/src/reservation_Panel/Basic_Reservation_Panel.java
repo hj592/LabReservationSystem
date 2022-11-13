@@ -27,6 +27,7 @@ public abstract class Basic_Reservation_Panel extends JPanel {
        // private String LectNum[] = {"915","918","916","911"};
         
 	public Basic_Reservation_Panel(String Name, int sizex, int sizey) {
+            
 		this.Name = Name;
 		this.sizex = sizex;
 		this.sizey = sizey;
@@ -82,7 +83,6 @@ public abstract class Basic_Reservation_Panel extends JPanel {
 	// 들어간 숫자칸에만 버튼 생성
 	// 강의실 선택 이벤트
 	public void Set_cube() {
-              this.setBackground(new Color(255,255,255));
 		if (Nx <= 0 || Ny <= 0) {
 			Nx = 10;
 			Ny = 10;

@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -325,12 +327,13 @@ class Professor_Content_Panel extends Content_Panel{
                         JOptionPane.showMessageDialog(null, "현재 주말예약은 승인되지 않습니다.");
                         return;
                     }
+                    // JOptionPane.showMessageDialog(null, arr2[1][4]);
                       //String a = LectNums[Integer.valueOf(arr[1][0]) / 20];
                       if( LectNum.getSelectedIndex() > MaxLect){ 
                           JOptionPane.showMessageDialog(null, "이전 강의실의 예약 대기 인원수가 20명을 넘지 않습니다.확인해주세요.");
                           return ;
                       }
-                      else if(arr2.length > 1){
+                      else if(arr2.length > 1 && (!arr2[1][3].equals(id))){
                           JOptionPane.showMessageDialog(null, "현재 예약 혹은 예약대기 중인 자리입니다.");
                           return ;
                       }
@@ -338,12 +341,13 @@ class Professor_Content_Panel extends Content_Panel{
                            int result = JOptionPane.showConfirmDialog(null, "※예약 정보 변경시 주의사항※\n1. 자신을 제외한 다중예약대기좌석이 취소됩니다.\n2. 오후5시 이후의 예약승인은 \n 오후5시 이전으로 예약종료 시 승인이 취소되어 \n 오후5시 이후 승인을 다시 받아야합니다.","confirm",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
                            if(result == JOptionPane.NO_OPTION){JOptionPane.showMessageDialog(null, "변경이 취소되었습니다."); return;}
                             DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"' and seat_status is null;");
-                           DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET " + 
+                            DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET " + 
                                                      "lab_id='"+LectNum.getSelectedItem().toString()+
                                                      "',seat_num='"+SeatNum.getSelectedItem().toString()+
                                                      "',start_time='"+StartTime.getSelectedItem().toString()+
                                                      "',end_time='"+EndTime.getSelectedItem().toString()+
                                                      "' WHERE stu_id='"+id+"';");
+                           JOptionPane.showMessageDialog(null, "변경이 완료되었습니다.");
                       }
                   } catch (SQLException ex) {
                       Logger.getLogger(reservation_list_panel.class.getName()).log(Level.SEVERE, null, ex);
@@ -401,17 +405,22 @@ class Professor_Content_Panel extends Content_Panel{
         jLabel5.setFont(new java.awt.Font("나눔고딕", 0, 18)); // NOI18N
         jLabel5.setText("사용시간");
 
-        jButton6.setText("연장"); 
-        JList strList = new JList();
-        for (int i = 1; i < MY_Reserve.length; i++) {
-            String str="";
-            for (int j = 0; j < MY_Reserve[1].length; i++) {
-                str = str + MY_Reserve[i][j];
+        jButton6.setText("연장");
+        String[][] strs = null ;
+        if (MY_Reserve.length > 1) {
+             strs = new String[MY_Reserve.length-1][];
+            for (int i = 1; i < MY_Reserve.length; i++) {
+                    strs[i-1] = MY_Reserve[i];
             }
-           // strList.add(str);
         }
-  
-
+                    
+            JTable strList = new JTable(strs, MY_Reserve[0]);
+            JScrollPane s = new JScrollPane(strList);
+              strList.setSelectionBackground(new Color(225,225,255));
+            s.setBounds(50, 300, 600, 200);
+            strList.setEnabled(false);
+           // strList.setBackground(new Color(225,225,255));
+            this.add(s);
         //jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
         StartTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -583,7 +592,7 @@ class Professor_Content_Panel extends Content_Panel{
         jPanel2.setPreferredSize(new java.awt.Dimension(806, 576));
 
         jLabel2.setFont(new java.awt.Font("나눔고딕", 0, 18)); // NOI18N
-        jLabel2.setText(arr[1][0]);
+        jLabel2.setText("이름");
 
         jLabel3.setFont(new java.awt.Font("나눔고딕", 1, 24)); // NOI18N
         jLabel3.setText("회원정보수정");
