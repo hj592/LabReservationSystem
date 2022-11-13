@@ -10,7 +10,7 @@ public abstract class Screen_Panel extends JPanel {
 	Screen_Panel(String id) {
             this.id=id;
             this.setLayout(null);
-            this.setBackground(new Color(0, 0, 255));
+            this.setBackground(new Color(230,223,217));
 	}
         public String getID(){
             return id;
@@ -21,7 +21,7 @@ public abstract class Screen_Panel extends JPanel {
 class Student_Screen_Panel extends Screen_Panel {
 	Student_Screen_Panel(String id){
             super(id);
-		this.setBackground(new Color(0, 0, 255));
+		//this.setBackground(new Color(0, 0, 0));
 	}
 
 	@Override
@@ -34,7 +34,7 @@ class Student_Screen_Panel extends Screen_Panel {
 class Assistant_Screen_Panel extends Screen_Panel {
 	Assistant_Screen_Panel(String id){
                 super(id);
-		this.setBackground(new Color(0, 0, 0));
+
 	}
 
 	@Override
@@ -48,8 +48,22 @@ class Assistant_Screen_Panel extends Screen_Panel {
 class Professor_Screen_Panel extends Screen_Panel {
 	 Professor_Screen_Panel(String id){
                  super(id);
-		 this.setBackground(new Color(125, 125, 125));
+		// this.setBackground(new Color(0, 0, 0));
 	 }
+
+	@Override
+	void Set_Screen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+class Admin_Screen_Panel extends Screen_Panel {
+	Admin_Screen_Panel(String id){
+                super(id);
+		this.setBackground(new Color(240, 240, 240));
+	}
 
 	@Override
 	void Set_Screen() {
