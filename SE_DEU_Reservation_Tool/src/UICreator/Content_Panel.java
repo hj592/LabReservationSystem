@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIDefaults;
@@ -401,7 +402,14 @@ class Professor_Content_Panel extends Content_Panel{
         jLabel5.setText("사용시간");
 
         jButton6.setText("연장"); 
-     
+        JList strList = new JList();
+        for (int i = 1; i < MY_Reserve.length; i++) {
+            String str="";
+            for (int j = 0; j < MY_Reserve[1].length; i++) {
+                str = str + MY_Reserve[i][j];
+            }
+           // strList.add(str);
+        }
   
 
         //jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
@@ -1007,7 +1015,13 @@ class Reservation_Panel extends JPanel {
                     int int_TodayDate = (Integer.valueOf(Date[1][0]) +2); //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
                     
                     int_TodayDate = 4; //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
-                    
+                    if(Integer.valueOf(Date_Time[1][0].split(":")[0])>=16){
+                        if(Integer.valueOf(Date_Time[1][0].split(":")[1])>=30){
+                         JOptionPane.showMessageDialog(null, "16:30분이 지나 금일 예약은 제한됩니다.");
+                         NewLect();
+                         return;
+                        }
+                    }
                     System.out.println( " 요일: "+int_TodayDate + " 미리예약된 강의실 개수: "+ (arr2.length-1));
                     int Reserve_Start_Time = Integer.valueOf(StartTime.getSelectedItem().toString().split(":")[0]);                  
                     int Reserve_End_Time = Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0]);
