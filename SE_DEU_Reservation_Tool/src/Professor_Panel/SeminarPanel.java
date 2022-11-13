@@ -24,6 +24,8 @@ public class SeminarPanel extends javax.swing.JPanel {
     this.setLayout(null);
     this.setBounds(0,0,sizeX,sizeY);
     
+    
+    
         jLabel7 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
