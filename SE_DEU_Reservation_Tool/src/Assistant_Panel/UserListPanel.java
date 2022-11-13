@@ -54,7 +54,8 @@ public class UserListPanel extends javax.swing.JPanel {
         jLabel2.setText("아이디");
 
         tf_sid.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_sid.setText("jTextField1");
+        tf_sid.setEnabled(false);
+        tf_sid.setText("");
 
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel3.setText("이름");
@@ -66,6 +67,7 @@ public class UserListPanel extends javax.swing.JPanel {
         jLabel4.setText("전화번호");
 
         tf_status.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        tf_status.setEnabled(false);
         tf_status.setText("");
 
         jLabel5.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
@@ -249,6 +251,16 @@ public class UserListPanel extends javax.swing.JPanel {
     private void b_editcompleteActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
         //수정내용디비로
+        //if(!tf_reportnum.getText().equals("3"))
+        if(Integer.parseInt(tf_reportnum.getText())<3){
+            String a;
+            if(tf_status.getText().equals("관리자"))
+                a="4";
+            else a="1";
+            s.update(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText(),a);
+        }
+        else
+            s.change(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText());
         f_editframe.setVisible(false);
         showtable();
     }                                              
@@ -276,7 +288,15 @@ public class UserListPanel extends javax.swing.JPanel {
     }                                         
 /*계정삭제*/
     private void b_delstuActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        int nRow =-1;
+        nRow = tab_slist.getSelectedRow();        
+        if(nRow!=-1){
+            s.delete((String) tab_slist.getValueAt(nRow,0));
+            showtable();
+        }
+        else{
+            //"학생을 선택하세요"
+        }
     }                                  
 
 
