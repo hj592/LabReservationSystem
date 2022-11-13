@@ -84,6 +84,7 @@ class Professor_Button_Panel extends Button_Panel{
 		//buttons.add(new P2_Button());
         buttons.add(new Prof_LabView_butt());
         buttons.add(new Prof_seminar_butt());
+        buttons.add(new Prof_Schedule_butt());
     }
 }
 
@@ -91,5 +92,8 @@ class Admin_Button_Panel extends Button_Panel{
     Admin_Button_Panel(){
         //buttons.add(new A1_Button());
         //buttons.add(new A2_Button());
+        buttons.add(new Admin_create_id_butt());
+        buttons.add(new Admin_delete_id_butt());
+        buttons.add(new Admin_update_id_butt());
     }
 }
