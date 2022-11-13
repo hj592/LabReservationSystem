@@ -17,6 +17,9 @@ public class UI_Factory {
 			case 3:
 				ui = new Professor_UI(mainframe,id);
 				break;
+                        case 4:
+                                ui = new Admin_UI(mainframe,id);
+                                break;
 		}
 		ui.setPanels();
 		return ui.getFrame();

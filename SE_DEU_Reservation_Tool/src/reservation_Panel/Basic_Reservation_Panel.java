@@ -27,13 +27,13 @@ public abstract class Basic_Reservation_Panel extends JPanel {
        // private String LectNum[] = {"915","918","916","911"};
         
 	public Basic_Reservation_Panel(String Name, int sizex, int sizey) {
+            
 		this.Name = Name;
 		this.sizex = sizex;
 		this.sizey = sizey;
-
 		this.setBounds(0, 0, sizex, sizey);
 		this.setLayout(null);
-                
+                //this.setBackground(new Color(0,0,255));
                 //해당 Name의 db 체크해서 data에 저장. 
                 // Set_cube()에서 확인하여 비활성화 하게 하기 
 	}
@@ -101,6 +101,7 @@ public abstract class Basic_Reservation_Panel extends JPanel {
 		                button.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    
                                     if (reserve_cheking != true) {
                                         button.setBackground(new Color(125, 225, 255));
                                         if (buttons2.size() == 0) 

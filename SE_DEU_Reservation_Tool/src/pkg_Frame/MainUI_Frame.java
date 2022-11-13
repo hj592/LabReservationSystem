@@ -8,8 +8,11 @@ import UICreator.Button_Panel;
 import UICreator.Screen_Panel;
 import UICreator.*;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 /* 프레임 추가를 위한 예제 프레임 */
@@ -24,6 +27,10 @@ public class MainUI_Frame extends Basic_Frame {
 	public Content_Panel C;
         public String My_data[][];
         MainUI_Frame Me = this;
+        
+        boolean isDragged = false;
+int offX, offY;
+
 	MainUI_Frame() {
 		// TODO Auto-generated constructor stub
 		super();
@@ -61,15 +68,19 @@ public class MainUI_Frame extends Basic_Frame {
     protected void setting_gui() {
         // TODO Auto-generated method stub
         // 여기서 부터 세팅 프레임의 기본배치는 절대배치 setLayout(null);
-        
-        JButton CLOSE = new JButton("종료");
-        CLOSE.setBackground(Color.red);
+         ImageIcon img = new ImageIcon("./src/image/logo.png");
+         ImageIcon img2 = new ImageIcon("./src/image/icons8_delete_32px.png");
+         
+         
+        JButton CLOSE = new JButton(img2);
+        CLOSE.setBackground(new Color(255, 255, 255));
+        CLOSE.setFocusPainted(false);
         CLOSE.setBounds(this.getSize().width* 19 / 20, 0, this.getSize().width / 20, this.getSize().height/12); //프레임 크기만큼을 할당함
         CLOSE.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //JPanel T = C.initComponents();
-                  Me.dispose();
+                 System.exit(0);
             }
         });
         add(CLOSE);
@@ -79,7 +90,7 @@ public class MainUI_Frame extends Basic_Frame {
         Main_Panel.setBackground(new Color(6, 53, 94));
         add(Main_Panel); 	//프레임 크기만큼을 할당함
 
-        ImageIcon img = new ImageIcon("./src/image/logo.png");
+
 
         JButton HOME = new JButton(img);
         HOME.setBorderPainted(false);
@@ -96,7 +107,38 @@ public class MainUI_Frame extends Basic_Frame {
                 C.initComponents();
             }
         });
+        
+     //   this.addMouseListener(new mv());
         add(HOME);
 
     }
+
 }
+/*
+private class mv implements MouseListener {
+    public void mousePressed(MouseEvent me) {
+        if (Me.contains(new Point(me.getX(), me.getY()))) {
+
+            isDragged = true;
+            offX = me.getX() - Me.getLocation().x;
+
+            offY = me.getY() - Me.getLocation().y;
+        }
+    }
+
+    public void mouseDragged(MouseEvent me) {
+        if (isDragged) {
+
+            Me.getLocation().x = me.getX() - offX;
+            Me.getLocation().y = me.getY() - offY;
+        }
+        repaint();
+    }
+
+    public void mouseReleased(MouseEvent me) {
+        isDragged = false;
+
+    }
+    
+}
+*/

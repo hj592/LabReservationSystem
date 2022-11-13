@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
 학생의 상태
@@ -86,6 +87,28 @@ class function_limitation implements Student_States{
     @Override
     public void Exe_State(ArrayList<Buttons> buttons) {
         System.out.println("State function_limitation");
+             
+        ArrayList<Buttons> buttons2 = new ArrayList<Buttons>();
+
+        //buttons2.add(new Student_Reservation_Button());
+       // buttons2.add(new Student_Reservation_Management());
+        buttons2.add(new Student_Profile());
+        buttons2.add(new QandA());
+
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).setEnabled(false);
+        }
+
+        for (int i = 0; i < buttons2.size(); i++) {
+            for (int j = 0; j < buttons.size(); j++) {
+                if (buttons.get(j).getClass() == buttons2.get(i).getClass()) {
+                    System.out.println(buttons.get(i).getText());
+                    buttons.get(j).setEnabled(true);
+                }
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null, "경고 3회 초과, 혹은 관리자에 의해 기능제한 상태입니다.");
     }
 }
 
@@ -94,6 +117,7 @@ class Room_Manger implements Student_States{
     @Override
     public void Exe_State(ArrayList<Buttons> buttons) {
         System.out.println("State Room_Manger");
+        
 
     }
 }

@@ -54,9 +54,10 @@ public final class Login_Frame extends Basic_Frame {
          //int i = who; //임시
          String who = "";
          //String id;
-         DB_CONNECTER.Connet();
+         //DB_CONNECTER.Connet();
          //System.out.println("select * from User WHERE "+"user_id = \""+ID+"\" and user_pw = \""+PW+"\";");
          String Arr[][] = DB_CONNECTER.Exe_Qurey("select * from User WHERE "+"user_id = \""+ID+"\" and user_pw = \""+PW+"\";");
+         
         // System.out.println("length: "+Arr.length);
          if (Arr.length < 2){
              System.out.println("Error"); 
@@ -68,8 +69,11 @@ public final class Login_Frame extends Basic_Frame {
               //id = Arr[1][0];
          }
          
-         if (Arr[1][2].equals("1"))  
+         if (Arr[1][2].equals("1"))  {
              Arr = DB_CONNECTER.Exe_Qurey("select * from Student WHERE "+"stu_id = \""+ID+"\";");
+             if(Integer.valueOf(Arr[1][4]) >= 3)
+                DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '3'  WHERE stu_id='"+ ID +"';");
+         }
          else if(Arr[1][2].equals("2"))
              Arr = DB_CONNECTER.Exe_Qurey("select * from Manager WHERE "+"mgr_id = \""+ID+"\";");
          else if(Arr[1][2].equals("3"))

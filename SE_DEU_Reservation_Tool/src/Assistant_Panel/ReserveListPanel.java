@@ -5,12 +5,15 @@
  */
 package Assistant_Panel;
 
+import javax.swing.table.DefaultTableModel;
+import src.Assistant.ReserveList;
+
 /**
  *
  * @author heejin
  */
 public class ReserveListPanel extends javax.swing.JPanel {
-
+    ReserveList a = new ReserveList();
     public ReserveListPanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
@@ -18,28 +21,23 @@ public class ReserveListPanel extends javax.swing.JPanel {
         tab_reservelist = new javax.swing.JTable();
         b_delreserve = new javax.swing.JButton();
         b_okreserve = new javax.swing.JButton();
-        b_mgrcreate = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(806, 576));
         setPreferredSize(new java.awt.Dimension(806, 576));
 
+        tab_reservelist.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         tab_reservelist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "No.", "ID", "실습실", "좌석", "날짜", "시작", "종료", "상태", "권한"
+                "ID", "실습실", "좌석", "날짜", "시작", "종료", "상태", "권한"
             }
         ));
+        showtable();
+        tab_reservelist.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tab_reservelist);
-        if (tab_reservelist.getColumnModel().getColumnCount() > 0) {
-            tab_reservelist.getColumnModel().getColumn(7).setResizable(false);
-            tab_reservelist.getColumnModel().getColumn(8).setResizable(false);
-        }
 
         b_delreserve.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_delreserve.setText("취소");
@@ -54,14 +52,6 @@ public class ReserveListPanel extends javax.swing.JPanel {
         b_okreserve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_okreserveActionPerformed(evt);
-            }
-        });
-
-        b_mgrcreate.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        b_mgrcreate.setText("권한부여");
-        b_mgrcreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_mgrcreateActionPerformed(evt);
             }
         });
 
@@ -82,8 +72,6 @@ public class ReserveListPanel extends javax.swing.JPanel {
                 .addComponent(b_delreserve, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(b_okreserve, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(b_mgrcreate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -96,19 +84,33 @@ public class ReserveListPanel extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_delreserve, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_okreserve, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_mgrcreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(b_okreserve, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-    }// </editor-fold>                        
+    }// </editor-fold>         
+    
+    public void showtable(){
+         DefaultTableModel table = (DefaultTableModel)tab_reservelist.getModel();
+            table.setNumRows(0);
+            String[][] timetable = a.getDB();
+            for(int i = 1;i<timetable.length;i++){
+                table.insertRow(table.getRowCount(), new Object[]{
+                    timetable[i][0],
+                    timetable[i][1],
+                    timetable[i][2],
+                    timetable[i][3],
+                    timetable[i][4],
+                    timetable[i][5],
+                    timetable[i][6],
+                    timetable[i][7]
+                });
+            }
+    }
 /*예약승인*/
     private void b_okreserveActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
-/*실습실 관리자 권한부여*/
-    private void b_mgrcreateActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+
 /*예약취소*/
     private void b_delreserveActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
@@ -117,7 +119,6 @@ public class ReserveListPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton b_delreserve;
-    private javax.swing.JButton b_mgrcreate;
     private javax.swing.JButton b_okreserve;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
