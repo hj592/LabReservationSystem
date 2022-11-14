@@ -14,6 +14,7 @@ public class Button_Panel extends JPanel{
 	Button_Panel(){
 		this.setLayout(null);
 		this.setBackground(new Color(230,223,217));
+
 	}
 	void Sorting_Button(Screen_Panel S) {
 		int sizex = this.getSize().width;
@@ -57,6 +58,7 @@ class Student_Button_Panel extends Button_Panel{
 	Student_Button_Panel() throws SQLException, ClassNotFoundException{
 		buttons.add(new Student_Reservation_Button());
                 buttons.add(new Student_Reservation_Management());
+                buttons.add(new S_TimeTableButt());
                 buttons.add(new Student_Profile());
                 buttons.add(new QandA());
                 buttons.add(new Insert_token(Status,buttons));
@@ -82,4 +84,11 @@ class Professor_Button_Panel extends Button_Panel{
 		//buttons.add(new P1_Button());
 		//buttons.add(new P2_Button());
 	}
+}
+
+class Admin_Button_Panel extends Button_Panel{
+    Admin_Button_Panel(){
+        //buttons.add(new A1_Button());
+        //buttons.add(new A2_Button());
+    }
 }

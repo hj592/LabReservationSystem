@@ -5,6 +5,15 @@
  */
 package Assistant_Panel;
 
+import DB.DB_CONNECTER;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+import src.Assistant.TimeTable;
+
 /**
  *
  * @author heejin
@@ -13,18 +22,21 @@ public class ProfCreatePanel extends javax.swing.JPanel{
      public ProfCreatePanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
-       jLabel1 = new javax.swing.JLabel();
+         try {
+             MaskFormatter fomat = new MaskFormatter("###-####-####");
+            ftf_phone = new javax.swing.JFormattedTextField(fomat);
+         } catch (ParseException ex) {
+             Logger.getLogger(ProfCreatePanel.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tf_pid = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tf_pphone = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tf_pname = new javax.swing.JTextField();
         b_profcreate = new javax.swing.JButton();
-        tf_authority = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         pf_ppw = new javax.swing.JPasswordField();
         pf_check = new javax.swing.JPasswordField();
 
@@ -45,8 +57,6 @@ public class ProfCreatePanel extends javax.swing.JPanel{
         jLabel4.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel4.setText("비밀번호 확인");
 
-        tf_pphone.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-
         jLabel5.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel5.setText("전화번호");
 
@@ -57,53 +67,56 @@ public class ProfCreatePanel extends javax.swing.JPanel{
 
         b_profcreate.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         b_profcreate.setText("생성");
+        b_profcreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_profcreateActionPerformed(evt);
+            }
+        });
 
-        tf_authority.setFont(new java.awt.Font("맑은 고딕", 0, 18)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
-        jLabel7.setText("권한");
+        ftf_phone.setText("jFormattedTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pf_ppw, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_pid, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pf_check, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_pname, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(214, 214, 214)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(pf_ppw, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_pid, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(pf_check, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_pname, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tf_authority, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ftf_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(b_profcreate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf_pphone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(300, Short.MAX_VALUE))
+                            .addGap(50, 50, 50)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1)))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_pid, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -111,7 +124,7 @@ public class ProfCreatePanel extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(pf_ppw, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(pf_check, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -121,33 +134,67 @@ public class ProfCreatePanel extends javax.swing.JPanel{
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_pphone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_authority, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(37, 37, 37)
+                    .addComponent(jLabel5)
+                    .addComponent(ftf_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72)
                 .addComponent(b_profcreate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
-    }// </editor-fold>                        
+    }// </editor-fold>                       
+
+    /* 교수계정생성버튼클릭 */
+    private void b_profcreateActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+        //비번&비번확인 일치하는지 확인
+        System.out.println(pf_ppw.getPassword().equals(pf_check.getPassword()));
+        String password = pf_ppw.getText();
+	String pwdCheck = pf_check.getText();
+        TimeTable tt = new TimeTable();
+        //String d =pf_ppw.getPassword();
+        //Stirng e =pf_check.getPassword();
+        if(pf_ppw.getPassword().length== 0){
+            System.out.println("비번입력해줭");
+        }
+        else if(!password.equals(pwdCheck)) {
+            JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다");
+        }
+        // 아이디 있는지없는지 확인
+        else if(!tt.getPro(tf_pid.getText()).equals("0")){
+            System.out.println("");
+            JOptionPane.showMessageDialog(this, "존재하는 아이디입니다.");
+        }
+        else if(tf_pname.getText().length()==0){//이름 공백인지확인
+            System.out.println("이름써");
+        }
+        else if(!ftf_phone.getText().substring(0, 3).equals("010")){//전번 시작이 010 인지
+            System.out.println("전번확인해");
+        }
+        else{
+            try {
+                DB_CONNECTER.Update_Qurey("INSERT INTO User values('"+tf_pid.getText()+"','"+password+"','3')");
+                DB_CONNECTER.Update_Qurey("INSERT INTO Manager values('"+tf_pid.getText()+"','"+tf_pname.getText()+"','"+ftf_phone.getText()+"')");
+            } catch (SQLException ex) {
+                Logger.getLogger(ProfCreatePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ProfCreatePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }                                            
 
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton b_profcreate;
+    private javax.swing.JFormattedTextField ftf_phone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPasswordField pf_check;
     private javax.swing.JPasswordField pf_ppw;
-    private javax.swing.JTextField tf_authority;
     private javax.swing.JTextField tf_pid;
     private javax.swing.JTextField tf_pname;
-    private javax.swing.JTextField tf_pphone;
     // End of variables declaration                   
 }

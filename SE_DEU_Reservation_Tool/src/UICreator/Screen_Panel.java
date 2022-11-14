@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 public abstract class Screen_Panel extends JPanel {
     private String id;
+    private JLabel IdLabel;
 	Screen_Panel(String id) {
             this.id=id;
             this.setLayout(null);
@@ -14,6 +15,12 @@ public abstract class Screen_Panel extends JPanel {
 	}
         public String getID(){
             return id;
+        }
+        public JLabel getLabel(){
+            return IdLabel;
+        }
+        public void SetLabel(JLabel IdLabel){
+            this.IdLabel = IdLabel;
         }
 	abstract void Set_Screen();
 }
@@ -34,7 +41,7 @@ class Student_Screen_Panel extends Screen_Panel {
 class Assistant_Screen_Panel extends Screen_Panel {
 	Assistant_Screen_Panel(String id){
                 super(id);
-		//this.setBackground(new Color(0, 0, 0));
+
 	}
 
 	@Override
@@ -50,6 +57,20 @@ class Professor_Screen_Panel extends Screen_Panel {
                  super(id);
 		// this.setBackground(new Color(0, 0, 0));
 	 }
+
+	@Override
+	void Set_Screen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+class Admin_Screen_Panel extends Screen_Panel {
+	Admin_Screen_Panel(String id){
+                super(id);
+		this.setBackground(new Color(240, 240, 240));
+	}
 
 	@Override
 	void Set_Screen() {

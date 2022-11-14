@@ -129,6 +129,15 @@ class Professor_Content_Panel extends Content_Panel{
 	}
 }
 
+class Admin_Content_Panel extends Content_Panel{
+
+	@Override
+	void Set_Multi_Layout() {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
  class reservation_list_panel extends javax.swing.JPanel {
 
     /**
@@ -892,6 +901,7 @@ class Reservation_Panel extends JPanel {
         protected JButton ResetBtn;
         Basic_Reservation_Panel T;
         JPanel ME = this;
+        JLabel IdLabel;
         int sizeX;
         int sizeY;
         final String[] LectNum={"915","916","918","911"};
@@ -903,6 +913,7 @@ class Reservation_Panel extends JPanel {
        boolean reserve_checking=false;
        boolean Manager = false;
        boolean first_Time =true;
+       boolean first =true;
         //int for_team_btn = 0;
 
         private void NewLect(){
@@ -931,7 +942,9 @@ class Reservation_Panel extends JPanel {
             }
             ME.add(T);
         }
- 	Reservation_Panel(String id,int sizeX, int sizeY,boolean Manager) {
+
+ 	Reservation_Panel(String id,int sizeX, int sizeY,boolean Manager,JLabel IdLabel) {
+        this.IdLabel = IdLabel;
         this.Manager = Manager;
         this.id = id;
         this.sizeX = sizeX;
@@ -1143,7 +1156,8 @@ class Reservation_Panel extends JPanel {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("try"+1+": "+ All_Values);
-            JOptionPane.showMessageDialog(null, "예약되었습니다.");
+            
+            JOptionPane.showMessageDialog(null,  SelectLect.getSelectedItem().toString() + " 입니다. 깨끗히 사용해주세요.");
              NewLect();
              //SelectLect.setSelectedIndex(SelectLect.getSelectedIndex());
              //SelectLect.ac
@@ -1226,6 +1240,16 @@ class Reservation_Panel extends JPanel {
         //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
         String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "' ORDER BY stu_id;");
         String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 1;");
+        IdLabel.setForeground(Color.white);
+        if(Lect_M.length > 1){
+          //  first = !first;
+            if(Lect_M[1][3].equals(id)){
+              //  IdLabel.setOpaque(true);
+                System.out.println(IdLabel.getText());
+                IdLabel.setForeground(Color.yellow);
+            }
+           // IdLabel.setForeground(Color.yellow);
+        }
  
         int nextLec = (arr.length-1) / 20;
         //SelectLect.setMaximumRowCount(nextLec);

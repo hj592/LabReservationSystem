@@ -10,10 +10,47 @@ import java.util.logging.Logger;
  * @author heejin
  */
 public class TimeTable {
-    String[][] timeTable = new String[6][9];
+    
+    
     String[][] data;
     public int getTime(int start, int end){
         return (start+1)*10+(end+1);
+    }   
+    
+    public void getDb(String lab){
+        try {
+            data = DB_CONNECTER.Exe_Qurey("SELECT id,prof_id,class_name FROM Week_calender WHERE lab_id = "+lab);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //return data;
+    }
+    
+    public String[][] getTimetable(String lab){
+        getDb(lab);
+        //if()
+        String[][] timeTable = new String[9][6];
+        for(int i=0;i<9;i++){
+           // int a = i+1;
+            timeTable[i][0]=String.valueOf(i+1);
+        }
+//        System.out.println(data[1][0]);
+        if(data.length==1)
+            return timeTable;
+        for(int i=1;i<data.length;i++){
+            int id = Integer.parseInt(data[i][0])%1000; //i번째의 아이디 겟
+            int day = id/100; //요일
+            int start = (id%100)/10-1;
+            int end = id%10;
+            String name = data[i][2]+"("+getPro(data[i][1])+")";
+            for(int j=start;j<end;j++){
+                timeTable[j][day] = name;
+            }
+        }
+        return timeTable;
     }
     public String getDay(int n){
         String day="";
@@ -23,7 +60,7 @@ public class TimeTable {
         else if(n==3) day = "thu_class";
         else day = "fri_class";
         return day;
-    }
+    }    
     public String getPro(String id){
         String name = "0";
         try {
@@ -36,7 +73,7 @@ public class TimeTable {
             Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
         }
         return name;
-    }
+    }    
     // 시간표 겹ㅊ ㅣ는지 안겹치는지 해당 랩+ 시작+끝 +요일(시간표 아이디로 넘겨줘도 ㄱㅊ)
    public int existtime(String lab, String day, int start, int end){
         try {

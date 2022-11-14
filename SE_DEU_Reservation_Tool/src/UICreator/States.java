@@ -29,6 +29,8 @@ class Basic implements Student_States{
      
         buttons2.add(new Student_Reservation_Button());
         buttons2.add(new Student_Reservation_Management());
+        
+        buttons2.add(new S_TimeTableButt());
         buttons2.add(new Student_Profile());
         buttons2.add(new QandA());
         
@@ -59,7 +61,7 @@ class Token_Un_regi implements Student_States{
        // buttons2.add(new Student_Profile());
         //buttons2.add(new QandA());
         //buttons2.add(new Student_Reservation_Button());
-        
+        buttons2.add(new S_TimeTableButt());
         try {
             buttons2.add(new Insert_token(this,buttons));
         } catch (SQLException ex) {
@@ -92,6 +94,7 @@ class function_limitation implements Student_States{
 
         //buttons2.add(new Student_Reservation_Button());
        // buttons2.add(new Student_Reservation_Management());
+        buttons2.add(new S_TimeTableButt());
         buttons2.add(new Student_Profile());
         buttons2.add(new QandA());
 

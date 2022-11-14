@@ -1,5 +1,6 @@
 package pkg_Frame;
 
+import DB.DB_CONNECTER;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -8,13 +9,18 @@ import UICreator.Button_Panel;
 import UICreator.Screen_Panel;
 import UICreator.*;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 /* 프레임 추가를 위한 예제 프레임 */
 /* 1. 해당 파일 복사 후 붙여넣기 (패캐지 제외)
  * 2. workspace에서 해당 클래스 파일 우클릭 후 Refactor->Rename 로 클래스명 변경 하거나 직접 변경할 것
@@ -25,9 +31,12 @@ public class MainUI_Frame extends Basic_Frame {
 	public Button_Panel B;
 	public Screen_Panel S;
 	public Content_Panel C;
+        private JPanel Main_Panel;
         public String My_data[][];
         MainUI_Frame Me = this;
         
+        public JLabel ta = new JLabel();
+         
         boolean isDragged = false;
 int offX, offY;
 
@@ -48,15 +57,28 @@ int offX, offY;
 		// final int locx = 0;
 		// final int locy = 0;
 		// Set_Loc_and_Size(locx,locy,sizex,sizey);
-
-		setting_gui();
+            setting_gui();
 		//setVisible(true);
 	}
-        public void Set_Data(String[][] My_data){
+        public void Set_Data(String[][] My_data) throws SQLException, ClassNotFoundException{
             this.My_data = My_data;
             if(this.My_data[1].length>3)
                 B.Exe_State(this.My_data[1][3]);
             
+          //  JTextArea ta = new JTextArea(2,1);
+            ta.setBounds(300, 5, 300, 50);
+            ta.setText(My_data[1][0]);
+            ta.setFont(new Font(this.My_data[1][3],Font.BOLD,40));
+            ta.setForeground(Color.white); 
+            //ta.setEnabled(false);
+            String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 1;");
+            
+            if (Lect_M.length > 1) {
+                if (Lect_M[1][3].equals(ta.getText()))
+                    ta.setForeground(Color.yellow);
+            }
+            Main_Panel.add(ta);
+
             this.setVisible(true);
         }
 	public void Set_Panels(Button_Panel B,Screen_Panel S,Content_Panel C) {
@@ -85,11 +107,10 @@ int offX, offY;
         });
         add(CLOSE);
         
-        JPanel Main_Panel = new JPanel();			//기본 패널 사용시 주석 해제
+        Main_Panel = new JPanel();			//기본 패널 사용시 주석 해제
         Main_Panel.setBounds(0, 0, this.getSize().width, this.getSize().height / 12); //프레임 크기만큼을 할당함
-        Main_Panel.setBackground(new Color(6, 53, 94));
-        add(Main_Panel); 	//프레임 크기만큼을 할당함
-
+        Main_Panel.setBackground(new Color(6, 53, 94));	//프레임 크기만큼을 할당함
+        Main_Panel.setLayout(null);
 
 
         JButton HOME = new JButton(img);
@@ -110,6 +131,7 @@ int offX, offY;
         
      //   this.addMouseListener(new mv());
         add(HOME);
+        add(Main_Panel); 
 
     }
 
