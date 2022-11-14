@@ -18,6 +18,21 @@ import src.Assistant.TimeTable;
  */
 public class MakeTimetablePanel extends javax.swing.JPanel {
     TimeTable a = new TimeTable();
+
+    public void set_for_Student(){
+       // jLabel7.setVisible(false);
+        jPanel1.setVisible(false);
+        jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel6.setVisible(false);
+        
+        b_createsub.setVisible(false);
+        b_delsub.setVisible(false);
+        b_editsub.setVisible(false);
+        
+        jLabel7.setText("시간표");
+    }
+
     public MakeTimetablePanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);

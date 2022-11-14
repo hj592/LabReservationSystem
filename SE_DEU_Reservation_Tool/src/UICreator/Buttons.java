@@ -57,7 +57,9 @@ class Student_Reservation_Button extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-                                Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,false);
+                                Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,false,S.getLabel());
+                                // System.out.println("buttons의 라벨:"+S.getLabel().getText());
+                              
                                 T.setBackground(new Color(255,255,255));
                                 System.out.println(sizeX+" x y "+sizeY);
 				//new User_modify_panel();
@@ -181,7 +183,24 @@ class Insert_token extends Buttons {
     }
     
 }
+}
 
+class S_TimeTableButt extends Buttons {
+	S_TimeTableButt(){
+		this.setText("시간표 확인");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				MakeTimetablePanel T = new MakeTimetablePanel(sizeX,sizeY);
+                                T.set_for_Student();
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
 }
 /*Assistant 관련 버튼*/
 class A_LabViewButt extends Buttons {
@@ -191,7 +210,7 @@ class A_LabViewButt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,null);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
@@ -309,7 +328,7 @@ class Prof_LabView_butt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,null);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치

@@ -13,6 +13,7 @@ import src.Assistant.ReserveList;
  * @author heejin
  */
 public class ReserveListPanel extends javax.swing.JPanel {
+
     public ReserveListPanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
