@@ -48,11 +48,11 @@ public class DB_CONNECTER {
 			
 			//4. Query 실행 및 리턴
 			res = st.executeUpdate(qurey);
-			if(res > 0) {
+			/*if(res > 0) {
 				System.out.println("입력 성공");
 			}else {
 				System.out.println("입력 실패");
-			}
+			}*/
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -93,7 +93,7 @@ public class DB_CONNECTER {
                 else
                     Datas[i][j] = rs.getObject(j+1).toString();
             }
-                    System.out.println("before row: "+rs.getRow());
+                   /* System.out.println("before row: "+rs.getRow());*/
             i++;
         }
         /*
