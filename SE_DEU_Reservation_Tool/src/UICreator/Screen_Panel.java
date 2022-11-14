@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 public abstract class Screen_Panel extends JPanel {
     private String id;
+    private JLabel IdLabel;
 	Screen_Panel(String id) {
             this.id=id;
             this.setLayout(null);
@@ -14,6 +15,12 @@ public abstract class Screen_Panel extends JPanel {
 	}
         public String getID(){
             return id;
+        }
+        public JLabel getLabel(){
+            return IdLabel;
+        }
+        public void SetLabel(JLabel IdLabel){
+            this.IdLabel = IdLabel;
         }
 	abstract void Set_Screen();
 }
