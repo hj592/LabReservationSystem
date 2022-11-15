@@ -147,7 +147,7 @@ public class ReserveListPanel extends javax.swing.JPanel {
         int nRow =-1;
         nRow = tab_reservelist.getSelectedRow();        
         if(nRow!=-1&&tab_reservelist.getValueAt(nRow,6).equals("미승인")){
-            r.updateStatus((String) tab_reservelist.getValueAt(nRow,1), (String) tab_reservelist.getValueAt(nRow,2));
+            r.updateStatus((String) tab_reservelist.getValueAt(nRow,1), (String) tab_reservelist.getValueAt(nRow,2),(String) tab_reservelist.getValueAt(nRow,0),(String) tab_reservelist.getValueAt(nRow,5));
             showtable();
         }
     }                                           

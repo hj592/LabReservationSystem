@@ -259,6 +259,11 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        tab_915.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab_915MouseClicked(evt);
+            }
+        });
         showtable("915");
         tab_915.setColumnSelectionAllowed(true);
         tab_915.setIntercellSpacing(new java.awt.Dimension(3, 3));
@@ -438,6 +443,21 @@ public void showtable(String lab){
                 });
             }
     }
+private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {                                       
+        // 915클릭시
+        int nCol = -1;
+        int nRow =-1;
+        nRow = tab_915.getSelectedRow();     
+        nCol = tab_915.getSelectedColumn();
+        //System.out.println(nCol+" : "+nRow);
+        if(nRow!=-1&&nCol != -1){
+            System.out.println(nCol+" : "+nRow);
+            cb_day.setSelectedIndex(nCol-1);
+            cb_end.setSelectedIndex(nRow);
+            cb_labnum.setSelectedIndex(1);
+            cb_start.setSelectedIndex(nRow);
+        }
+    }         
     private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {   
         String name = a.getPro(tf_profid.getText());
         //int ee = a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex());

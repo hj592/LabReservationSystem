@@ -42,6 +42,7 @@ public class ProfCreatePanel extends javax.swing.JPanel{
 
         setMinimumSize(new java.awt.Dimension(806, 576));
         setPreferredSize(new java.awt.Dimension(806, 576));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 36)); // NOI18N
         jLabel1.setText("교수 계정 생성");

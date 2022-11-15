@@ -950,7 +950,7 @@ class Reservation_Panel extends JPanel {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         
-        // this.setBackground(new Color(255,255,255));
+        //this.setBackground(new Color(255,255,255));
        // T = new Lecture_Room_Select().getRoom("0");
         setLayout(null);
         //강의실선택
