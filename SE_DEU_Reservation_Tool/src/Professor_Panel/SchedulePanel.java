@@ -3,36 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Assistant_Panel;
+package Professor_Panel;
 
+import Assistant_Panel.MakeTimetablePanel;
+import src.Assistant.TimeTable;
 import DB.DB_CONNECTER;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import src.Assistant.TimeTable;
 
 /**
  *
- * @author heejin
+ * @author admin
  */
-public class MakeTimetablePanel extends javax.swing.JPanel {
+public class SchedulePanel extends javax.swing.JPanel{
     TimeTable a = new TimeTable();
-
-    public void set_for_Student(){
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(786,490));
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(786,490));
-        b_createsub.setVisible(false);
-        b_delsub.setVisible(false);
-        b_editsub.setVisible(false);
-        jPanel1.setVisible(false);
-        jLabel7.setText("시간표");
-    }
-
-    public MakeTimetablePanel(int sizeX, int sizeY) {
+    
+    public SchedulePanel(int sizeX, int sizeY) {
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
-        jLabel7 = new javax.swing.JLabel();
+                jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -259,11 +250,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 "", "월", "화", "수", "목", "금"
             }
         ));
-        tab_915.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab_915MouseClicked(evt);
-            }
-        });
         showtable("915");
         tab_915.setColumnSelectionAllowed(true);
         tab_915.setIntercellSpacing(new java.awt.Dimension(3, 3));
@@ -443,21 +429,6 @@ public void showtable(String lab){
                 });
             }
     }
-private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {                                       
-        // 915클릭시
-        int nCol = -1;
-        int nRow =-1;
-        nRow = tab_915.getSelectedRow();     
-        nCol = tab_915.getSelectedColumn();
-        //System.out.println(nCol+" : "+nRow);
-        if(nRow!=-1&&nCol != -1){
-            System.out.println(nCol+" : "+nRow);
-            cb_day.setSelectedIndex(nCol-1);
-            cb_end.setSelectedIndex(nRow);
-            cb_labnum.setSelectedIndex(1);
-            cb_start.setSelectedIndex(nRow);
-        }
-    }         
     private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {   
         String name = a.getPro(tf_profid.getText());
         //int ee = a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex());
@@ -547,5 +518,7 @@ private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
     private javax.swing.JTable tab_918;
     private javax.swing.JTextField tf_profid;
     private javax.swing.JTextField tf_title;
-    // End of variables declaration                   
+        
 }
+    
+

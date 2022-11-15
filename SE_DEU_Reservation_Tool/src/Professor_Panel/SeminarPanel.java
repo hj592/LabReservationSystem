@@ -3,35 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Assistant_Panel;
+package Professor_Panel;
 
+import Assistant_Panel.MakeTimetablePanel;
 import DB.DB_CONNECTER;
+import java.awt.Label;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import src.Assistant.TimeTable;
 
+
 /**
  *
- * @author heejin
+ * @author admin
  */
-public class MakeTimetablePanel extends javax.swing.JPanel {
+public class SeminarPanel extends javax.swing.JPanel {
     TimeTable a = new TimeTable();
 
-    public void set_for_Student(){
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(786,490));
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(786,490));
-        b_createsub.setVisible(false);
-        b_delsub.setVisible(false);
-        b_editsub.setVisible(false);
-        jPanel1.setVisible(false);
-        jLabel7.setText("시간표");
-    }
+    public SeminarPanel(int sizeX, int sizeY) {    
+        
+    this.setLayout(null);
+    this.setBounds(0,0,sizeX,sizeY);
 
-    public MakeTimetablePanel(int sizeX, int sizeY) {
-        this.setLayout(null);
-        this.setBounds(0,0,sizeX,sizeY);
+       this.setBounds(0,0,sizeX,sizeY);
+    
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -70,7 +67,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(806, 576));
 
         jLabel7.setFont(new java.awt.Font("맑은 고딕", 1, 24)); // NOI18N
-        jLabel7.setText("시간표 입력");
+        jLabel7.setText("특강 / 세미나 신청");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -84,7 +81,7 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jLabel6.setText("종료");
 
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
-        jLabel1.setText("과목");
+        jLabel1.setText("내용");
 
         tf_title.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         tf_title.setText("");
@@ -111,7 +108,8 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         cb_end.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1교시 (09:00 - 09:50)", "2교시 (10:00 - 10:50)", "3교시 (11:00 - 11:50)", "4교시 (12:00 - 12:50)", "5교시 (13:00 - 13:50)", "6교시 (14:00 - 14:50)", "7교시 (15:00 - 15:50)", "8교시 (16:00 - 16:50)", "9교시 (17:00 - 17:50)" }));
 
         jLabel8.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
-        jLabel8.setText("교과목 정보");
+
+        jLabel8.setText("특강 / 세미나 정보");
 
         jLabel9.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
         jLabel9.setText("장소");
@@ -259,11 +257,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 "", "월", "화", "수", "목", "금"
             }
         ));
-        tab_915.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab_915MouseClicked(evt);
-            }
-        });
         showtable("915");
         tab_915.setColumnSelectionAllowed(true);
         tab_915.setIntercellSpacing(new java.awt.Dimension(3, 3));
@@ -443,21 +436,6 @@ public void showtable(String lab){
                 });
             }
     }
-private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {                                       
-        // 915클릭시
-        int nCol = -1;
-        int nRow =-1;
-        nRow = tab_915.getSelectedRow();     
-        nCol = tab_915.getSelectedColumn();
-        //System.out.println(nCol+" : "+nRow);
-        if(nRow!=-1&&nCol != -1){
-            System.out.println(nCol+" : "+nRow);
-            cb_day.setSelectedIndex(nCol-1);
-            cb_end.setSelectedIndex(nRow);
-            cb_labnum.setSelectedIndex(1);
-            cb_start.setSelectedIndex(nRow);
-        }
-    }         
     private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {   
         String name = a.getPro(tf_profid.getText());
         //int ee = a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex());
@@ -491,8 +469,9 @@ private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
                 DB_CONNECTER.Update_Qurey("INSERT INTO Week_calender (id,prof_id,lab_id,class_name,"+day+") VALUES ("+id+",'"+tf_profid.getText()+"',"+cb_labnum.getSelectedItem()+",'"+tf_title.getText()+"','"+time+"')");
                 showtable((String) cb_labnum.getSelectedItem());
             } catch (SQLException ex) {
-                Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SeminarPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SeminarPanel.class.getName()).log(Level.SEVERE, null, ex);
                 Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -511,10 +490,10 @@ private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
          nRow = tab_915.getSelectedRow();
          nCol = tab_915.getSelectedColumn();
          System.out.println(nRow+":"+nCol);
-    }                                        
 
-
-    // Variables declaration - do not modify                     
+   }            
+    
+                                  
     private javax.swing.JButton b_createsub;
     private javax.swing.JButton b_delsub;
     private javax.swing.JButton b_editsub;
@@ -547,5 +526,5 @@ private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
     private javax.swing.JTable tab_918;
     private javax.swing.JTextField tf_profid;
     private javax.swing.JTextField tf_title;
-    // End of variables declaration                   
+
 }

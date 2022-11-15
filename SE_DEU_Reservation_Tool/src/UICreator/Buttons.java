@@ -1,6 +1,7 @@
 package UICreator;
 
 import Assistant_Panel.*;
+import Professor_Panel.*;
 import DB.DB_CONNECTER;
 import java.awt.Color;
 import java.awt.Component;
@@ -320,6 +321,108 @@ class A_ProfCreateButt extends Buttons {
 }
 
 /*교수 관련 버튼*/
-class P2_Button extends Buttons {
+class Prof_LabView_butt extends Buttons {
+    Prof_LabView_butt(){
+		this.setText("실습실 조회");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,null);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+}
 
+class Prof_seminar_butt extends Buttons {
+    Prof_seminar_butt(){
+                this.setText("특강 / 세미나 신청");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SeminarPanel T = new SeminarPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+}
+
+class Prof_Schedule_butt extends Buttons {
+    Prof_Schedule_butt(){
+                this.setText("정규 시간표 입력");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+}
+
+
+/*Admin 관련 버튼*/
+class Admin_create_id_butt extends Buttons{
+    Admin_create_id_butt(){
+                this.setText("조교 ID 생성");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+
+}
+
+
+class Admin_delete_id_butt extends Buttons{
+    Admin_delete_id_butt(){
+                this.setText("조교 ID 삭제");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
+}
+
+class Admin_update_id_butt extends Buttons{
+    Admin_update_id_butt(){
+                this.setText("조교 정보 수정");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+    }
 }

@@ -31,6 +31,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(806, 576));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         b_deltoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         b_deltoken.setText("토큰 삭제");

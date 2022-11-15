@@ -58,28 +58,29 @@ int offX, offY;
 		// final int locy = 0;
 		// Set_Loc_and_Size(locx,locy,sizex,sizey);
             setting_gui();
-		//setVisible(true);
-	}
-        public void Set_Data(String[][] My_data) throws SQLException, ClassNotFoundException{
-            this.My_data = My_data;
-            if(this.My_data[1].length>3)
-                B.Exe_State(this.My_data[1][3]);
-            
-          //  JTextArea ta = new JTextArea(2,1);
+        //setVisible(true);
+    }
+
+    public void Set_Data(String[][] My_data) throws SQLException, ClassNotFoundException {
+        this.My_data = My_data;
+        if (this.My_data[1].length > 3) {
+            B.Exe_State(this.My_data[1][3]);
+            //  JTextArea ta = new JTextArea(2,1);
             ta.setBounds(300, 5, 300, 50);
             ta.setText(My_data[1][0]);
-            ta.setFont(new Font(this.My_data[1][3],Font.BOLD,40));
-            ta.setForeground(Color.white); 
+            ta.setFont(new Font(this.My_data[1][3], Font.BOLD, 40));
+            ta.setForeground(Color.white);
             //ta.setEnabled(false);
             String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 1;");
-            
+
             if (Lect_M.length > 1) {
-                if (Lect_M[1][3].equals(ta.getText()))
+                if (Lect_M[1][3].equals(ta.getText())) {
                     ta.setForeground(Color.yellow);
+                }
             }
             Main_Panel.add(ta);
-
-            this.setVisible(true);
+        }
+        this.setVisible(true);
         }
 	public void Set_Panels(Button_Panel B,Screen_Panel S,Content_Panel C) {
 		this.C = C;
