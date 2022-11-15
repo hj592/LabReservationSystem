@@ -243,15 +243,11 @@ public class UserListPanel extends javax.swing.JPanel {
             }
     }
 /*수정창닫기*/
-    private void b_backActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
+    private void b_backActionPerformed(java.awt.event.ActionEvent evt) {   
         f_editframe.setVisible(false);
     }                                      
 /*진짜 수정*/
-    private void b_editcompleteActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-        //수정내용디비로
-        //if(!tf_reportnum.getText().equals("3"))
+    private void b_editcompleteActionPerformed(java.awt.event.ActionEvent evt) {    
         if(Integer.parseInt(tf_reportnum.getText())<3){
             String a;
             if(tf_status.getText().equals("관리자"))
@@ -265,8 +261,7 @@ public class UserListPanel extends javax.swing.JPanel {
         showtable();
     }                                              
 /*수정창 열기*/
-    private void b_editstuActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
+    private void b_editstuActionPerformed(java.awt.event.ActionEvent evt) {  
         int nRow =-1;
         nRow = tab_slist.getSelectedRow();        
         if(nRow!=-1){

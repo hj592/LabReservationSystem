@@ -64,9 +64,13 @@ public class ReserveList {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void delReserve(String id, String seat){        //예약 삭제 함수
+    public void delReserve(String lab, String seat,String id){        //예약 삭제 함수
+        String[][] manager;
         try {
-            DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE lab_id = "+id+" AND seat_num = "+seat);
+            DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE lab_id = "+lab+" AND seat_num = "+seat);
+            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '1' WHERE stu_id = '"+id+"'");
+            manager=DB_CONNECTER.Exe_Qurey("SELECT stu_id, MAX(end_time) FROM Lab_Seat WHERE lab_id = "+lab);
+            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '4' WHERE stu_id = '"+manager[1][0]+"'");
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

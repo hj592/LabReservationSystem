@@ -9,6 +9,7 @@ import DB.DB_CONNECTER;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import src.Assistant.TimeTable;
 
@@ -229,6 +230,11 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        tab_911.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab_911MouseClicked(evt);
+            }
+        });
         showtable("911");
         tab_911.setColumnSelectionAllowed(true);
         tab_911.setIntercellSpacing(new java.awt.Dimension(3, 3));
@@ -295,6 +301,11 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        tab_916.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab_916MouseClicked(evt);
+            }
+        });
         showtable("916");
         tab_916.setColumnSelectionAllowed(true);
         tab_916.setIntercellSpacing(new java.awt.Dimension(3, 3));
@@ -325,6 +336,11 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 "", "월", "화", "수", "목", "금"
             }
         ));
+        tab_918.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab_918MouseClicked(evt);
+            }
+        });
         showtable("918");
         tab_918.setColumnSelectionAllowed(true);
         tab_918.setIntercellSpacing(new java.awt.Dimension(3, 3));
@@ -443,13 +459,48 @@ public void showtable(String lab){
                 });
             }
     }
-private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {                                       
+String[][] sub;
+    private void tab_911MouseClicked(java.awt.event.MouseEvent evt) {                                       
+        // 911클릭시
+        int nCol = -1;
+        int nRow =-1;
+        nRow = tab_911.getSelectedRow();     
+        nCol = tab_911.getSelectedColumn();
+        if(nRow!=-1){
+            String title = (String)tab_911.getValueAt( nRow,nCol);
+            //System.out.println(title);
+            if(title!=null){
+                int idx = title.indexOf("(");
+                //String labday = Integer.toString(10+nCol);
+                //System.out.println(labday);
+                sub = a.getSub(Integer.toString(10+nCol),title.substring(0,idx));
+                System.out.println(sub[1][0]);
+                int s= Integer.parseInt(sub[1][0])%100/10;
+                int e = Integer.parseInt(sub[1][0])%10;
+                System.out.println(s+" "+e);
+                cb_day.setSelectedIndex(nCol-1);
+                cb_end.setSelectedIndex(e-1);
+                cb_labnum.setSelectedIndex(0);
+                cb_start.setSelectedIndex(s-1);
+                tf_profid.setText(sub[1][1]);
+                tf_title.setText(title.substring(0,idx));
+                
+            }
+            else{
+            System.out.println(nCol+" : "+nRow);
+            cb_day.setSelectedIndex(nCol-1);
+            cb_end.setSelectedIndex(nRow);
+            cb_labnum.setSelectedIndex(0);
+            cb_start.setSelectedIndex(nRow);
+            }
+        }
+    }
+    private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {                                       
         // 915클릭시
         int nCol = -1;
         int nRow =-1;
         nRow = tab_915.getSelectedRow();     
         nCol = tab_915.getSelectedColumn();
-        //System.out.println(nCol+" : "+nRow);
         if(nRow!=-1&&nCol != -1){
             System.out.println(nCol+" : "+nRow);
             cb_day.setSelectedIndex(nCol-1);
@@ -457,29 +508,52 @@ private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
             cb_labnum.setSelectedIndex(1);
             cb_start.setSelectedIndex(nRow);
         }
-    }         
-    private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {   
-        String name = a.getPro(tf_profid.getText());
-        //int ee = a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex());
-        //System.out.println(ee);
-        if(cb_start.getSelectedIndex() > cb_end.getSelectedIndex()){
-            System.out.println("시간다시선택하세용 메박");
+    }       
+    private void tab_916MouseClicked(java.awt.event.MouseEvent evt) {                                       
+        // 915클릭시
+        int nCol = -1;
+        int nRow =-1;
+        nRow = tab_916.getSelectedRow();     
+        nCol = tab_916.getSelectedColumn();
+        if(nRow!=-1&&nCol != -1){
+            System.out.println(nCol+" : "+nRow);
+            cb_day.setSelectedIndex(nCol-1);
+            cb_end.setSelectedIndex(nRow);
+            cb_labnum.setSelectedIndex(1);
+            cb_start.setSelectedIndex(nRow);
         }
-        else if(tf_title.getText().length()== 0
-                ){
-            System.out.println("타이틀 입력해");
+    }
+    private void tab_918MouseClicked(java.awt.event.MouseEvent evt) {                                       
+        // 915클릭시
+        int nCol = -1;
+        int nRow =-1;
+        nRow = tab_918.getSelectedRow();     
+        nCol = tab_918.getSelectedColumn();
+        if(nRow!=-1&&nCol != -1){
+            System.out.println(nCol+" : "+nRow);
+            cb_day.setSelectedIndex(nCol-1);
+            cb_end.setSelectedIndex(nRow);
+            cb_labnum.setSelectedIndex(1);
+            cb_start.setSelectedIndex(nRow);
+        }
+    }
+
+    private void b_createsubActionPerformed(java.awt.event.ActionEvent evt) {   
+        String name = a.getPro(tf_profid.getText());//해당아이디의 교수 존재여부
+        if(cb_start.getSelectedIndex() > cb_end.getSelectedIndex()){
+            JOptionPane.showMessageDialog(this, "교시 선택이 올바르지 않습니다. 다시 선택해 주세요.");
+        }
+        else if(tf_title.getText().length()== 0){
+            JOptionPane.showMessageDialog(this, "교과목명을 입력해주세요");
         }
         else if(name=="0"){
-          //교수 아이디 다시입력하세용mgr데이터에 있으면 ㄱ 없으면 ㄴ 글고 입력된값없으면
-            System.out.println("교수 아이디 다시입력하세용");
+            JOptionPane.showMessageDialog(this, "해당하는 교수가 없습니다. 올바르게 입력해 주세요");
         }
         else if(a.existtime((String) cb_labnum.getSelectedItem(), a.getDay(cb_day.getSelectedIndex()),cb_start.getSelectedIndex(), cb_end.getSelectedIndex())==1){
-            System.out.println("시간표겹쳐용 다시 시간표확인하고 선택해");
+            JOptionPane.showMessageDialog(this, "기존의 시간표와 중복입니다. 올바르게 선택해 주세요");
             showtable((String) cb_labnum.getSelectedItem());
         }
-        //시간 겹치는 경우
         else{
-            //int a = Integer.toString(Integer.parseInt((String) cb_labnum.getSelectedItem())%10);
             String time = Integer.toString(a.getTime(cb_start.getSelectedIndex(), cb_end.getSelectedIndex()));
             String id = Integer.toString(Integer.parseInt((String) cb_labnum.getSelectedItem())%10)+Integer.toString(cb_day.getSelectedIndex()+1) + time;
             String day =a.getDay(cb_day.getSelectedIndex());
@@ -506,11 +580,10 @@ private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
 /*시간표 삭제*/
     private void b_delsubActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        int nRow = -1;
-         int nCol = -1;
-         nRow = tab_915.getSelectedRow();
-         nCol = tab_915.getSelectedColumn();
-         System.out.println(nRow+":"+nCol);
+        if(sub.length==2){
+            a.delSub(sub[1][0]);
+            showtable("911");
+        }
     }                                        
 
 

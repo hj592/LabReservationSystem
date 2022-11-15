@@ -246,13 +246,10 @@ public class QnAListPanel extends javax.swing.JPanel {
         showtable();
     }                                        
 /*QnA조회버튼*/
-    private void b_qnaopenActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here: 테이블에서 누른 목록의 내용이 다이얼로그에 열리도록
+    private void b_qnaopenActionPerformed(java.awt.event.ActionEvent evt) {                       
         int nRow =-1;
         nRow = tab_qna.getSelectedRow();        
         if(nRow!=-1){
-            // tab_slist.getValueAt(nRow,0)
-            //tf_sid.setText(tab_qna.getValueAt(nRow,0));
             jTextArea1.setText((String) tab_qna.getValueAt(nRow,1));
             jLabel3.setText((String) tab_qna.getValueAt(nRow,2));
             jLabel5.setText((String) tab_qna.getValueAt(nRow,3));
@@ -266,13 +263,11 @@ public class QnAListPanel extends javax.swing.JPanel {
         }
     }                                         
 /*디테일창 확인버튼*/
-    private void b_detailokActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
+    private void b_detailokActionPerformed(java.awt.event.ActionEvent evt) {   
         d_qnadetail.setVisible(false);
     }                                          
 /*디테일창 삭제버튼*/
-    private void b_detaildelActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here: 
+    private void b_detaildelActionPerformed(java.awt.event.ActionEvent evt) {   
          s.delete((String) tab_qna.getValueAt(nRow,0));
         d_qnadetail.setVisible(false);
         showtable();
