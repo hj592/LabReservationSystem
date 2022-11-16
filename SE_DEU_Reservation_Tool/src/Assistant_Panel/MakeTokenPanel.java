@@ -31,6 +31,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(806, 576));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         b_deltoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         b_deltoken.setText("토큰 삭제");
@@ -44,11 +45,6 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         tf_tokennum.setText("  "+token.getKey());
         tf_tokennum.setEnabled(false);
         tf_tokennum.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        /*tf_tokennum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_tokennumActionPerformed(evt);
-            }
-        });*/
 
         b_maketoken.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N        
         b_maketoken.setEnabled(token.getExist());
@@ -119,8 +115,7 @@ public class MakeTokenPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>                  
 /*토큰생성*/
-    private void tb_maketokenActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // 생성시 디비에 토큰값 insertYYYY-MM-DD hh:mm:ss
+    private void tb_maketokenActionPerformed(java.awt.event.ActionEvent evt) {   
         String key = token.getToken();
         SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");		
         String format_time = format.format (System.currentTimeMillis());
@@ -139,7 +134,6 @@ public class MakeTokenPanel extends javax.swing.JPanel {
 /*토큰삭제*/
     private void b_deltokenActionPerformed(java.awt.event.ActionEvent evt) {                                           
             try {
-                // TODO 디비에서 토큰삭제
                 DB_CONNECTER.Update_Qurey("DELETE FROM Token WHERE Token='"+token.getKey()+"'");
             } catch (SQLException ex) {
                 Logger.getLogger(MakeTokenPanel.class.getName()).log(Level.SEVERE, null, ex);

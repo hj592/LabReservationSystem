@@ -10,8 +10,8 @@ import java.util.logging.Logger;
  * @author heejin
  */
 public class TimeTable {
-    
-    
+
+    String[][] subinfo;    
     String[][] data;
     public int getTime(int start, int end){
         return (start+1)*10+(end+1);
@@ -31,7 +31,6 @@ public class TimeTable {
     
     public String[][] getTimetable(String lab){
         getDb(lab);
-        //if()
         String[][] timeTable = new String[9][6];
         for(int i=0;i<9;i++){
            // int a = i+1;
@@ -43,8 +42,8 @@ public class TimeTable {
         for(int i=1;i<data.length;i++){
             int id = Integer.parseInt(data[i][0])%1000; //i번째의 아이디 겟
             int day = id/100; //요일
-            int start = (id%100)/10-1;
-            int end = id%10;
+            int start = (id%100)/10-1;//시작교시
+            int end = id%10;//끝교시
             String name = data[i][2]+"("+getPro(data[i][1])+")";
             for(int j=start;j<end;j++){
                 timeTable[j][day] = name;
@@ -54,11 +53,23 @@ public class TimeTable {
     }
     public String getDay(int n){
         String day="";
-        if (n==0) day = "mon_class";
-        else if(n==1) day = "tue_class";
-        else if(n==2) day = "wed_class";
-        else if(n==3) day = "thu_class";
-        else day = "fri_class";
+        switch (n) {
+            case 0:
+                day = "mon_class";
+                break;
+            case 1:
+                day = "tue_class";
+                break;
+            case 2:
+                day = "wed_class";
+                break;
+            case 3:
+                day = "thu_class";
+                break;
+            default:
+                day = "fri_class";
+                break;
+        }
         return day;
     }    
     public String getPro(String id){
@@ -100,6 +111,23 @@ public class TimeTable {
         }
         return 0;
    } 
-    
-    //INSERT INTO Week_calender (id,prof_id,lab_id,class_name,mon_class) VALUES (112,'10000',911,'객체','12')
+    public String[][] getSub(String labday, String title){
+        try {
+            subinfo = DB_CONNECTER.Exe_Qurey("SELECT id,prof_id from Week_calender WHERE id LIKE '"+labday+"%' && class_name = '"+title+"'");
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subinfo;
+    }
+    public void delSub(String id){
+        try {
+            DB_CONNECTER.Update_Qurey("DELETE FROM Week_calender WHERE id = "+id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
 }
