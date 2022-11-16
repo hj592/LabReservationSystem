@@ -1,5 +1,0 @@
-Reservation_Panel.Lecture_Room_911
-Reservation_Panel.Lecture_Room
-Reservation_Panel.Lecture_Room_915
-Reservation_Panel.Lecture_Room_918
-Reservation_Panel.Lecture_Room_916
