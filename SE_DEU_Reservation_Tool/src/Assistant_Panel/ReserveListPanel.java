@@ -124,6 +124,7 @@ public class ReserveListPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>      
+    
     ReserveList r = new ReserveList();
     public void showtable(){
          DefaultTableModel table = (DefaultTableModel)tab_reservelist.getModel();
@@ -142,6 +143,7 @@ public class ReserveListPanel extends javax.swing.JPanel {
                 });
             }
     }
+    
 /*예약승인*/
     private void b_okreserveActionPerformed(java.awt.event.ActionEvent evt) {        
         int nRow =-1;
@@ -153,19 +155,17 @@ public class ReserveListPanel extends javax.swing.JPanel {
     }                                           
 
 /*예약취소*/
-    private void b_delreserveActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void b_delreserveActionPerformed(java.awt.event.ActionEvent evt) {    
         int nRow =-1;
         nRow = tab_reservelist.getSelectedRow();        
         if(nRow!=-1){
-            r.delReserve((String) tab_reservelist.getValueAt(nRow,1), (String) tab_reservelist.getValueAt(nRow,2));
+            r.delReserve((String) tab_reservelist.getValueAt(nRow,1), (String) tab_reservelist.getValueAt(nRow,2),(String) tab_reservelist.getValueAt(nRow,0));
             showtable();
         }
     }                                            
 
     /*일괄승인*/
-    private void b_allAcceptActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+    private void b_allAcceptActionPerformed(java.awt.event.ActionEvent evt) {  
         r.allAccept();
         showtable();
     }                                           

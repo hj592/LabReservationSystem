@@ -197,6 +197,7 @@ class Admin_Content_Panel extends Content_Panel{
                  TimeEnd[i - starttime - 1] = Integer.toString(i) + ":00";
              }
              EndTime = new JComboBox(TimeEnd);
+           
          } catch (SQLException ex) {
              Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
          } catch (ClassNotFoundException ex) {
@@ -221,17 +222,17 @@ class Admin_Content_Panel extends Content_Panel{
         jButton8 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         
+        
       if( MY_Reserve.length <2 ){
-           
+          JOptionPane.showMessageDialog(null, "예약정보가 없습니다.");
+          return;
        //   LectNum.setEnabled(false);
          // SeatNum.setEnabled(false);
-          jButton6.setEnabled(false);
-          jButton7.setEnabled(false);
-          jButton8.setEnabled(false);
+      //    jButton6.setEnabled(false);
+         // jButton7.setEnabled(false);
+        //  jButton8.setEnabled(false);
          // StartTime.setEnabled(false);
          // EndTime.setEnabled(false);
-         JOptionPane.showMessageDialog(null, "예약정보가 없습니다.");
-         return;
         } 
       else {
           int starttime = Integer.valueOf(nowTIME[1][0].split(":")[0]);
@@ -257,7 +258,7 @@ class Admin_Content_Panel extends Content_Panel{
               SeatNums[i - 1] = Integer.toString(i);
 
           SeatNum = new JComboBox(SeatNums);
-          SeatNum.setSelectedItem(MY_Reserve[1][2]);
+          
           LectNum = new JComboBox(LectNums);
 
           LectNum.addActionListener(new java.awt.event.ActionListener() {
@@ -277,20 +278,24 @@ class Admin_Content_Panel extends Content_Panel{
                    LectNum.getSelectedItem().toString();
                    ArrayList<String> pass =new ArrayList<>();
                   try {
-                      String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT lab_id,COUNT(*) FROM Lab_Seat GROUP BY lab_id;");
-                      String arr2[][] = DB_CONNECTER.Exe_Qurey("SELECT *  FROM Lab_Seat Where lab_id='"+ LectNum.getSelectedItem().toString() +"' and seat_num='"+ SeatNum.getSelectedItem().toString() +"';");
+                      String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT lab_id,COUNT(*) FROM Lab_Seat WHERE  end_time>'17:00:00'  GROUP BY lab_id;");
+                    //  String arr2[][] = DB_CONNECTER.Exe_Qurey("SELECT *  FROM Lab_Seat Where lab_id='"+ LectNum.getSelectedItem().toString() +"' and seat_num='"+ SeatNum.getSelectedItem().toString() +"';");
+                              String[][] arr2 = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + LectNum.getSelectedItem().toString() + "'"+
+                                                " and seat_num='"+ SeatNum.getSelectedItem().toString() + "'"+
+                                                " AND NOT(start_time >='"+ EndTime.getSelectedItem().toString()+":00'"+
+                                                " OR end_time <='"+StartTime.getSelectedItem().toString() +":00');"); //시간추가,
                      for(int i=1; i<arr.length; i++){
                        if(Integer.valueOf(arr[i][1]) >= 20)
                            pass.add(arr[i][0]);
                      }
                      int MaxLect = 0; //20명이상 순서 인덱스
                       for (int i = 0; i < LectNums.length; i++) {
-                          for (int j = 0; j < pass.size(); i++) {
+                          for (int j = 0; j < pass.size(); j++) {
                               if (LectNums[i].equals(pass.get(j)))
                                    MaxLect=i+1;  
                           }
                       }
-                 String Date[][] = DB_CONNECTER.Exe_Qurey("select DAYOFWEEK(curdate());");
+                                      String Date[][] = DB_CONNECTER.Exe_Qurey("select DAYOFWEEK(curdate());");
                 String Date_Time[][] = DB_CONNECTER.Exe_Qurey("select CURTIME();");
                 String arr3[][] = DB_CONNECTER.Exe_Qurey("SELECT * FROM Week_calender where lab_id='"+LectNum.getSelectedItem().toString()+"';");
                 
@@ -324,6 +329,12 @@ class Admin_Content_Panel extends Content_Panel{
                                     JOptionPane.showMessageDialog(null, "예약가능 시간이 지났습니다.\n 한시간 단위로 결정되니 주의하세요.");
                                     return;
                                 }
+                                /*
+                                else if (Reserve_Start_Time <= Lect_End_Time && Reserve_End_Time < Lect_Start_Time) {
+                                    JOptionPane.showMessageDialog(null, "강의실 시간표와 곂칩니다.");
+                                    return;
+                                }
+                                */
                             }
                         }
                     }
@@ -331,6 +342,8 @@ class Admin_Content_Panel extends Content_Panel{
                         JOptionPane.showMessageDialog(null, "현재 주말예약은 승인되지 않습니다.");
                         return;
                     }
+                    // JOptionPane.showMessageDialog(null, arr2[1][4]);
+                      //String a = LectNums[Integer.valueOf(arr[1][0]) / 20];
                       if( LectNum.getSelectedIndex() > MaxLect){ 
                           JOptionPane.showMessageDialog(null, "이전 강의실의 예약 대기 인원수가 20명을 넘지 않습니다.확인해주세요.");
                           return ;
@@ -372,9 +385,8 @@ class Admin_Content_Panel extends Content_Panel{
                     
                     try {
                         int result = JOptionPane.showConfirmDialog(null, "모든 예약정보가 사라지며 \n5시 이후의 승인 또한 재승인 받아야합니다.\n취소하시겠습니까?","confirm",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-                        if(result == JOptionPane.NO_OPTION){return;}
+                        if(result == JOptionPane.NO_OPTION){JOptionPane.showMessageDialog(null, "예약이 취소되었습니다."); return;}
                         DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"';");
-                        JOptionPane.showMessageDialog(null, "예약이 취소되었습니다.");
                         //Me.revalidate();
                         jButton6.setEnabled(false);
                         jButton8.setEnabled(false);
@@ -944,7 +956,7 @@ class Reservation_Panel extends JPanel {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         
-        // this.setBackground(new Color(255,255,255));
+        //this.setBackground(new Color(255,255,255));
        // T = new Lecture_Room_Select().getRoom("0");
         setLayout(null);
         //강의실선택
@@ -991,15 +1003,21 @@ class Reservation_Panel extends JPanel {
         EndTime= new JComboBox(TimeEnd);
         EndTime.setBounds(sizeX*5/8,0,sizeX/8,sizeY/20);
         this.add(EndTime);
-        
-        StartTime.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            SettingTime(StartTime);
-       }
-  });
+
+            StartTime.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (first_Time) 
+                        return;
+                    SettingTime(StartTime);
+                    NewLect();
+                }
+            });
         EndTime.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            SettingTime(EndTime);
+                    if (first_Time) 
+                        return;
+                    SettingTime(EndTime);
+                    NewLect();
        }
   });
           
@@ -1115,7 +1133,27 @@ class Reservation_Panel extends JPanel {
            // T.buttons2.remove();
         }
          All_Values = All_Values+ ";";
-                            try {
+          int count = 0;
+                   try {
+                  String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '"+SelectLect.getSelectedItem().toString()+"'and end_time > '17:00:00';");
+                  count = Integer.valueOf(arr[1][0]);
+                // 예약등록시작시간이 17시 이후일때 탐색
+                   if (count < 20) {
+
+                    if (SelectLect.getSelectedItem().toString().equals("916")) {
+                        count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '915' and end_time > '17:00:00';")[1][0]);
+                    } else if (SelectLect.getSelectedItem().toString().equals("918")) {
+                        count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '916' and end_time > '17:00:00';")[1][0]);
+                    } else if (SelectLect.getSelectedItem().toString().equals("911")) {
+                        count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '918' and end_time > '17:00:00';")[1][0]);
+                    }
+
+                    if (count < 20 && !(SelectLect.getSelectedItem().toString().equals("915"))){
+                        JOptionPane.showMessageDialog(null, "이전 강의실의 인원수가 20명을 넘지 않습니다.2");
+                        NewLect();
+                        return;
+                    }
+                }
                     DB_CONNECTER.Update_Qurey(All_Values);
                 } catch (SQLException ex) {
 
@@ -1131,16 +1169,9 @@ class Reservation_Panel extends JPanel {
                     return;
                 }
             try {
-                String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat;");
-                if(Integer.valueOf(arr[1][0]) > 30){
+                if(count > 30){
                     DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE stu_id='"+id+"';");
                      JOptionPane.showMessageDialog(null, "30명을 초과하였습니다.");
-                     NewLect();
-                     return;
-                }
-                else if(Integer.valueOf(arr[1][0]) >= 20){
-                    DB_CONNECTER.Update_Qurey("UPDATE Lab SET lab_status='1' WHERE lab_id='"+SelectLect.getSelectedItem()+"';");
-                     //JOptionPane.showMessageDialog(null, "20명을 초과하였습니다.");
                      NewLect();
                      return;
                 }
@@ -1179,11 +1210,11 @@ class Reservation_Panel extends JPanel {
 
        }
   });
-        
+            //    SettingTime(StartTime);
         T = new Lecture_Room_Select().getRoom(SelectLect.getSelectedItem().toString());
-        T.setBounds(0,sizeY/20,sizeX, sizeY*19/20);
-        T.setSize(sizeX, sizeY*19/20);
-	T.Set_cube();
+       // T.setBounds(0,sizeY/20,sizeX, sizeY*19/20);
+     //   T.setSize(sizeX, sizeY*19/20);
+	//T.Set_cube();
             try {
                 GetData(SelectLect.getSelectedItem().toString());
                 //T.setBackground(new Color(125, 255, 125));
@@ -1192,10 +1223,13 @@ class Reservation_Panel extends JPanel {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
+       // SettingTime(StartTime);
+        this.add(T);                    // NewLect();
         SettingTime(StartTime);
-        this.add(T);
+        NewLect();
        // this.setBackground(new Color(125, 125, 125));
         this.setSize(sizeX,sizeY);
+      //  NewLect();
         this.setVisible(true);
                     }
         private boolean TimeCheker(){
@@ -1232,17 +1266,29 @@ class Reservation_Panel extends JPanel {
     private void GetData(String SelectLectNum) throws SQLException, ClassNotFoundException {
 
         //DB_CONNECTER.Exe_Qurey("Select *" + " From where lab_id = '"+LectNum + "';");
-        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "' ORDER BY stu_id;");
-        String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 1;");
+        //String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "' ORDER BY stu_id;"); //기존 startdate로 변경 필요
+        String[][] arr = DB_CONNECTER.Exe_Qurey("Select *" + " From Lab_Seat where lab_id = '" + SelectLectNum + "'"+
+                                                " AND NOT(start_time >='"+ EndTime.getSelectedItem().toString()+":00'"+
+                                                " OR end_time <='"+StartTime.getSelectedItem().toString() +":00')"+
+                                                " ORDER BY start_date;"); //시간추가,  
+        //String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM Lab_Seat WHERE seat_status = '1'ORDER BY end_time DESC, start_date ASC LIMIT 1;");
+         String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM (SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 200) as A GROUP BY lab_id ;");
+       //  String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT group_concat(distinct name order by name) FROM (SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 5) as A GROUP BY lab_id ;");
+         for(int i=0; i<Lect_M.length; i++){
+              for(int j=0; j<Lect_M[0].length; j++){
+                  System.out.print(Lect_M[i][j]+"   ");
+              }
+              System.out.println("");
+         }
+   IdLabel.setForeground(Color.white);
 
-        if(Lect_M.length > 1){
-          //  first = !first;
-            if(Lect_M[1][3].equals(id)){
-              //  IdLabel.setOpaque(true);
-                System.out.println(IdLabel.getText());
-                IdLabel.setForeground(Color.yellow);
+        if (Lect_M.length > 1) {
+            for (int i = 1; i < Lect_M.length; i++) {
+                    if (Lect_M[i][3].equals(id)) {
+                        IdLabel.setForeground(Color.yellow);
+                        break;
+                    }
             }
-           // IdLabel.setForeground(Color.yellow);
         }
  
         int nextLec = (arr.length-1) / 20;
@@ -1290,8 +1336,8 @@ class Reservation_Panel extends JPanel {
                         //T.buttons.get(j).setContentAreaFilled(false);
 //                        System.out.println(T.buttons.get(j).getComponent(j).getClass().toString());
                     }
-                    else
-                        IdLabel.setForeground(Color.white);
+                    else;
+                       // IdLabel.setForeground(Color.white);
                 }
             }
         }
@@ -1353,7 +1399,7 @@ class Reservation_Panel extends JPanel {
             System.out.println(passwd);
             if (passwd.equals(pass)) {
                 int status = 0;
-                if (EndTime.getSelectedIndex() <= 16 )
+                if (EndTime.getSelectedIndex() <= 17 )
                     status = 1;
                 String qurey = "UPDATE Lab_Seat SET passwd=null, stu_id='" + id + "',seat_status='"+ status +"' WHERE seat_num ='" + btn_num + "';";
                 try {

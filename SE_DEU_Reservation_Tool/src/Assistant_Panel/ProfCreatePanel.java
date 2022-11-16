@@ -151,10 +151,8 @@ public class ProfCreatePanel extends javax.swing.JPanel{
         String password = pf_ppw.getText();
 	String pwdCheck = pf_check.getText();
         TimeTable tt = new TimeTable();
-        //String d =pf_ppw.getPassword();
-        //Stirng e =pf_check.getPassword();
         if(pf_ppw.getPassword().length== 0){
-            System.out.println("비번입력해줭");
+            JOptionPane.showMessageDialog(this, "비밀번호를 입력해주세요.");
         }
         else if(!password.equals(pwdCheck)) {
             JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다");
@@ -165,10 +163,10 @@ public class ProfCreatePanel extends javax.swing.JPanel{
             JOptionPane.showMessageDialog(this, "존재하는 아이디입니다.");
         }
         else if(tf_pname.getText().length()==0){//이름 공백인지확인
-            System.out.println("이름써");
+            JOptionPane.showMessageDialog(this, "이름을 입력해주세요.");
         }
         else if(!ftf_phone.getText().substring(0, 3).equals("010")){//전번 시작이 010 인지
-            System.out.println("전번확인해");
+            JOptionPane.showMessageDialog(this, "전화번호 입력을 확인해주세요");
         }
         else{
             try {
