@@ -58,6 +58,7 @@ class Student_Button_Panel extends Button_Panel{
 	Student_Button_Panel() throws SQLException, ClassNotFoundException{
 		buttons.add(new Student_Reservation_Button());
                 buttons.add(new Student_Reservation_Management());
+                buttons.add(new S_TimeTableButt());
                 buttons.add(new Student_Profile());
                 buttons.add(new QandA());
                 buttons.add(new Insert_token(Status,buttons));

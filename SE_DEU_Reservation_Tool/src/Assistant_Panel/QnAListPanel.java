@@ -5,6 +5,9 @@
  */
 package Assistant_Panel;
 
+import javax.swing.table.DefaultTableModel;
+import src.Assistant.QnA;
+
 /**
  *
  * @author heejin
@@ -24,14 +27,15 @@ public class QnAListPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
+        b_detailok = new javax.swing.JButton();
+        b_detaildel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tab_qna = new javax.swing.JTable();
         b_qnaopen = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         b_qnadel = new javax.swing.JButton();
 
-        d_qnadetail.setMinimumSize(new java.awt.Dimension(500, 360));
+        d_qnadetail.setMinimumSize(new java.awt.Dimension(700, 360));
 
         jLabel2.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel2.setText("작성자 아이디");
@@ -52,11 +56,26 @@ public class QnAListPanel extends javax.swing.JPanel {
         jLabel7.setText("jLabel5");
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jTextArea1.setEnabled(false);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jLabel8.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        jLabel8.setText("jLabel8");
+        b_detailok.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        b_detailok.setText("확인");
+        b_detailok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_detailokActionPerformed(evt);
+            }
+        });
+
+        b_detaildel.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        b_detaildel.setText("삭제");
+        b_detaildel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_detaildelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout d_qnadetailLayout = new javax.swing.GroupLayout(d_qnadetail.getContentPane());
         d_qnadetail.getContentPane().setLayout(d_qnadetailLayout);
@@ -66,29 +85,32 @@ public class QnAListPanel extends javax.swing.JPanel {
             .addGroup(d_qnadetailLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(d_qnadetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                     .addGroup(d_qnadetailLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addGap(45, 45, 45)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
-                        .addGap(54, 54, 54)
+                        .addGap(49, 49, 49)
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
-                        .addGap(0, 44, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, d_qnadetailLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(b_detaildel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b_detailok, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addContainerGap())
         );
         d_qnadetailLayout.setVerticalGroup(
             d_qnadetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(d_qnadetailLayout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(d_qnadetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
@@ -99,32 +121,49 @@ public class QnAListPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(d_qnadetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(b_detailok)
+                    .addComponent(b_detaildel))
+                .addGap(18, 18, 18))
         );
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(806, 576));
         setPreferredSize(new java.awt.Dimension(806, 576));
 
         tab_qna.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         tab_qna.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                
             },
             new String [] {
-                "제목", "작성자", "작성일", "수정일"
+                "No.", "내용", "작성자", "작성일"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab_qna.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tab_qna);
         if (tab_qna.getColumnModel().getColumnCount() > 0) {
-            tab_qna.getColumnModel().getColumn(1).setMinWidth(4);
-            tab_qna.getColumnModel().getColumn(1).setPreferredWidth(4);
-            tab_qna.getColumnModel().getColumn(2).setMinWidth(10);
-            tab_qna.getColumnModel().getColumn(2).setPreferredWidth(10);
-            tab_qna.getColumnModel().getColumn(3).setMinWidth(10);
-            tab_qna.getColumnModel().getColumn(3).setPreferredWidth(10);
+            tab_qna.getColumnModel().getColumn(0).setMinWidth(30);
+            tab_qna.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tab_qna.getColumnModel().getColumn(0).setMaxWidth(30);
+            tab_qna.getColumnModel().getColumn(2).setMinWidth(110);
+            tab_qna.getColumnModel().getColumn(2).setPreferredWidth(110);
+            tab_qna.getColumnModel().getColumn(2).setMaxWidth(110);
+            tab_qna.getColumnModel().getColumn(3).setMinWidth(180);
+            tab_qna.getColumnModel().getColumn(3).setPreferredWidth(180);
+            tab_qna.getColumnModel().getColumn(3).setMaxWidth(180);
         }
-
+        showtable();
         b_qnaopen.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_qnaopen.setText("조회");
         b_qnaopen.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +190,15 @@ public class QnAListPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(b_qnadel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b_qnaopen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(b_qnadel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b_qnaopen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,27 +208,80 @@ public class QnAListPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b_qnaopen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b_qnadel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(b_qnaopen)
+                    .addComponent(b_qnadel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
-    }// </editor-fold>                        
+    }// </editor-fold>       
+    QnA s = new QnA(); 
+        int nRow =-1;
+    public void showtable(){
+         DefaultTableModel table = (DefaultTableModel)tab_qna.getModel();
+            table.setNumRows(0);
+            String[][] qnatlist = s.getDB();
+            for(int i = 1;i<qnatlist.length;i++){
+                table.insertRow(table.getRowCount(), new Object[]{
+                    qnatlist[i][0],
+                    qnatlist[i][2],
+                    qnatlist[i][1],
+                    qnatlist[i][3]
+                });
+            }
+    }
 /*QnA삭제버튼*/
     private void b_qnadelActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+        nRow=-1;
+        nRow = tab_qna.getSelectedRow();        
+        if(nRow!=-1){
+            s.delete((String) tab_qna.getValueAt(nRow,0));
+            showtable();
+        }
+        else{
+            //"학생을 선택하세요"
+        }
+        d_qnadetail.setVisible(false);
+        showtable();
     }                                        
 /*QnA조회버튼*/
     private void b_qnaopenActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here: 테이블에서 누른 목록의 내용이 다이얼로그에 열리도록
-        d_qnadetail.setTitle("문의사항");//다이얼ㄹ로그 문의사항 번호 ㄱ?
-        d_qnadetail.setLocationRelativeTo(null);//가운데
-        d_qnadetail.setVisible(true);
+        int nRow =-1;
+        nRow = tab_qna.getSelectedRow();        
+        if(nRow!=-1){
+            // tab_slist.getValueAt(nRow,0)
+            //tf_sid.setText(tab_qna.getValueAt(nRow,0));
+            jTextArea1.setText((String) tab_qna.getValueAt(nRow,1));
+            jLabel3.setText((String) tab_qna.getValueAt(nRow,2));
+            jLabel5.setText((String) tab_qna.getValueAt(nRow,3));
+            jLabel7.setText(s.view((String) tab_qna.getValueAt(nRow,0)));
+            //f_editframe.setTitle("수정");
+            d_qnadetail.setLocationRelativeTo(null);//가운데
+            d_qnadetail.setVisible(true);
+        }
+        else{
+            //"학생을 선택하세요"
+        }
     }                                         
-///문의사항 수정가능하면 수저일, 아니면 좌석 이용일로 바꾸면 좋을듯.
+/*디테일창 확인버튼*/
+    private void b_detailokActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+        d_qnadetail.setVisible(false);
+    }                                          
+/*디테일창 삭제버튼*/
+    private void b_detaildelActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here: 
+         s.delete((String) tab_qna.getValueAt(nRow,0));
+        d_qnadetail.setVisible(false);
+        showtable();
+    }                                           
+
 
     // Variables declaration - do not modify                     
+    private javax.swing.JButton b_detaildel;
+    private javax.swing.JButton b_detailok;
     private javax.swing.JButton b_qnadel;
     private javax.swing.JButton b_qnaopen;
     private javax.swing.JDialog d_qnadetail;
@@ -198,7 +292,6 @@ public class QnAListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

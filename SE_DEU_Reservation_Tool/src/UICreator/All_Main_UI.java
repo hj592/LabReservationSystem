@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import pkg_Frame.MainUI_Frame;
 
@@ -12,6 +13,7 @@ abstract class All_Main_UI implements MainUI_Interface{
 	public Screen_Panel s;
 	public Content_Panel c;
 	MainUI_Frame frame;
+        //JLabel IdLabel;
         String id;
 	int locx,locy,sizex,sizey;
 	All_Main_UI(MainUI_Frame frame,String id){
@@ -67,6 +69,8 @@ class Studnet_UI extends All_Main_UI{
                 Logger.getLogger(Studnet_UI.class.getName()).log(Level.SEVERE, null, ex);
             }
 		s = new Student_Screen_Panel(super.id);
+                s.SetLabel(frame.ta);
+                //s.SetLabel(frame.ta);
 	}
 }
 
