@@ -15,19 +15,21 @@ import javax.swing.table.DefaultTableModel;
 import src.Assistant.TimeTable;
 
 
-
 /**
  *
  * @author admin
  */
 public class SeminarPanel extends javax.swing.JPanel {
     TimeTable a = new TimeTable();
+
     public SeminarPanel(int sizeX, int sizeY) {    
         
     this.setLayout(null);
     this.setBounds(0,0,sizeX,sizeY);
+
+       this.setBounds(0,0,sizeX,sizeY);
     
-         jLabel7 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -106,6 +108,7 @@ public class SeminarPanel extends javax.swing.JPanel {
         cb_end.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1교시 (09:00 - 09:50)", "2교시 (10:00 - 10:50)", "3교시 (11:00 - 11:50)", "4교시 (12:00 - 12:50)", "5교시 (13:00 - 13:50)", "6교시 (14:00 - 14:50)", "7교시 (15:00 - 15:50)", "8교시 (16:00 - 16:50)", "9교시 (17:00 - 17:50)" }));
 
         jLabel8.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
+
         jLabel8.setText("특강 / 세미나 정보");
 
         jLabel9.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
@@ -466,8 +469,9 @@ public void showtable(String lab){
                 DB_CONNECTER.Update_Qurey("INSERT INTO Week_calender (id,prof_id,lab_id,class_name,"+day+") VALUES ("+id+",'"+tf_profid.getText()+"',"+cb_labnum.getSelectedItem()+",'"+tf_title.getText()+"','"+time+"')");
                 showtable((String) cb_labnum.getSelectedItem());
             } catch (SQLException ex) {
-                Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SeminarPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SeminarPanel.class.getName()).log(Level.SEVERE, null, ex);
                 Logger.getLogger(MakeTimetablePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -486,7 +490,10 @@ public void showtable(String lab){
          nRow = tab_915.getSelectedRow();
          nCol = tab_915.getSelectedColumn();
          System.out.println(nRow+":"+nCol);
-    }                                        
+
+   }            
+    
+                                  
     private javax.swing.JButton b_createsub;
     private javax.swing.JButton b_delsub;
     private javax.swing.JButton b_editsub;
@@ -519,4 +526,5 @@ public void showtable(String lab){
     private javax.swing.JTable tab_918;
     private javax.swing.JTextField tf_profid;
     private javax.swing.JTextField tf_title;
+
 }
