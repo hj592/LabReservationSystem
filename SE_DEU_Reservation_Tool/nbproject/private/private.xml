@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/UserListPanel.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/TimeTable.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/MakeTimetablePanel.java</file>
@@ -46,6 +47,13 @@
             <file>file:/F:/NetBeansWork/SE_DEU_Reservation_Tool/src/pkg_Frame/DAP_Frame.java</file>
             <file>file:/F:/NetBeansWork/SE_DEU_Reservation_Tool/src/Assistant_Panel/MakeTimetablePanel.java</file>
 >>>>>>> 0946956c0cd59a130700baccead80836f827737b
+=======
+            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/Professor_Panel/SeminarPanel.java</file>
+            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/pkg_Frame/MAIN.java</file>
+            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Button_Panel.java</file>
+            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Buttons.java</file>
+            <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/Professor_Panel/SchedulePanel.java</file>
+>>>>>>> 1c23fdc00fbcfb752fa3ce2d0b0d6e916cadb1f5
         </group>
     </open-files>
 </project-private>

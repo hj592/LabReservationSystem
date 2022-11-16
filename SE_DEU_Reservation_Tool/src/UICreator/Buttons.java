@@ -1,5 +1,6 @@
 package UICreator;
 
+import Admin_Panel.*;
 import Assistant_Panel.*;
 import Professor_Panel.*;
 import DB.DB_CONNECTER;
@@ -381,7 +382,7 @@ class Admin_create_id_butt extends Buttons{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
+				create_id_Panel T = new create_id_Panel(sizeX,sizeY);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
