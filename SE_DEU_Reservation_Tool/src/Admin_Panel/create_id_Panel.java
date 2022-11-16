@@ -5,7 +5,6 @@
  */
 package Admin_Panel;
 
-import Assistant_Panel.MakeTimetablePanel;
 import DB.DB_CONNECTER;
 import java.sql.SQLException;
 import java.util.logging.Level;
