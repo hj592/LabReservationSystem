@@ -5,19 +5,25 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+>>>>>>> e9d13cbb70220c8ddd6f6d172f04c347ee970e3a
+<<<<<<< HEAD
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/DB/DB_CONNECTER.java</file>
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/ProfCreatePanel.java</file>
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/MakeToken.java</file>
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/QnAListPanel.java</file>
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Content_Panel.java</file>
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Screen_Panel.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/UserListPanel.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/TimeTable.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/MakeTimetablePanel.java</file>
-            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/DB/DB_CONNECTER.java</file>
-            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/ProfCreatePanel.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/StuList.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/ReserveListPanel.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/MakeTokenPanel.java</file>
-            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/Assistant_Panel/QnAListPanel.java</file>
-            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/MakeToken.java</file>
             <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/ReserveList.java</file>
-            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/DB/Dap.java</file>
+            <file>file:/C:/Users/heejin/Desktop/LabReservationSystem1/LabReservationSystem/SE_DEU_Reservation_Tool/src/src/Assistant/QnA.java</file>
 =======
+<<<<<<< HEAD
             <file>file:/F:/NetBeansWork/SE_DEU_Reservation_Tool/src/pkg_Frame/Login_Frame.java</file>
             <file>file:/F:/NetBeansWork/SE_DEU_Reservation_Tool/src/reservation_Panel/Lecture_Room_Select.java</file>
             <file>file:/F:/NetBeansWork/SE_DEU_Reservation_Tool/src/Assistant_Panel/QnAListPanel.java</file>
@@ -48,6 +54,8 @@
             <file>file:/F:/NetBeansWork/SE_DEU_Reservation_Tool/src/Assistant_Panel/MakeTimetablePanel.java</file>
 >>>>>>> 0946956c0cd59a130700baccead80836f827737b
 =======
+=======
+>>>>>>> e9d13cbb70220c8ddd6f6d172f04c347ee970e3a
             <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/Professor_Panel/SeminarPanel.java</file>
             <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/pkg_Frame/MAIN.java</file>
             <file>file:/C:/Users/admin/Desktop/LabReservationSystem/SE_DEU_Reservation_Tool/src/UICreator/Button_Panel.java</file>
