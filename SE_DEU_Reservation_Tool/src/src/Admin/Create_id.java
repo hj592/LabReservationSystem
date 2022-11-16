@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Admin_Panel;
+package src.Admin;
 
 /**
  *
  * @author admin
  */
-public class create_id {
+public class Create_id {
     
 }
