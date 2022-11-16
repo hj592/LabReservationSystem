@@ -396,29 +396,12 @@ class Admin_create_id_butt extends Buttons{
 
 class Admin_delete_id_butt extends Buttons{
     Admin_delete_id_butt(){
-                this.setText("조교 ID 삭제");
+                this.setText("조교 정보 [ 수정 / 삭제 ]");
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
-				adder(T);
-				//C.add(T);
-				//C.revalidate();     // 컨테이너 c의 재배치
-				//C.repaint();
-			}
-		});
-    }
-}
-
-class Admin_update_id_butt extends Buttons{
-    Admin_update_id_butt(){
-                this.setText("조교 정보 수정");
-		this.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				remover();
-				SchedulePanel T = new SchedulePanel(sizeX,sizeY);
+				update_id_Panel T = new update_id_Panel(sizeX,sizeY);
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치

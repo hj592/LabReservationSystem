@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Assistant_Panel;
+package Admin_Panel;
 
+import Assistant_Panel.ProfCreatePanel;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import src.Assistant.StuList;
+import src.Admin.*;
 
 /**
  *
- * @author heejin
+ * @author admin
  */
-public class UserListPanel extends javax.swing.JPanel {
-
-    public UserListPanel(int sizeX, int sizeY) {
+public class update_id_Panel extends javax.swing.JPanel   {
+    
+     public update_id_Panel(int sizeX, int sizeY){
         this.setLayout(null);
         this.setBounds(0,0,sizeX,sizeY);
-        try {
+ try {
              MaskFormatter fomat = new MaskFormatter("###-####-####");
             ftf_sphone = new javax.swing.JFormattedTextField(fomat);
             MaskFormatter fomat1 = new MaskFormatter("#");
@@ -51,47 +52,29 @@ public class UserListPanel extends javax.swing.JPanel {
         f_editframe.setPreferredSize(new java.awt.Dimension(420, 360));
 
         jLabel2.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        jLabel2.setText("아이디");
-
-        tf_sid.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_sid.setEnabled(false);
-        tf_sid.setText("");
+        jLabel2.setText("ID");
 
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        jLabel3.setText("이름");
-
-        tf_sname.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_sname.setText("");
+        jLabel3.setText("PW");
 
         jLabel4.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel4.setText("전화번호");
 
-        tf_status.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_status.setEnabled(false);
-        tf_status.setText("");
-
         jLabel5.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        jLabel5.setText("재학상태");
-
-        tf_reportnum.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_reportnum.setText("");
+        jLabel5.setText("      이름");
 
         jLabel6.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        jLabel6.setText("신고누적횟수");
+        jLabel6.setText("권한");
 
         b_back.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_back.setText("취소");
-        b_back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_backActionPerformed(evt);
-            }
-        });
+
 
         b_editcomplete.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_editcomplete.setText("수정");
-        b_editcomplete.addActionListener(new java.awt.event.ActionListener() {
+        b_editstu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_editcompleteActionPerformed(evt);
+                b_editstuActionPerformed(evt);
             }
         });
 
@@ -166,7 +149,7 @@ public class UserListPanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(806, 576));
 
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 24)); // NOI18N
-        jLabel1.setText("학생명단");
+        jLabel1.setText("조교 명단");
 
         tab_slist.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         tab_slist.setModel(new javax.swing.table.DefaultTableModel(
@@ -174,7 +157,7 @@ public class UserListPanel extends javax.swing.JPanel {
                 
             },
             new String [] {
-                "아이디", "이름", "전화번호", "상태", "경고횟수"
+                "아이디", "비밀번호", "권한", "이름", "전화번호"
             }
         ));
         showtable();
@@ -189,13 +172,10 @@ public class UserListPanel extends javax.swing.JPanel {
             }
         });
 
+
         b_editstu.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_editstu.setText("수정");
-        b_editstu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_editstuActionPerformed(evt);
-            }
-        });
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -226,23 +206,37 @@ public class UserListPanel extends javax.swing.JPanel {
                     .addComponent(b_editstu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-    }// </editor-fold>     
-    StuList s = new StuList();
+     }
+     
+    Update_id d = new Update_id();
     public void showtable(){
          DefaultTableModel table = (DefaultTableModel)tab_slist.getModel();
             table.setNumRows(0);
-            String[][] studentlist = s.getDB();
-            for(int i = 1;i<studentlist.length;i++){
+            String[][] assistant_list = d.getDB();
+            for(int i = 1; i<assistant_list.length; i++){
                 table.insertRow(table.getRowCount(), new Object[]{
-                    studentlist[i][0],
-                    studentlist[i][1],
-                    studentlist[i][2],
-                    studentlist[i][3],
-                    studentlist[i][4]
+                    assistant_list[i][0],
+                    assistant_list[i][1],
+                    assistant_list[i][2],
+                    assistant_list[i][3],
+                    assistant_list[i][4],
                 });
             }
     }
-/*수정창닫기*/
+    
+    private void b_delstuActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        int nRow =-1;
+        nRow = tab_slist.getSelectedRow();        
+        if(nRow!=-1){
+            d.delete((String) tab_slist.getValueAt(nRow,0));
+            showtable();
+        }
+        else{
+            //"학생을 선택하세요"
+        }
+    }     
+    
+    /*수정창닫기*/
     private void b_backActionPerformed(java.awt.event.ActionEvent evt) {   
         f_editframe.setVisible(false);
     }                                      
@@ -253,10 +247,10 @@ public class UserListPanel extends javax.swing.JPanel {
             if(tf_status.getText().equals("관리자"))
                 a="4";
             else a="1";
-            s.update(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText(),a);
+            d.update(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText(),a);
         }
         else
-            s.change(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText());
+            d.change(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText());
         f_editframe.setVisible(false);
         showtable();
     }                                              
@@ -279,23 +273,10 @@ public class UserListPanel extends javax.swing.JPanel {
             //"학생을 선택하세요"
         }
         
-        
-    }                                         
-/*계정삭제*/
-    private void b_delstuActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        int nRow =-1;
-        nRow = tab_slist.getSelectedRow();        
-        if(nRow!=-1){
-            s.delete((String) tab_slist.getValueAt(nRow,0));
-            showtable();
-        }
-        else{
-            //"학생을 선택하세요"
-        }
-    }                                  
-
-
-    // Variables declaration - do not modify                     
+    }
+    
+    
+    
     private javax.swing.JButton b_back;
     private javax.swing.JButton b_delstu;
     private javax.swing.JButton b_editcomplete;
@@ -314,5 +295,4 @@ public class UserListPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tf_sid;
     private javax.swing.JTextField tf_sname;
     private javax.swing.JTextField tf_status;
-    // End of variables declaration                   
 }

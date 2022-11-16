@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 public class TimeTable {
 
-    
+    String[][] subinfo;    
     String[][] data;
     public int getTime(int start, int end){
         return (start+1)*10+(end+1);
@@ -111,6 +111,23 @@ public class TimeTable {
         }
         return 0;
    } 
-    
-    //INSERT INTO Week_calender (id,prof_id,lab_id,class_name,mon_class) VALUES (112,'10000',911,'객체','12')
+    public String[][] getSub(String labday, String title){
+        try {
+            subinfo = DB_CONNECTER.Exe_Qurey("SELECT id,prof_id from Week_calender WHERE id LIKE '"+labday+"%' && class_name = '"+title+"'");
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TimeTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subinfo;
+    }
+    public void delSub(String id){
+        try {
+            DB_CONNECTER.Update_Qurey("DELETE FROM Week_calender WHERE id = "+id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
 }
