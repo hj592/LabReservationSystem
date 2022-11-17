@@ -211,7 +211,7 @@ class A_LabViewButt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,null);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,S.getLabel());
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
@@ -329,7 +329,7 @@ class Prof_LabView_butt extends Buttons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remover();
-				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,null);
+				Reservation_Panel T = new Reservation_Panel(S.getID(),sizeX,sizeY,true,S.getLabel());
 				adder(T);
 				//C.add(T);
 				//C.revalidate();     // 컨테이너 c의 재배치
