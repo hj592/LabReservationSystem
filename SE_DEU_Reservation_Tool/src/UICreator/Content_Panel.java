@@ -1280,15 +1280,6 @@ class Reservation_Panel extends JPanel {
               }
               System.out.println("");
          }
-   IdLabel.setForeground(Color.white);
-
-        if (Lect_M.length > 1) {
-            for (int i = 1; i < Lect_M.length; i++) {
-                    if (Lect_M[i][3].equals(id)) {
-                        IdLabel.setForeground(Color.yellow);
-                    }
-            }
-        }
  
         int nextLec = (arr.length-1) / 20;
         //SelectLect.setMaximumRowCount(nextLec);
@@ -1320,7 +1311,7 @@ class Reservation_Panel extends JPanel {
                     } else {
                         if (Lect_M.length > 1) {
                             for (int l = 1; l < Lect_M.length; l++) {
-                                if (Lect_M[l][3].equals(id)) 
+                                if (Lect_M[l][2].equals(T.buttons.get(j).getText()))
                                     T.buttons.get(j).setBackground(Color.yellow);
                             }
                           //  if (Lect_M[1][2].equals(T.buttons.get(j).getText()))
@@ -1340,8 +1331,15 @@ class Reservation_Panel extends JPanel {
                         //T.buttons.get(j).setContentAreaFilled(false);
 //                        System.out.println(T.buttons.get(j).getComponent(j).getClass().toString());
                     }
-                    else;
-                       // IdLabel.setForeground(Color.white);
+                    else
+                        IdLabel.setForeground(Color.white);
+                }
+            }
+        }
+        if (Lect_M.length > 1) {
+            for (int i = 1; i < Lect_M.length; i++) {
+                if (Lect_M[i][3].equals(id)) {
+                    IdLabel.setForeground(Color.yellow);
                 }
             }
         }
