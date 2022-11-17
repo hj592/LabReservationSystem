@@ -1006,6 +1006,7 @@ class Reservation_Panel extends JPanel {
 
             StartTime.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    System.out.println("first_Time: "+first_Time);
                     if (first_Time) 
                         return;
                     SettingTime(StartTime);
@@ -1014,6 +1015,7 @@ class Reservation_Panel extends JPanel {
             });
         EndTime.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
+            System.out.println("first_Time: "+first_Time);
                     if (first_Time) 
                         return;
                     SettingTime(EndTime);
@@ -1225,7 +1227,7 @@ class Reservation_Panel extends JPanel {
             }
        // SettingTime(StartTime);
         this.add(T);                    // NewLect();
-        SettingTime(StartTime);
+                SettingTime(StartTime);
         NewLect();
        // this.setBackground(new Color(125, 125, 125));
         this.setSize(sizeX,sizeY);
@@ -1257,6 +1259,7 @@ class Reservation_Panel extends JPanel {
                     JOptionPane.showMessageDialog(null, "현재시각보다 느립니다.");
                     return;
                 }
+                 first_Time = false;
             } catch (SQLException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -1333,7 +1336,7 @@ class Reservation_Panel extends JPanel {
                         //defaults.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
                         //T.buttons.get(j).setBorderPainted(false);
                        //  T.buttons.get(j).
-                        T.buttons.get(j).setText("<HTML><body style='text-align:left;'>"+arr[i][2]+"<br>"+arr[i][3]+"<br>"+arr[i][5].substring(0,5)+"~"+arr[i][6].substring(0,5)+"</body></HTML>");
+                        T.buttons.get(j).setText("<HTML><body style='text-align:left;'>"+arr[i][2]+"<br>"+arr[i][3]+"<br>"+arr[i][5].substring(0,2)+"~"+arr[i][6].substring(0,2)+"</body></HTML>");
                         //T.buttons.get(j).setFont(new Font( T.buttons.get(j).getFont().getName(), T.buttons.get(j).getFont().getStyle(), 10));
                        // T.buttons.get(j).setHorizontalAlignment(SwingConstants.LEFT);
                         //T.buttons.get(j).setContentAreaFilled(false);
