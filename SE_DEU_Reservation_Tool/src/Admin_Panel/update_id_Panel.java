@@ -65,6 +65,11 @@ public class update_id_Panel extends javax.swing.JPanel   {
 
         jLabel6.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel6.setText("권한");
+        
+        tf_reportnum.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        tf_reportnum.setEnabled(false);
+        tf_reportnum.setText("");
+        
 
         b_back.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_back.setText("취소");
@@ -242,16 +247,7 @@ public class update_id_Panel extends javax.swing.JPanel   {
     }                                      
 /*진짜 수정*/
     private void b_editcompleteActionPerformed(java.awt.event.ActionEvent evt) {    
-        if(Integer.parseInt(tf_reportnum.getText())<3){
-            String a;
-            if(tf_status.getText().equals("관리자"))
-                a="4";
-            else a="1";
-            d.update(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText(),a);
-        }
-        else
-            d.change(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText());
-        f_editframe.setVisible(false);
+
         showtable();
     }                                              
 /*수정창 열기*/
