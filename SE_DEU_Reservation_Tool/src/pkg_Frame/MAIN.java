@@ -7,6 +7,6 @@ public class MAIN {
 		// TODO Auto-generated method stub
 		 new Login_Frame().setVisible(true); 
                 // MakeToken ttoken = new MakeToken(); 
-                 
+                
 	}
     }

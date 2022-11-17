@@ -1006,6 +1006,7 @@ class Reservation_Panel extends JPanel {
 
             StartTime.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    System.out.println("first_Time: "+first_Time);
                     if (first_Time) 
                         return;
                     SettingTime(StartTime);
@@ -1014,6 +1015,7 @@ class Reservation_Panel extends JPanel {
             });
         EndTime.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
+            System.out.println("first_Time: "+first_Time);
                     if (first_Time) 
                         return;
                     SettingTime(EndTime);
@@ -1103,9 +1105,9 @@ class Reservation_Panel extends JPanel {
             }
             if(T.buttons2.size()>1){
                    JOptionPane b=new JOptionPane();
-                    pass =b.showInputDialog("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 \n본인의 자리를 제외한 자리의 예약은 취소 됩니다.\n팀원들이 입력할 비밀번호를 설정해주세요.");
-                    //System.out.println("b :"+);
-                    if(pass == null){
+                    pass =b.showInputDialog("다중 좌석을 선택하셨습니다.\n예약은 10분간 유지되며 경과 시 \n본인의 자리를 제외한 자리의 예약은 취소 됩니다.\n팀원들이 입력할 비밀번호를 설정해주세요.\n(비밀번호 미입력시 자동취소됩니다.)");
+                  //  System.out.println("b: "+pass.equals(""));
+                    if(pass == null || pass.equals("")){
                         JOptionPane b2=new JOptionPane("예약이 취소 되었습니다.");
                         NewLect();
                         SettingTime(StartTime);
@@ -1225,7 +1227,7 @@ class Reservation_Panel extends JPanel {
             }
        // SettingTime(StartTime);
         this.add(T);                    // NewLect();
-        SettingTime(StartTime);
+                SettingTime(StartTime);
         NewLect();
        // this.setBackground(new Color(125, 125, 125));
         this.setSize(sizeX,sizeY);
@@ -1242,7 +1244,7 @@ class Reservation_Panel extends JPanel {
                 String Date[][] = DB_CONNECTER.Exe_Qurey("select curTime();");
                 int nowTime = Integer.valueOf(Date[1][0].split(":")[0]);
                 int SelectTime = Integer.valueOf(C.getSelectedItem().toString().split(":")[0]);
-                if(nowTime <= 17){
+                if(nowTime < 17){
                     for(int i=SelectLect.getItemCount(); i<LectNum.length; i++)
                         SelectLect.addItem(LectNum[i]);
                 }
@@ -1257,6 +1259,7 @@ class Reservation_Panel extends JPanel {
                     JOptionPane.showMessageDialog(null, "현재시각보다 느립니다.");
                     return;
                 }
+                 first_Time = false;
             } catch (SQLException ex) {
                 Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -1280,17 +1283,15 @@ class Reservation_Panel extends JPanel {
               }
               System.out.println("");
          }
-   IdLabel.setForeground(Color.white);
-
-        if (Lect_M.length > 1) {
+         if(!Manager)
+             IdLabel.setForeground(Color.white);
+         if (Lect_M.length > 1) {
             for (int i = 1; i < Lect_M.length; i++) {
-                    if (Lect_M[i][3].equals(id)) {
-                        IdLabel.setForeground(Color.yellow);
-                        break;
-                    }
+                if (Lect_M[i][3].equals(id)) {
+                    IdLabel.setForeground(Color.yellow);
+                }
             }
         }
- 
         int nextLec = (arr.length-1) / 20;
         //SelectLect.setMaximumRowCount(nextLec);
         
@@ -1319,10 +1320,15 @@ class Reservation_Panel extends JPanel {
                         T.buttons.get(j).setForeground(Color.white);
                         T.buttons.get(j).addActionListener(new MyListener(arr[i][0],arr[i][2]));
                     } else {
-                       if(Lect_M.length > 1){
-                            if (Lect_M[1][2].equals(T.buttons.get(j).getText()))
-                                T.buttons.get(j).setBackground(Color.yellow);
+                        if (Lect_M.length > 1) {
+                            for (int l = 1; l < Lect_M.length; l++) {
+                                if (Lect_M[l][2].equals(T.buttons.get(j).getText()))
+                                    T.buttons.get(j).setBackground(Color.yellow);
+                            }
+                          //  if (Lect_M[1][2].equals(T.buttons.get(j).getText()))
+                             //   T.buttons.get(j).setBackground(Color.yellow);
                        }
+                       //T.buttons.get(j).setBackground(Color.yellow);
                         T.buttons.get(j).setEnabled(false);
                     }
                     if(Manager){
@@ -1330,7 +1336,7 @@ class Reservation_Panel extends JPanel {
                         //defaults.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
                         //T.buttons.get(j).setBorderPainted(false);
                        //  T.buttons.get(j).
-                        T.buttons.get(j).setText("<HTML><body style='text-align:left;'>"+arr[i][2]+"<br>"+arr[i][3]+"<br>"+arr[i][5].substring(0,5)+"~"+arr[i][6].substring(0,5)+"</body></HTML>");
+                        T.buttons.get(j).setText("<HTML><body style='text-align:left;'>"+arr[i][2]+"<br>"+arr[i][3]+"<br>"+arr[i][5].substring(0,2)+"~"+arr[i][6].substring(0,2)+"</body></HTML>");
                         //T.buttons.get(j).setFont(new Font( T.buttons.get(j).getFont().getName(), T.buttons.get(j).getFont().getStyle(), 10));
                        // T.buttons.get(j).setHorizontalAlignment(SwingConstants.LEFT);
                         //T.buttons.get(j).setContentAreaFilled(false);

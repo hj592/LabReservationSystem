@@ -459,6 +459,29 @@ public void showtable(String lab){
                 });
             }
     }
+
+public void setT(String title, int nCol, int nRow, int lab){
+   if(title!=null){
+                int idx = title.indexOf("(");
+                sub = a.getSub(Integer.toString(lab*10+nCol),title.substring(0,idx)); //10여기는 실습실번호
+                System.out.println(sub[1][0]);
+                int s= Integer.parseInt(sub[1][0])%100/10;
+                int e = Integer.parseInt(sub[1][0])%10;
+                System.out.println(s+" "+e);
+                cb_day.setSelectedIndex(nCol-1);
+                cb_end.setSelectedIndex(e-1);
+                cb_start.setSelectedIndex(s-1);
+                tf_profid.setText(sub[1][1]);
+                tf_title.setText(title.substring(0,idx));                
+            }
+            else{
+            System.out.println(nCol+" : "+nRow);
+            cb_day.setSelectedIndex(nCol-1);
+            cb_end.setSelectedIndex(nRow);
+            cb_start.setSelectedIndex(nRow);
+            }
+    }
+
 String[][] sub;
     private void tab_911MouseClicked(java.awt.event.MouseEvent evt) {                                       
         // 911클릭시
@@ -467,6 +490,14 @@ String[][] sub;
         nRow = tab_911.getSelectedRow();     
         nCol = tab_911.getSelectedColumn();
         if(nRow!=-1){
+
+            String title = (String)tab_911.getValueAt(nRow, nCol);
+            setT(title, nCol, nRow, 1);
+            cb_labnum.setSelectedIndex(0);
+            /*if(title!=null){
+                int idx = title.indexOf("(");
+                sub = a.getSub(Integer.toString(10+nCol),title.substring(0,idx)); //10여기는 실습실번호
+=======
             String title = (String)tab_911.getValueAt( nRow,nCol);
             //System.out.println(title);
             if(title!=null){
@@ -474,13 +505,18 @@ String[][] sub;
                 //String labday = Integer.toString(10+nCol);
                 //System.out.println(labday);
                 sub = a.getSub(Integer.toString(10+nCol),title.substring(0,idx));
+>>>>>>> Y
                 System.out.println(sub[1][0]);
                 int s= Integer.parseInt(sub[1][0])%100/10;
                 int e = Integer.parseInt(sub[1][0])%10;
                 System.out.println(s+" "+e);
                 cb_day.setSelectedIndex(nCol-1);
                 cb_end.setSelectedIndex(e-1);
+<<<<<<< HEAD
+                cb_labnum.setSelectedIndex(0);//실습실번호
+=======
                 cb_labnum.setSelectedIndex(0);
+>>>>>>> Y
                 cb_start.setSelectedIndex(s-1);
                 tf_profid.setText(sub[1][1]);
                 tf_title.setText(title.substring(0,idx));
@@ -492,35 +528,38 @@ String[][] sub;
             cb_end.setSelectedIndex(nRow);
             cb_labnum.setSelectedIndex(0);
             cb_start.setSelectedIndex(nRow);
-            }
+<<<<<<< HEAD
+            }*/
+
         }
     }
-    private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {                                       
+
+    private void tab_915MouseClicked(java.awt.event.MouseEvent evt) {
         // 915클릭시
         int nCol = -1;
-        int nRow =-1;
-        nRow = tab_915.getSelectedRow();     
+        int nRow = -1;
+        nRow = tab_915.getSelectedRow();
         nCol = tab_915.getSelectedColumn();
-        if(nRow!=-1&&nCol != -1){
-            System.out.println(nCol+" : "+nRow);
-            cb_day.setSelectedIndex(nCol-1);
-            cb_end.setSelectedIndex(nRow);
-            cb_labnum.setSelectedIndex(1);
-            cb_start.setSelectedIndex(nRow);
+
+        if (nRow != -1) {
+            String title = (String) tab_915.getValueAt(nRow, nCol);
+            setT(title, nCol, nRow, 5);
+            cb_labnum.setSelectedIndex(1);//실습실번호
+
         }
-    }       
-    private void tab_916MouseClicked(java.awt.event.MouseEvent evt) {                                       
+    }
+
+    private void tab_916MouseClicked(java.awt.event.MouseEvent evt) {
         // 915클릭시
         int nCol = -1;
-        int nRow =-1;
-        nRow = tab_916.getSelectedRow();     
+        int nRow = -1;
+        nRow = tab_916.getSelectedRow();
         nCol = tab_916.getSelectedColumn();
-        if(nRow!=-1&&nCol != -1){
-            System.out.println(nCol+" : "+nRow);
-            cb_day.setSelectedIndex(nCol-1);
-            cb_end.setSelectedIndex(nRow);
-            cb_labnum.setSelectedIndex(1);
-            cb_start.setSelectedIndex(nRow);
+
+        if (nRow != -1) {
+            String title = (String) tab_916.getValueAt(nRow, nCol);
+            setT(title, nCol, nRow, 6);
+            cb_labnum.setSelectedIndex(2);//실습실번호
         }
     }
     private void tab_918MouseClicked(java.awt.event.MouseEvent evt) {                                       
@@ -529,12 +568,10 @@ String[][] sub;
         int nRow =-1;
         nRow = tab_918.getSelectedRow();     
         nCol = tab_918.getSelectedColumn();
-        if(nRow!=-1&&nCol != -1){
-            System.out.println(nCol+" : "+nRow);
-            cb_day.setSelectedIndex(nCol-1);
-            cb_end.setSelectedIndex(nRow);
-            cb_labnum.setSelectedIndex(1);
-            cb_start.setSelectedIndex(nRow);
+        if(nRow!=-1){
+            String title = (String)tab_918.getValueAt(nRow, nCol);
+            setT(title, nCol, nRow, 8);
+            cb_labnum.setSelectedIndex(3);//실습실번호
         }
     }
 
@@ -543,6 +580,7 @@ String[][] sub;
         if(cb_start.getSelectedIndex() > cb_end.getSelectedIndex()){
             JOptionPane.showMessageDialog(this, "교시 선택이 올바르지 않습니다. 다시 선택해 주세요.");
         }
+
         else if(tf_title.getText().length()== 0){
             JOptionPane.showMessageDialog(this, "교과목명을 입력해주세요");
         }

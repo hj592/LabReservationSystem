@@ -95,6 +95,5 @@ class Admin_Button_Panel extends Button_Panel{
         //buttons.add(new A2_Button());
         buttons.add(new Admin_create_id_butt());
         buttons.add(new Admin_delete_id_butt());
-        buttons.add(new Admin_update_id_butt());
     }
 }
