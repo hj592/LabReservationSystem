@@ -25,7 +25,7 @@ public class update_id_Panel extends javax.swing.JPanel   {
  try {
              MaskFormatter fomat = new MaskFormatter("###-####-####");
             ftf_sphone = new javax.swing.JFormattedTextField(fomat);
-            MaskFormatter fomat1 = new MaskFormatter("#");
+            MaskFormatter fomat1 = new MaskFormatter("2");
             tf_reportnum = new javax.swing.JFormattedTextField(fomat1);
          } catch (ParseException ex) {
              Logger.getLogger(ProfCreatePanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,6 +53,10 @@ public class update_id_Panel extends javax.swing.JPanel   {
 
         jLabel2.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel2.setText("ID");
+        
+        tf_sid.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        tf_sid.setEnabled(false);
+        tf_sid.setText("");
 
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel3.setText("PW");
@@ -69,17 +73,21 @@ public class update_id_Panel extends javax.swing.JPanel   {
         tf_reportnum.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
         tf_reportnum.setEnabled(false);
         tf_reportnum.setText("");
-        
 
         b_back.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_back.setText("취소");
+        b_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_backActionPerformed(evt);
+            }
+        });
 
 
         b_editcomplete.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_editcomplete.setText("수정");
-        b_editstu.addActionListener(new java.awt.event.ActionListener() {
+        b_editcomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_editstuActionPerformed(evt);
+                b_editcompleteActionPerformed(evt);
             }
         });
 
@@ -180,7 +188,11 @@ public class update_id_Panel extends javax.swing.JPanel   {
 
         b_editstu.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         b_editstu.setText("수정");
-
+        b_editstu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_editstuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -246,8 +258,12 @@ public class update_id_Panel extends javax.swing.JPanel   {
         f_editframe.setVisible(false);
     }                                      
 /*진짜 수정*/
-    private void b_editcompleteActionPerformed(java.awt.event.ActionEvent evt) {    
+    private void b_editcompleteActionPerformed(java.awt.event.ActionEvent evt) {   
 
+        d.update(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_status.getText(), tf_reportnum.getText());
+        //s.update(tf_sid.getText(), tf_sname.getText(), ftf_sphone.getText(), tf_reportnum.getText(),a);
+        
+        f_editframe.setVisible(false);
         showtable();
     }                                              
 /*수정창 열기*/
@@ -258,9 +274,9 @@ public class update_id_Panel extends javax.swing.JPanel   {
             // tab_slist.getValueAt(nRow,0)
             tf_sid.setText((String) tab_slist.getValueAt(nRow,0));
             tf_sname.setText((String)tab_slist.getValueAt(nRow,1));
-            ftf_sphone.setText((String)tab_slist.getValueAt(nRow,2));
+            ftf_sphone.setText((String)tab_slist.getValueAt(nRow,4));
             tf_status.setText((String)tab_slist.getValueAt(nRow,3));
-            tf_reportnum.setText((String)tab_slist.getValueAt(nRow,4));
+            tf_reportnum.setText((String)tab_slist.getValueAt(nRow,2));
             f_editframe.setTitle("수정");
             f_editframe.setLocationRelativeTo(null);//가운데
             f_editframe.setVisible(true);
