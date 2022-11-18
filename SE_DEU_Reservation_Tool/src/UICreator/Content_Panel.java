@@ -1130,32 +1130,35 @@ class Reservation_Panel extends JPanel {
                 else
                     insert = insert + "'" +Values[j] +"',";
             }
-            insert = insert.substring(0, insert.length() - 1)+")";
-            All_Values = All_Values + insert;
-           // T.buttons2.remove();
-        }
-         All_Values = All_Values+ ";";
-          int count = 0;
-                   try {
-                  String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '"+SelectLect.getSelectedItem().toString()+"'and end_time > '17:00:00';");
-                  count = Integer.valueOf(arr[1][0]);
+                insert = insert.substring(0, insert.length() - 1) + ")";
+                All_Values = All_Values + insert;
+                // T.buttons2.remove();
+            }
+            All_Values = All_Values + ";";
+            int count = 0;
+            try {
+                String arr[][] = DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '" + SelectLect.getSelectedItem().toString() + "'and end_time > '17:00:00';");
+                count = Integer.valueOf(arr[1][0]);
                 // 예약등록시작시간이 17시 이후일때 탐색
-                   if (count < 20) {
+                if (Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0]) > 17) {
+                    if (count < 20) {
 
-                    if (SelectLect.getSelectedItem().toString().equals("916")) {
-                        count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '915' and end_time > '17:00:00';")[1][0]);
-                    } else if (SelectLect.getSelectedItem().toString().equals("918")) {
-                        count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '916' and end_time > '17:00:00';")[1][0]);
-                    } else if (SelectLect.getSelectedItem().toString().equals("911")) {
-                        count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '918' and end_time > '17:00:00';")[1][0]);
-                    }
+                        if (SelectLect.getSelectedItem().toString().equals("916")) {
+                            count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '915' and end_time > '17:00:00';")[1][0]);
+                        } else if (SelectLect.getSelectedItem().toString().equals("918")) {
+                            count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '916' and end_time > '17:00:00';")[1][0]);
+                        } else if (SelectLect.getSelectedItem().toString().equals("911")) {
+                            count = Integer.valueOf(DB_CONNECTER.Exe_Qurey("SELECT COUNT(*) FROM Lab_Seat where lab_id = '918' and end_time > '17:00:00';")[1][0]);
+                        }
 
-                    if (count < 20 && !(SelectLect.getSelectedItem().toString().equals("915"))){
-                        JOptionPane.showMessageDialog(null, "이전 강의실의 인원수가 20명을 넘지 않습니다.2");
-                        NewLect();
-                        return;
+                        if (count < 20 && !(SelectLect.getSelectedItem().toString().equals("915"))) {
+                            JOptionPane.showMessageDialog(null, "이전 강의실의 인원수가 20명을 넘지 않습니다.2");
+                            NewLect();
+                            return;
+                        }
                     }
                 }
+
                     DB_CONNECTER.Update_Qurey(All_Values);
                 } catch (SQLException ex) {
 
