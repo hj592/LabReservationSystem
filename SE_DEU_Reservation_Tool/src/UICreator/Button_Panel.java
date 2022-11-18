@@ -72,6 +72,7 @@ class Assistant_Button_Panel extends Button_Panel{
         buttons.add(new A_LabViewButt());
         buttons.add(new A_ReservationButt());
                 buttons.add(new A_UserControlButt());
+                buttons.add(new A_ProfControlButt());
                 buttons.add(new A_QnAButt());
                 buttons.add(new A_TokenButt());
                 buttons.add(new A_TimeTableButt());
