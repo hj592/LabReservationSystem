@@ -19,6 +19,7 @@ public class ReserveList {
     String[][] data;
     public String[][] getDB(){
         try {
+          //  data=DB_CONNECTER.Exe_Qurey("SELECT stu_id,lab_id,seat_num,start_date,start_time,end_time,seat_status,status FROM (SELECT * FROM Lab_Seat ORDER BY end_time DESC, start_date ASC LIMIT 200) as A JOIN Student USING (stu_id)");
             data=DB_CONNECTER.Exe_Qurey("SELECT stu_id,lab_id,seat_num,start_date,start_time,end_time,seat_status,status FROM Lab_Seat JOIN Student USING (stu_id) WHERE date(start_date) >= CURDATE()");
             for(int i = 1; i<data.length;i++){
                 if(data[i][6].equals("1"))
