@@ -33,22 +33,22 @@ public class create_id_Panel extends javax.swing.JPanel  {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
 
-        jLabel1.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel1.setText("조교 계정 생성");
 
-        jLabel2.setFont(new java.awt.Font("굴림", 1, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("맑은 고딕", 1, 16)); // NOI18N
         jLabel2.setText("ID");
 
-        jLabel3.setFont(new java.awt.Font("굴림", 1, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 16)); // NOI18N
         jLabel3.setText("PW");
 
-        jLabel4.setFont(new java.awt.Font("굴림", 1, 16)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("맑은 고딕", 1, 16)); // NOI18N
         jLabel4.setText("이름");
 
-        jLabel5.setFont(new java.awt.Font("굴림", 1, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("맑은 고딕", 1, 16)); // NOI18N
         jLabel5.setText("전화번호");
 
-        jButton1.setFont(new java.awt.Font("굴림", 1, 16)); // NOI18N
+        jButton1.setFont(new java.awt.Font("맑은 고딕", 1, 16)); // NOI18N
         jButton1.setText("생성");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,6 +56,7 @@ public class create_id_Panel extends javax.swing.JPanel  {
             }
         });
 
+        setBackground(new java.awt.Color(255, 255, 255));
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(

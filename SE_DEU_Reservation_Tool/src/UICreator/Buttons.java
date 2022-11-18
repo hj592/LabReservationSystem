@@ -207,7 +207,7 @@ class A_ReservationButt extends Buttons {
 class A_UserControlButt extends Buttons {
 
     A_UserControlButt() {
-        this.setText("사용자 관리");
+        this.setText("학생 관리");
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -217,6 +217,22 @@ class A_UserControlButt extends Buttons {
             }
         });
     }
+}
+class A_ProfControlButt extends Buttons {
+	A_ProfControlButt(){
+		this.setText("교수 관리");
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remover();
+				ProfListPanel T = new ProfListPanel(sizeX,sizeY);
+				adder(T);
+				//C.add(T);
+				//C.revalidate();     // 컨테이너 c의 재배치
+				//C.repaint();
+			}
+		});
+	}
 }
 
 class A_QnAButt extends Buttons {

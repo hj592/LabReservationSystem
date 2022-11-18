@@ -23,9 +23,8 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
     public void set_for_Student(){
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(786,490));
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(786,490));
-        b_createsub.setVisible(false);
-        b_delsub.setVisible(false);
-        b_editsub.setVisible(false);
+       /// b_createsub.setVisible(false);
+        //b_delsub.setVisible(false);
         jPanel1.setVisible(false);
         jLabel7.setText("시간표");
     }
@@ -53,6 +52,8 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        b_delsub = new javax.swing.JButton();
+        b_createsub = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tab_911 = new javax.swing.JTable();
@@ -62,9 +63,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         tab_916 = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tab_918 = new javax.swing.JTable();
-        b_createsub = new javax.swing.JButton();
-        b_delsub = new javax.swing.JButton();
-        b_editsub = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(806, 576));
@@ -88,14 +86,13 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         jLabel1.setText("과목");
 
         tf_title.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_title.setText("");
 
         jLabel2.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel2.setText("교수 ID");
 
         tf_profid.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
-        tf_profid.setText("");
-
+       // tf_profid.setText("");
+       
         jLabel3.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
         jLabel3.setText("실습실");
 
@@ -119,6 +116,22 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
         jLabel10.setText("시간");
+
+        b_delsub.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
+        b_delsub.setText("삭제");
+        b_delsub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_delsubActionPerformed(evt);
+            }
+        });
+
+        b_createsub.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
+        b_createsub.setText("입력");
+        b_createsub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_createsubActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,11 +181,17 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                                 .addComponent(jLabel8)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(b_delsub, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(b_createsub, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,11 +227,15 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_end, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(b_delsub)
+                    .addComponent(b_createsub))
+                .addContainerGap())
         );
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setFont(new java.awt.Font("맑은 고딕", 1, 11)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(475, 500));
         jTabbedPane1.setOpaque(true);
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(475, 500));
@@ -224,7 +247,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         tab_911.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_911.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
@@ -259,7 +281,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         tab_915.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_915.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
@@ -295,7 +316,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         tab_916.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_916.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-               
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
@@ -330,7 +350,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
         tab_918.setFont(new java.awt.Font("맑은 고딕", 0, 11)); // NOI18N
         tab_918.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                
             },
             new String [] {
                 "", "월", "화", "수", "목", "금"
@@ -359,30 +378,6 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("918", null, jScrollPane4, "");
 
-        b_createsub.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        b_createsub.setText("입력");
-        b_createsub.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_createsubActionPerformed(evt);
-            }
-        });
-
-        b_delsub.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        b_delsub.setText("삭제");
-        b_delsub.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_delsubActionPerformed(evt);
-            }
-        });
-
-        b_editsub.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
-        b_editsub.setText("수정");
-        b_editsub.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b_editsubActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -390,23 +385,11 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(b_delsub, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b_editsub, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b_createsub, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30))))))
+                    .addComponent(jLabel7)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,16 +397,12 @@ public class MakeTimetablePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(b_createsub)
-                            .addComponent(b_delsub)
-                            .addComponent(b_editsub)))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleDescription("");
@@ -490,47 +469,9 @@ String[][] sub;
         nRow = tab_911.getSelectedRow();     
         nCol = tab_911.getSelectedColumn();
         if(nRow!=-1){
-
             String title = (String)tab_911.getValueAt(nRow, nCol);
             setT(title, nCol, nRow, 1);
             cb_labnum.setSelectedIndex(0);
-            /*if(title!=null){
-                int idx = title.indexOf("(");
-                sub = a.getSub(Integer.toString(10+nCol),title.substring(0,idx)); //10여기는 실습실번호
-=======
-            String title = (String)tab_911.getValueAt( nRow,nCol);
-            //System.out.println(title);
-            if(title!=null){
-                int idx = title.indexOf("(");
-                //String labday = Integer.toString(10+nCol);
-                //System.out.println(labday);
-                sub = a.getSub(Integer.toString(10+nCol),title.substring(0,idx));
->>>>>>> Y
-                System.out.println(sub[1][0]);
-                int s= Integer.parseInt(sub[1][0])%100/10;
-                int e = Integer.parseInt(sub[1][0])%10;
-                System.out.println(s+" "+e);
-                cb_day.setSelectedIndex(nCol-1);
-                cb_end.setSelectedIndex(e-1);
-<<<<<<< HEAD
-                cb_labnum.setSelectedIndex(0);//실습실번호
-=======
-                cb_labnum.setSelectedIndex(0);
->>>>>>> Y
-                cb_start.setSelectedIndex(s-1);
-                tf_profid.setText(sub[1][1]);
-                tf_title.setText(title.substring(0,idx));
-                
-            }
-            else{
-            System.out.println(nCol+" : "+nRow);
-            cb_day.setSelectedIndex(nCol-1);
-            cb_end.setSelectedIndex(nRow);
-            cb_labnum.setSelectedIndex(0);
-            cb_start.setSelectedIndex(nRow);
-<<<<<<< HEAD
-            }*/
-
         }
     }
 
@@ -540,12 +481,10 @@ String[][] sub;
         int nRow = -1;
         nRow = tab_915.getSelectedRow();
         nCol = tab_915.getSelectedColumn();
-
         if (nRow != -1) {
             String title = (String) tab_915.getValueAt(nRow, nCol);
             setT(title, nCol, nRow, 5);
             cb_labnum.setSelectedIndex(1);//실습실번호
-
         }
     }
 
@@ -555,7 +494,6 @@ String[][] sub;
         int nRow = -1;
         nRow = tab_916.getSelectedRow();
         nCol = tab_916.getSelectedColumn();
-
         if (nRow != -1) {
             String title = (String) tab_916.getValueAt(nRow, nCol);
             setT(title, nCol, nRow, 6);
@@ -609,18 +547,13 @@ String[][] sub;
             }
         }
         System.out.println(name);
-    }                                           
-/*시간표 수정*/
-    private void b_editsubActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-        
-    }                                         
+    }                                  
 /*시간표 삭제*/
     private void b_delsubActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         if(sub.length==2){
             a.delSub(sub[1][0]);
-            showtable("911");
+            showtable((String) cb_labnum.getSelectedItem());
         }
     }                                        
 
@@ -628,7 +561,6 @@ String[][] sub;
     // Variables declaration - do not modify                     
     private javax.swing.JButton b_createsub;
     private javax.swing.JButton b_delsub;
-    private javax.swing.JButton b_editsub;
     private javax.swing.JComboBox<String> cb_day;
     private javax.swing.JComboBox<String> cb_end;
     private javax.swing.JComboBox<String> cb_labnum;
