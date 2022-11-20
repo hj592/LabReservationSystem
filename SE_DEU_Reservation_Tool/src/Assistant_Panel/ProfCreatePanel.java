@@ -144,8 +144,7 @@ public class ProfCreatePanel extends javax.swing.JPanel{
     }// </editor-fold>                       
 
     /* 교수계정생성버튼클릭 */
-    private void b_profcreateActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void b_profcreateActionPerformed(java.awt.event.ActionEvent evt) {    
         //비번&비번확인 일치하는지 확인
         System.out.println(pf_ppw.getPassword().equals(pf_check.getPassword()));
         String password = pf_ppw.getText();
@@ -171,7 +170,8 @@ public class ProfCreatePanel extends javax.swing.JPanel{
         else{
             try {
                 DB_CONNECTER.Update_Qurey("INSERT INTO User values('"+tf_pid.getText()+"','"+password+"','3')");
-                DB_CONNECTER.Update_Qurey("INSERT INTO Manager values('"+tf_pid.getText()+"','"+tf_pname.getText()+"','"+ftf_phone.getText()+"')");
+                DB_CONNECTER.Update_Qurey("INSERT INTO Manager values('"
+                        +tf_pid.getText()+"','"+tf_pname.getText()+"','"+ftf_phone.getText()+"')");
                 JOptionPane.showMessageDialog(this, tf_pname.getText()+"교수 계정이 생성되었습니다.");
                 pf_ppw.setText("");
                 pf_check.setText("");

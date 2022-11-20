@@ -59,29 +59,31 @@ public class ReserveList {
         }
     }
     
-    public void updateStatus(String lab, String seat, String id, String end){        //승인업데이트 함수
+    public void updateStatus(String lab, String seat, String id, String end){        
         labManager(lab,id,end);
-        try {
-            DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET seat_status = 1 WHERE lab_id = "+lab+" AND seat_num = "+seat+" AND end_time = '"+end+"'");
+        try {//승인업데이트 함수
+            DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET seat_status = 1 WHERE lab_id = "
+                    +lab+" AND seat_num = "+seat+" AND end_time = '"+end+"'");
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void delReserve(String lab, String seat,String id){        //예약 삭제 함수
-        String[][] manager;
-        try {
-            DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE lab_id = "+lab+" AND seat_num = "+seat+" AND stu_id = '"+id+"'");
-            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '1' WHERE stu_id = '"+id+"'");
-            manager=DB_CONNECTER.Exe_Qurey("SELECT stu_id, MAX(end_time) FROM Lab_Seat WHERE lab_id = "+lab);
-            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '4' WHERE stu_id = '"+manager[1][0]+"'");
-        } catch (SQLException ex) {
-            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
-        }
+public void delReserve(String lab, String seat,String id){ //예약 삭제 함수       
+    String[][] manager;
+    try {
+        DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE lab_id = "
+                +lab+" AND seat_num = "+seat+" AND stu_id = '"+id+"'");
+        DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '1' WHERE stu_id = '"+id+"'");
+        manager=DB_CONNECTER.Exe_Qurey("SELECT stu_id, MAX(end_time) FROM Lab_Seat WHERE lab_id = "+lab);
+        DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '4' WHERE stu_id = '"+manager[1][0]+"'");
+    } catch (SQLException ex) {
+        Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
     
     public void labManager(String lab, String id, String end){//
         String[][] manager;

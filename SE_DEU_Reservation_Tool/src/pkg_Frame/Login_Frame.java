@@ -35,7 +35,8 @@ public final class Login_Frame extends Basic_Frame {
 
     public void INFORMATION(String ID, String PW) throws ClassNotFoundException, SQLException {
         String who = "";
-        String Arr[][] = DB_CONNECTER.Exe_Qurey("select * from User WHERE " + "user_id = \"" + ID + "\" and user_pw = \"" + PW + "\";");
+        String Arr[][] = DB_CONNECTER.Exe_Qurey("select * from User WHERE " 
+                + "user_id = \"" + ID + "\" and user_pw = \"" + PW + "\";");
 
         if (Arr.length < 2) {
             System.out.println("Error");
@@ -72,7 +73,7 @@ public final class Login_Frame extends Basic_Frame {
         ID.setBounds(25, 25, 50, 25); //프레임 크기만큼을 할당함
         Main_Panel.add(ID);
 
-        JTextField ID_Text = new JTextField("20220001");
+        JTextField ID_Text = new JTextField("");
         ID_Text.setBounds(25 + 50, 25, Main_Panel.getWidth() / 2 - 50, 25); //프레임 크기만큼을 할당함
         Main_Panel.add(ID_Text);
 
@@ -80,7 +81,7 @@ public final class Login_Frame extends Basic_Frame {
         PW.setBounds(25, 25 + 35, 50, 25); //프레임 크기만큼을 할당함
         Main_Panel.add(PW);
 
-        JPasswordField PW_Text = new JPasswordField("1234");
+        JPasswordField PW_Text = new JPasswordField("");
         PW_Text.setBounds(25 + 50, 25 + 35, Main_Panel.getWidth() / 2 - 50, 25); //프레임 크기만큼을 할당함
         Main_Panel.add(PW_Text);
 

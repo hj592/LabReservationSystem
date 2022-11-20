@@ -37,9 +37,10 @@ public class StuList {
         return data;
     }
     
-    public void update(String id, String name, String phone, String cnt, String status){
-        try {
-            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '"+status+"',stu_name = '"+name+"', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
+    public void update(String id, String name, String phone, String cnt, String status){ 
+        try {// 학생정보 업데이트
+            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '"+status+"',stu_name = '"+name+
+                    "', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -48,8 +49,9 @@ public class StuList {
     }
     
     public void change(String id, String name, String phone, String cnt){
-        try {
-            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '3', stu_name = '"+name+"', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
+        try {//신고3회받은 학생 경고 상태로 전환
+            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '3', stu_name = '"
+                    +name+"', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -57,7 +59,7 @@ public class StuList {
         }        
     }
     
-    public void delete(String id){
+    public void delete(String id){//학생사용자 삭제
         try {
             DB_CONNECTER.Update_Qurey("DELETE FROM Student WHERE stu_id = '"+id+"'");
             DB_CONNECTER.Update_Qurey("DELETE FROM User WHERE user_id = '"+id+"'");
