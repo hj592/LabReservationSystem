@@ -45,23 +45,12 @@ public class Update_id {
 
     public void update(String id, String pw, String phone, String name, String authority) {
         try {
-            //DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '"+status+"',stu_name = '"+name+"', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
-            DB_CONNECTER.Update_Qurey("UPDATE Manager m left join User u on m.mgr_id=u.user_id SET u.user_pw='" + pw + "', m.mgr_name='" + name + "', m.phone='" + phone + "', u.authority='" + authority + "' WHERE m.mgr_id='" + id + "'");
-            /*=======
-    public void change(String id, String name, String phone, String cnt){
-        try {
-            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '3', stu_name = '"+name+"', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
-        } catch (SQLException ex) {
-            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-    }
-    
-    public void update(String id, String name, String phone, String cnt, String status){
-        try {
-            DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '"+status+"',stu_name = '"+name+"', phone='"+phone+"', report_cnt = "+cnt+" WHERE stu_id = '"+id+"'");
->>>>>>> Y*/
+            DB_CONNECTER.Update_Qurey ("UPDATE Manager m left join User u on m.mgr_id=u.user_id "
+                                     + "SET u.user_pw='" + pw + "', "
+                                            + "m.mgr_name='" + name + "', "
+                                            + "m.phone='" + phone + "', "
+                                            + "u.authority='" + authority + "'"
+                                     + "WHERE m.mgr_id='" + id + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

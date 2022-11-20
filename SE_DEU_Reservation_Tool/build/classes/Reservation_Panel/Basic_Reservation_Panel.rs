@@ -1,2 +1,0 @@
-Reservation_Panel.Basic_Reservation_Panel$1
-Reservation_Panel.Basic_Reservation_Panel
