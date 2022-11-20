@@ -541,7 +541,9 @@ String[][] sub;
             }
         }
         System.out.println(name);
-    }                                  
+    }    
+    
+    
 /*시간표 삭제*/
     private void b_delsubActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
