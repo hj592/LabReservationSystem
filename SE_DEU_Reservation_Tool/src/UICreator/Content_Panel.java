@@ -270,6 +270,7 @@ class reservation_list_panel extends javax.swing.JPanel {
                                     }
                                 }
                             }
+                            
                         } else if (arr3.length > 1) {
                             JOptionPane.showMessageDialog(null, "현재 주말예약은 승인되지 않습니다.");
                             return;
@@ -353,8 +354,11 @@ class reservation_list_panel extends javax.swing.JPanel {
         String[][] strs = null;
         if (MY_Reserve.length > 1) {
             strs = new String[MY_Reserve.length - 1][];
-            for (int i = 1; i < MY_Reserve.length; i++)
+            for (int i = 1; i < MY_Reserve.length; i++){
                 strs[i - 1] = MY_Reserve[i];
+                if (strs[i-1][6].equals("00:00:00"))
+                    strs[i-1][6] = "24:00:00";
+            }
         }
 
         JTable strList = new JTable(strs, MY_Reserve[0]);
@@ -924,8 +928,8 @@ class Reservation_Panel extends JPanel {
                     //일요일은 1
                     int int_TodayDate = (Integer.valueOf(Date[1][0]) + 2); //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
 
-              //      int_TodayDate = 4; //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
-                    /*
+                    int_TodayDate = 4; //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
+              
                     if(Integer.valueOf(Date_Time[1][0].split(":")[0])>=16){
                         if(Integer.valueOf(Date_Time[1][0].split(":")[1])>=30){
                          JOptionPane.showMessageDialog(null, "16:30분이 지나 금일 예약은 제한됩니다.");
@@ -933,8 +937,7 @@ class Reservation_Panel extends JPanel {
                          return;
                         }
                     }
-                     */
-
+                    
                     int Reserve_Start_Time = Integer.valueOf(StartTime.getSelectedItem().toString().split(":")[0]);
                     int Reserve_End_Time = Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0]);
                     if (int_TodayDate > 3 && int_TodayDate < 9 && arr2.length > 1) {
@@ -954,12 +957,12 @@ class Reservation_Panel extends JPanel {
                                 }
                             }
                         }
-                    } else if (arr2.length > 1) {
+                    }
+                    else if (arr2.length > 1) {
                         JOptionPane.showMessageDialog(null, "현재 주말예약은 승인되지 않습니다.");
                         NewLect();
                         return;
                     }
-
                 } catch (SQLException ex) {
                     Logger.getLogger(Reservation_Panel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -1118,8 +1121,8 @@ class Reservation_Panel extends JPanel {
                 + " AND NOT(start_time >='" + EndTime.getSelectedItem().toString() + ":00'"
                 + " OR end_time <='" + StartTime.getSelectedItem().toString() + ":00')"
                 + " ORDER BY start_date;"); //시간추가,  
-                String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM (SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 200) as A;");
-       // String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM (SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 200) as A GROUP BY lab_id ;");
+              //  String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM (SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 200) as A;");
+        String[][] Lect_M = DB_CONNECTER.Exe_Qurey("SELECT * FROM (SELECT * FROM Lab_Seat WHERE seat_status = '1' ORDER BY end_time DESC, start_date ASC LIMIT 200) as A GROUP BY lab_id ;");
         
         for (int i = 0; i < Lect_M.length; i++) {
             for (int j = 0; j < Lect_M[0].length; j++) {
@@ -1161,9 +1164,12 @@ class Reservation_Panel extends JPanel {
                         T.buttons.get(j).addActionListener(new MyListener(arr[i][0], arr[i][2]));
                     } else {
                         if (Lect_M.length > 1) {
-                            for (int l = 1; l < Lect_M.length; l++) {
-                                if (Lect_M[l][2].equals(T.buttons.get(j).getText())) 
-                                    T.buttons.get(j).setBackground(Color.yellow);
+                            for (int l = 1; l < Lect_M.length; l++) {                       
+                                if (Lect_M[l][2].equals(T.buttons.get(j).getText())) {
+                                     if(Integer.valueOf(Lect_M[l][6].split(":")[0]) == Integer.valueOf(EndTime.getSelectedItem().toString().split(":")[0])%24) 
+                                     //   && Integer.valueOf(Lect_M[l][6].toString().split(":")[0]) <= Integer.valueOf(StartTime.getSelectedItem().toString().split(":")[0])))
+                                                T.buttons.get(j).setBackground(Color.yellow);
+                                }
                             }
                         }
                         T.buttons.get(j).setEnabled(false);

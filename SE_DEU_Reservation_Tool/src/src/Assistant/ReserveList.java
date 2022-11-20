@@ -33,6 +33,8 @@ public class ReserveList {
                     data[i][7]="관리자";
                 else
                     data[i][7]=" - ";
+                if(data[i][5].equals("00:00:00"))
+                    data[i][5]="24:00:00";
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,6 +48,8 @@ public class ReserveList {
         try {
             accept=DB_CONNECTER.Exe_Qurey("SELECT lab_id, seat_num, stu_id, end_time FROM Lab_Seat JOIN Student USING (stu_id) WHERE seat_status = 0");
             for(int i=1 ; i<accept.length ;i++){
+                if(accept[i][3].equals("00:00:00"))
+                    accept[i][3]="24:00:00";
                 updateStatus(accept[i][0],accept[i][1],accept[i][2],accept[i][3]);
             }
         } catch (SQLException ex) {
@@ -58,7 +62,7 @@ public class ReserveList {
     public void updateStatus(String lab, String seat, String id, String end){        //승인업데이트 함수
         labManager(lab,id,end);
         try {
-            DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET seat_status = 1 WHERE lab_id = "+lab+" AND seat_num = "+seat);
+            DB_CONNECTER.Update_Qurey("UPDATE Lab_Seat SET seat_status = 1 WHERE lab_id = "+lab+" AND seat_num = "+seat+" AND end_time = '"+end+"'");
         } catch (SQLException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -68,7 +72,7 @@ public class ReserveList {
     public void delReserve(String lab, String seat,String id){        //예약 삭제 함수
         String[][] manager;
         try {
-            DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE lab_id = "+lab+" AND seat_num = "+seat);
+            DB_CONNECTER.Update_Qurey("DELETE FROM Lab_Seat WHERE lab_id = "+lab+" AND seat_num = "+seat+" AND stu_id = '"+id+"'");
             DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '1' WHERE stu_id = '"+id+"'");
             manager=DB_CONNECTER.Exe_Qurey("SELECT stu_id, MAX(end_time) FROM Lab_Seat WHERE lab_id = "+lab);
             DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '4' WHERE stu_id = '"+manager[1][0]+"'");
@@ -89,6 +93,10 @@ public class ReserveList {
                 DB_CONNECTER.Update_Qurey("UPDATE Student SET status = '4' WHERE stu_id = '"+id+"'");
             }
             else{
+                for(int i=1 ; i<manager.length ;i++){
+                    if(manager[i][1].equals("00:00:00"))
+                        manager[i][1]="24:00:00";
+                }
                 int ori = Integer.parseInt(manager[1][1].substring(0, 2));
                 int up = Integer.parseInt(end.substring(0, 2));
                 if(up>ori){

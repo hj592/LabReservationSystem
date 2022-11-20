@@ -172,6 +172,12 @@ public class ProfCreatePanel extends javax.swing.JPanel{
             try {
                 DB_CONNECTER.Update_Qurey("INSERT INTO User values('"+tf_pid.getText()+"','"+password+"','3')");
                 DB_CONNECTER.Update_Qurey("INSERT INTO Manager values('"+tf_pid.getText()+"','"+tf_pname.getText()+"','"+ftf_phone.getText()+"')");
+                JOptionPane.showMessageDialog(this, tf_pname.getText()+"교수 계정이 생성되었습니다.");
+                pf_ppw.setText("");
+                pf_check.setText("");
+                tf_pname.setText("");
+                ftf_phone.setText("");
+                tf_pid.setText("");
             } catch (SQLException ex) {
                 Logger.getLogger(ProfCreatePanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

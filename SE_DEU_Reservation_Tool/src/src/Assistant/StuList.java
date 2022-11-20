@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  */
 public class StuList {
     String[][] data;
+    String[][] pdata;
     public String[][] getDB(){
         try {
             data=DB_CONNECTER.Exe_Qurey("SELECT * FROM Student");
@@ -65,5 +66,16 @@ public class StuList {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String[][] getPDB(){
+        try {
+            pdata=DB_CONNECTER.Exe_Qurey("SELECT mgr_id,mgr_name,phone FROM User JOIN Manager ON user_id = mgr_id WHERE authority = '3'");
+        } catch (SQLException ex) {
+            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReserveList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pdata;
     }
 }
