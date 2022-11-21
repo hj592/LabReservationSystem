@@ -931,7 +931,12 @@ class Reservation_Panel extends JPanel {
                     int_TodayDate = 4; //3 4 5 6 7 8 9 : 일 월 화 수 목 금 토 일
               
                     if(Integer.valueOf(Date_Time[1][0].split(":")[0])>=16){
-                        if(Integer.valueOf(Date_Time[1][0].split(":")[1])>=30){
+                        if(Integer.valueOf(Date_Time[1][0].split(":")[0])>=17){
+                         JOptionPane.showMessageDialog(null, "16:30분이 지나 금일 예약은 제한됩니다.");
+                         NewLect();
+                         return;
+                        }
+                        else if(Integer.valueOf(Date_Time[1][0].split(":")[1])>=30){
                          JOptionPane.showMessageDialog(null, "16:30분이 지나 금일 예약은 제한됩니다.");
                          NewLect();
                          return;
@@ -950,7 +955,7 @@ class Reservation_Panel extends JPanel {
                                     JOptionPane.showMessageDialog(null, "예약가능 시간이 지났습니다.\n 한시간 단위로 결정되니 주의하세요.");
                                     NewLect();
                                     return;
-                                } else if (Reserve_Start_Time < Lect_End_Time && Reserve_End_Time >= Lect_Start_Time) {
+                                } else if (Reserve_Start_Time < Lect_End_Time && Reserve_End_Time > Lect_Start_Time) {
                                     JOptionPane.showMessageDialog(null, "강의실 시간표와 곂칩니다.");
                                     NewLect();
                                     return;
